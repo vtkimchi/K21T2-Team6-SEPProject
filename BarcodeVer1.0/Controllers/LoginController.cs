@@ -21,13 +21,14 @@ namespace BarcodeVer1._0.Controllers
         [HttpPost]
         public ActionResult Login(string username, string password)
         {
+            //get id when login 
             string id = API.Check_Login(username, password);
-                      
+            //check connect if id !="" mean login success          
             if (id != "")
             {
-                Session["id"] = id;
-                string test = API.GetCourse(id);
+                Session["id"] = id;               
                 Session["username"] = username;
+                //when login success return view Index in HomeController
                 return RedirectToAction("Index", "Home");
             }
             else

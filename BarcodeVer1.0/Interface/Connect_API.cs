@@ -13,12 +13,14 @@ namespace BarcodeVer1._0.Interface
     public class Connect_API
     {
         private string urlAddress = "https://entool.azurewebsites.net/SEP21";
+        private string thong_tin_khoa_hoc;
+        private string urlConnect;
         private string data;
 
         //read data from html
         private string Url(string url)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlAddress);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
             if (response.StatusCode == HttpStatusCode.OK)
@@ -48,10 +50,10 @@ namespace BarcodeVer1._0.Interface
         public string Check_Login(string email, string pass)
         {
             //url address
-            urlAddress =urlAddress + "/Login?Username={0}&Password={1}";
-            urlAddress = string.Format(urlAddress, email, pass);
+            urlConnect =urlAddress + "/Login?Username={0}&Password={1}";
+            urlConnect = string.Format(urlConnect, email, pass);
 
-            data = Url(urlAddress);
+            data = Url(urlConnect);
             if (data != "")
             {
                 //parse data json
@@ -62,32 +64,38 @@ namespace BarcodeVer1._0.Interface
                 if (int.Parse(code) == 0)
                 {
                     string id = stuff.data.id;
+                    urlConnect = "";
                     //get id teacher
                     return id;
                 }
-            }            
+            }
+            urlConnect = "";            
             return "";
         }
 
         //not finish
         public string GetCourse(string id)
         {
-            urlAddress = urlAddress + "GetCourses?lecturerID={0}";
-            urlAddress = string.Format(urlAddress, id);
-            data = Url(urlAddress);
+            thong_tin_khoa_hoc = "";
+            urlConnect = urlAddress + "/GetCourses?lecturerID={0}";
+            urlConnect = string.Format(urlConnect, id);
+            data = Url(urlConnect);
             if (data != "")
             {
                 //parse data json
-                dynamic stuff = JsonConvert.DeserializeObject(data);
-                //get data json
+                //dynamic stuff = JsonConvert.DeserializeObject(data);
+
+                //get data json type array
                 Course Courses = JsonConvert.DeserializeObject<Course>(data);
-
-                string ids = Courses.data.ToString();
-
-                //string []ids = stuff.data[id];
-                //string name = stuff.data.name;
-                ////get id teacher
-                return ids;
+                
+                //int a = Courses.data.Count();
+                foreach(var item in Courses.data)
+                {
+                    //thong_tin_khoa_hoc = thong_tin_khoa_hoc + item.id + "," + item.name + ".";
+                    thong_tin_khoa_hoc = thong_tin_khoa_hoc + item.id + " ";
+                }
+                //
+                return thong_tin_khoa_hoc;
                 
             }
             return "";

@@ -1,5 +1,7 @@
-﻿@{
+﻿
+@{
     Layout = null;
+
 }
 
 <!DOCTYPE html>
@@ -283,6 +285,15 @@
                                 <li><a href="app-calendar.html">Calendar</a></li>
                                 <li><a href="app-ticket.html">Support Ticket</a></li>
                                 <li><a href="app-contact.html">Contact / Employee</a></li>
+
+                                <!--show each course id (create 22/04/2018)-->
+                                @{ string[] arr = ViewBag.test.Split(' ');
+                                    foreach(var item in arr)
+                                    {
+                                        //
+                                        <li><a>@item</a></li>
+                                    }
+                                     }
                             </ul>
                         </li>
                         
