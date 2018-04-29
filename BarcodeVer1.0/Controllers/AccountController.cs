@@ -7,7 +7,7 @@ using BarcodeVer1._0.Interface;
 
 namespace BarcodeVer1._0.Controllers
 {
-    public class LoginController : Controller
+    public class AccountController : Controller
     {
         private Connect_API API = new Connect_API();
  
@@ -36,6 +36,14 @@ namespace BarcodeVer1._0.Controllers
                 return View();
             }
 
+        }
+
+        [HttpGet]
+        public ActionResult LogOut()
+        {
+            Session["id"] = null;
+            Session["username"] = null;
+            return RedirectToAction("Login", "Account");
         }
     }
 }

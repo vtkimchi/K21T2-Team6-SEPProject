@@ -92,7 +92,7 @@ namespace BarcodeVer1._0.Interface
                 foreach(var item in Courses.data)
                 {
                     //thong_tin_khoa_hoc = thong_tin_khoa_hoc + item.id + "," + item.name + ".";
-                    thong_tin_khoa_hoc = thong_tin_khoa_hoc + item.id + " ";
+                    thong_tin_khoa_hoc = thong_tin_khoa_hoc + item.name + " (" + item.id + ")" + "/";
                 }
                 //
                 return thong_tin_khoa_hoc;

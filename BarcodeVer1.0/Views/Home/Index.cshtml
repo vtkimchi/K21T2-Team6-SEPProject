@@ -1,7 +1,10 @@
 ﻿
 @{
     Layout = null;
-
+    if (Session["id"] == null)
+    {
+        Response.Redirect("~/Account/Login");
+    }
 }
 
 <!DOCTYPE html>
@@ -240,7 +243,7 @@
                                     <li role="separator" class="divider"></li>
                                     <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+                                    <li><a href="~/Account/LogOut"><i class="fa fa-power-off"></i> Logout</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -282,12 +285,8 @@
                         <li>
                             <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-bullseye"></i><span class="hide-menu">Apps</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="app-calendar.html">Calendar</a></li>
-                                <li><a href="app-ticket.html">Support Ticket</a></li>
-                                <li><a href="app-contact.html">Contact / Employee</a></li>
-
                                 <!--show each course id (create 22/04/2018)-->
-                                @{ string[] arr = ViewBag.test.Split(' ');
+                                @{ string[] arr = ViewBag.test.Split('/');
                                     foreach(var item in arr)
                                     {
                                         //
@@ -401,73 +400,21 @@
                 <!-- Row -->
                 <div class="row">
                     <!-- Column -->
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card">
-                            <div class="card-block">
-                                <h4 class="card-title">Daily Sales</h4>
-                                <div class="text-right">
-                                    <h2 class="font-light m-b-0"><i class="ti-arrow-up text-success"></i> $120</h2>
-                                    <span class="text-muted">Todays Income</span>
-                                </div>
-                                <span class="text-success">80%</span>
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 80%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+
+                    @{ foreach (var item in arr)
+                        {
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <h4 class="card-title">@item</h4>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        }
+                    }
+
                     <!-- Column -->
-                    <!-- Column -->
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card">
-                            <div class="card-block">
-                                <h4 class="card-title">Weekly Sales</h4>
-                                <div class="text-right">
-                                    <h2 class="font-light m-b-0"><i class="ti-arrow-up text-info"></i> $5,000</h2>
-                                    <span class="text-muted">Todays Income</span>
-                                </div>
-                                <span class="text-info">30%</span>
-                                <div class="progress">
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: 30%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <!-- Column -->
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card">
-                            <div class="card-block">
-                                <h4 class="card-title">Monthly Sales</h4>
-                                <div class="text-right">
-                                    <h2 class="font-light m-b-0"><i class="ti-arrow-up text-purple"></i> $8,000</h2>
-                                    <span class="text-muted">Todays Income</span>
-                                </div>
-                                <span class="text-purple">60%</span>
-                                <div class="progress">
-                                    <div class="progress-bar bg-purple" role="progressbar" style="width: 60%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <!-- Column -->
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card">
-                            <div class="card-block">
-                                <h4 class="card-title">Yearly Sales</h4>
-                                <div class="text-right">
-                                    <h2 class="font-light m-b-0"><i class="ti-arrow-down text-danger"></i> $12,000</h2>
-                                    <span class="text-muted">Todays Income</span>
-                                </div>
-                                <span class="text-danger">80%</span>
-                                <div class="progress">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 80%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
+                   
                 </div>
                 <!-- Row -->
                 <!-- Row -->
@@ -934,7 +881,7 @@
     <script src="~/Scripts/chartist.min.js"></script>
     <script src="~/Scripts/chartist-plugin-tooltip.min.js"></script>
     <!-- Chart JS -->
-    <script src="~/Scripts/echarts-all.js"></script>
+    @*<script src="~/Scripts/echarts-all.js"></script>*@
     <script src="~/Scripts/jquery.toast.js"></script>
     <!-- Chart JS -->
     <script src="~/Scripts/dashboard1.js"></script>
