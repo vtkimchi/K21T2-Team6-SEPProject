@@ -17,7 +17,7 @@ namespace BarcodeVer1._0.Controllers
         {
             //get id course and show it on view
             string id = (string)Session["id"];
-            string test = API.GetCourse(id);
+            string test = API.GetLecturer(id);
             test = test.Trim();
             ViewBag.test = test;
             return View();

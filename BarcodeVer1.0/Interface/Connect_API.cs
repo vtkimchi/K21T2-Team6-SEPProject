@@ -74,7 +74,7 @@ namespace BarcodeVer1._0.Interface
         }
 
         //not finish
-        public string GetCourse(string id)
+        public string GetLecturer(string id)
         {
             thong_tin_khoa_hoc = "";
             urlConnect = urlAddress + "/GetCourses?lecturerID={0}";
