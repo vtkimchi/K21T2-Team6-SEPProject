@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SEP_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SEP_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Attendance">
           <Key>
             <PropertyRef Name="ID" />
@@ -13,6 +13,7 @@
           <Property Name="ID_Lesson" Type="int" />
           <Property Name="ID_Student" Type="nchar" MaxLength="20" />
           <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="Count_Lesson" Type="int" />
         </EntityType>
         <EntityType Name="Lesson">
           <Key>
@@ -20,7 +21,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MaKH" Type="nvarchar" MaxLength="100" />
-          <Property Name="Day" Type="date" />
+          <Property Name="Day" Type="datetime" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -77,8 +78,7 @@
             <End Role="Attendance" EntitySet="Attendance" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SEP_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -92,6 +92,7 @@
           <Property Name="Status" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Lesson" Relationship="Self.FK_Attendance_Lesson" FromRole="Attendance" ToRole="Lesson" />
           <NavigationProperty Name="Student" Relationship="Self.FK_Attendance_Student" FromRole="Attendance" ToRole="Student" />
+          <Property Name="Count_Lesson" Type="Int32" />
         </EntityType>
         <EntityType Name="Lesson">
           <Key>
@@ -99,7 +100,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaKH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Day" Type="DateTime" Precision="0" />
+          <Property Name="Day" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Attendances" Relationship="Self.FK_Attendance_Lesson" FromRole="Lesson" ToRole="Attendance" />
         </EntityType>
         <EntityType Name="Student">
@@ -167,6 +168,7 @@
           <EntitySetMapping Name="Attendances">
             <EntityTypeMapping TypeName="SEP_DBModel.Attendance">
               <MappingFragment StoreEntitySet="Attendance">
+                <ScalarProperty Name="Count_Lesson" ColumnName="Count_Lesson" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_Lesson" ColumnName="ID_Lesson" />
                 <ScalarProperty Name="ID_Student" ColumnName="ID_Student" />

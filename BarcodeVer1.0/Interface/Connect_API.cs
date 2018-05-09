@@ -13,7 +13,6 @@ namespace BarcodeVer1._0.Interface
     public class Connect_API
     {
         private string urlAddress = "https://entool.azurewebsites.net/SEP21";
-        private string thong_tin_khoa_hoc;
         private string urlConnect;
         private string data;
 
@@ -73,33 +72,50 @@ namespace BarcodeVer1._0.Interface
             return "";
         }
 
-        //not finish
-        public string GetLecturer(string id)
+        public List<Info.Datum> GetMember (string id)
         {
-            thong_tin_khoa_hoc = "";
+            urlConnect = urlAddress + "/GetMembers?courseID={0}";
+            urlConnect = string.Format(urlConnect, id);
+            data = Url(urlConnect);
+            if (data != "")
+            {
+                //tao noi luu tru vao model
+                var Student = new List<Info.Datum>();
+                //parse data json
+                //get data json type array
+                Info items = JsonConvert.DeserializeObject<Info>(data);
+                foreach (var item in items.data)
+                {
+                    Student.Add(item);
+                }
+                return Student;
+
+            }
+            return null;
+        }
+
+        public List<Course.Datum> TestCourse(string id)
+        {
             urlConnect = urlAddress + "/GetCourses?lecturerID={0}";
             urlConnect = string.Format(urlConnect, id);
             data = Url(urlConnect);
             if (data != "")
             {
                 //parse data json
-                //dynamic stuff = JsonConvert.DeserializeObject(data);
+                var coure = new List<Course.Datum>();
 
                 //get data json type array
                 Course Courses = JsonConvert.DeserializeObject<Course>(data);
-                
-                //int a = Courses.data.Count();
                 foreach(var item in Courses.data)
                 {
-                    //thong_tin_khoa_hoc = thong_tin_khoa_hoc + item.id + "," + item.name + ".";
-                    thong_tin_khoa_hoc = thong_tin_khoa_hoc + item.name + " (" + item.id + ")" + "/";
+                    coure.Add(item);
                 }
-                //
-                return thong_tin_khoa_hoc;
                 
-            }
-            return "";
+                //
+                return coure;
 
+            }
+            return null;
         }
     }
 }

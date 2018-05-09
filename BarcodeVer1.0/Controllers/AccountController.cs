@@ -10,7 +10,7 @@ namespace BarcodeVer1._0.Controllers
     public class AccountController : Controller
     {
         private Connect_API API = new Connect_API();
- 
+
         // GET: Login
         public ActionResult Login()
         {
@@ -33,6 +33,7 @@ namespace BarcodeVer1._0.Controllers
             }
             else
             {
+                ViewBag.error = "Wrong Username or Password";
                 return View();
             }
 

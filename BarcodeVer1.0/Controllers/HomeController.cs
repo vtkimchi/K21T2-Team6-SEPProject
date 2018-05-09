@@ -17,10 +17,10 @@ namespace BarcodeVer1._0.Controllers
         {
             //get id course and show it on view
             string id = (string)Session["id"];
-            string test = API.GetLecturer(id);
-            test = test.Trim();
-            ViewBag.test = test;
-            return View();
+            var course = API.TestCourse(id).ToList();
+            List<object> model = new List<object>();
+            model.Add(course); 
+            return View(model);
         }
 
         public ActionResult About()

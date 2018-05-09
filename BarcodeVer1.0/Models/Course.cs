@@ -15,7 +15,7 @@ namespace BarcodeVer1._0.Models
         {
             public string id { get; set; }
             public string name { get; set; }
-            public string fnfo { get; set; }
+            public string info { get; set; }
         }
 
     }
