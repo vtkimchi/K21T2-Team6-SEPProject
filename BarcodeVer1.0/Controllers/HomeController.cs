@@ -18,9 +18,16 @@ namespace BarcodeVer1._0.Controllers
             //get id course and show it on view
             string id = (string)Session["id"];
             var course = API.TestCourse(id).ToList();
-            List<object> model = new List<object>();
-            model.Add(course); 
-            return View(model);
+            return View(course);
+        }
+
+        //tap view leftmenu rieng de xu ly model
+        public ActionResult LeftMenu()
+        {
+            string id = (string)Session["id"];
+            var course = API.TestCourse(id).ToList();
+            TempData["source"] = course;
+            return PartialView(course);
         }
 
         public ActionResult About()

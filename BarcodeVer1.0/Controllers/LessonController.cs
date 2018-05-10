@@ -11,7 +11,7 @@ namespace BarcodeVer1._0.Controllers
     public class LessonController : Controller
     {
         Connect_API connect = new Connect_API();
-        SEP_DBEntities1 db = new SEP_DBEntities1();
+        SEP_DBEntities db = new SEP_DBEntities();
         // GET: Lesson
         public ActionResult Index()
         {
@@ -40,7 +40,7 @@ namespace BarcodeVer1._0.Controllers
                 AddDay(id);
             }
 
-            return RedirectToAction("Detail/" + id, "Lesson");
+            return RedirectToAction("Detail", "Lesson",new { id=id});
         }
 
         public void AddDay(string id)

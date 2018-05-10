@@ -1,0 +1,24 @@
+﻿@{ 
+    List<BarcodeVer1._0.Models.Course.Datum> c = TempData["source"] as List<BarcodeVer1._0.Models.Course.Datum>;
+}
+<ul id="sidebarnav">
+    <li class="nav-small-cap">PERSONAL</li>
+
+    <li>
+        <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-bullseye"></i><span class="hide-menu">Khóa Học</span></a>
+        <ul aria-expanded="false" class="collapse">
+            <!--show each course id (create 22/04/2018)-->
+            <!--update view 07/05/2018-->
+            
+            @{
+                foreach (var item in Model)
+                {
+                        <li><a href="~/Lesson/Detail/@item.id">@item.name [@item.id]</a></li>
+                    }
+                }
+        </ul>
+    </li>
+
+
+    <li class="nav-devider"></li>
+</ul>
