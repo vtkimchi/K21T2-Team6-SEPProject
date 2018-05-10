@@ -15,7 +15,7 @@ namespace BarcodeWinform
     public partial class Form1 : Form
     {
 
-        SEP_DBEntities db;
+        SEP_DBEntities1 db;
         Connect_API connect = new Connect_API();
         public Form1()
         {
@@ -24,7 +24,7 @@ namespace BarcodeWinform
 
         private void button1_Click(object sender, EventArgs e)
         {
-            db = new SEP_DBEntities(); 
+            db = new SEP_DBEntities1(); 
             string mssv = textBox1.Text;
             var item = connect.GetMember("TH2");
             if (mssv != "")

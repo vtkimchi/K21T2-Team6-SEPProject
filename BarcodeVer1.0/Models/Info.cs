@@ -13,18 +13,18 @@ namespace BarcodeVer1._0.Models
         {
 
             public int code { get; set; }
-            public List<Datum> data { get; set; }
+            public List<Student> data { get; set; }
             public string message { get; set; }
 
-            public class Datum
-            {
 
-                [Key]
-                public string id { get; set; }
-                public string fullname { get; set; }
-                public string birthday { get; set; }
-                public string firstname { get; set; }
-                public string lastname { get; set; }
-            }
+    }
+    public class Student
+    {
+        [Key]
+        public string id { get; set; }
+        public string fullname { get; set; }
+        public string birthday { get; set; }
+        public string firstname { get; set; }
+        public string lastname { get; set; }
     }
 }

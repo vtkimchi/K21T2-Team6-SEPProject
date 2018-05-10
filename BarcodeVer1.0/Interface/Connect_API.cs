@@ -72,7 +72,7 @@ namespace BarcodeVer1._0.Interface
             return "";
         }
 
-        public List<Info.Datum> GetMember (string id)
+        public List<Student> GetMember (string id)
         {
             urlConnect = urlAddress + "/GetMembers?courseID={0}";
             urlConnect = string.Format(urlConnect, id);
@@ -80,7 +80,7 @@ namespace BarcodeVer1._0.Interface
             if (data != "")
             {
                 //tao noi luu tru vao model
-                var Student = new List<Info.Datum>();
+                var Student = new List<Student>();
                 //parse data json
                 //get data json type array
                 Info items = JsonConvert.DeserializeObject<Info>(data);

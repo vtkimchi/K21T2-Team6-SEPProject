@@ -11,7 +11,7 @@ namespace BarcodeVer1._0.Controllers
     public class LessonController : Controller
     {
         Connect_API connect = new Connect_API();
-        SEP_DBEntities db = new SEP_DBEntities();
+        SEP_DBEntities1 db = new SEP_DBEntities1();
         // GET: Lesson
         public ActionResult Index()
         {
@@ -31,9 +31,9 @@ namespace BarcodeVer1._0.Controllers
             //luu lai duoi database
             db.Lessons.Add(nLesson);
             //
-            var item =db.Lessons.Where(x => x.Day == nLesson.Day && x.MaKH==id);
+            var item =db.Lessons.Where(x => x.Day == nLesson.Day && x.MaKH==id).ToList();
             //
-            if (item ==null)
+            if (item.Count() ==0)
             {
                 db.SaveChanges();
             }
@@ -44,9 +44,7 @@ namespace BarcodeVer1._0.Controllers
         public ActionResult Detail(string id)
         {
             var member = connect.GetMember(id).ToList();
-            List<object> model = new List<object>();
-            model.Add(member);
-            return View(model);
+            return View(member);
         }
     }
 }

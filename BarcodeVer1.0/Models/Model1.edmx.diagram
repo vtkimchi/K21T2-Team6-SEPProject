@@ -4,13 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="724d60e495614e198017b33a501c4467" Name="Diagram1">
+      <Diagram DiagramId="b17dad5b66c941b8a9334862dfdc8188" Name="Diagram1">
         <EntityTypeShape EntityType="SEP_DBModel.Attendance" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SEP_DBModel.Lesson" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SEP_DBModel.Student" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SEP_DBModel.sysdiagram" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="SEP_DBModel.FK_Attendance_Lesson" ManuallyRouted="false" />
-        <AssociationConnector Association="SEP_DBModel.FK_Attendance_Student" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

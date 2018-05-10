@@ -252,7 +252,7 @@
                     <div class="profile-img"> <img src="" alt="user" /> </div>
                     <!-- User profile text-->
                     <div class="profile-text">
-                        <a href="#" class="dropdown-toggle link u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Markarn Doe <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle link u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">@Session["username"]<span class="caret"></span></a>
                         <div class="dropdown-menu animated flipInY">
                             <a href="#" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
                             <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"><i class="ti-settings"></i> Account Setting</a>
@@ -265,18 +265,18 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li class="nav-small-cap">PERSONAL</li>
-                        <li>
+                        @*<li>
                             <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard </span></a>
-                        </li>
+                        </li>*@
                         <li>
-                            <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-bullseye"></i><span class="hide-menu">Apps</span></a>
+                            <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-bullseye"></i><span class="hide-menu">Khóa Học</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <!--show each course id (create 22/04/2018)-->
                                 <!--update view 07/05/2018-->
                                 @{
                                     foreach (var item in lstcourse)
                                     {
-                                        <li><a href="~/Lesson/CreateDate/@item.id">@item.name [@item.id]</a></li>
+                                        <li><a href="~/Lesson/Detail/@item.id">@item.name [@item.id]</a></li>
                                     }
                                 }
                             </ul>
