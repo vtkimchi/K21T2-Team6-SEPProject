@@ -20,6 +20,7 @@ namespace BarcodeVer1._0.Controllers
 
 
         //demo tao buoi hoc (giao vien tao tung ngay chua xu ly bat loi)
+
         public ActionResult CreateDate(string id)
         {
             //tao 1 buoi hoc moi
@@ -31,14 +32,33 @@ namespace BarcodeVer1._0.Controllers
             //luu lai duoi database
             db.Lessons.Add(nLesson);
             //
-            var item =db.Lessons.Where(x => x.Day == nLesson.Day && x.MaKH==id).ToList();
+            var item = db.Lessons.Where(x => x.Day == nLesson.Day && x.MaKH == id).ToList();
             //
-            if (item.Count() ==0)
+            if (item.Count() == 0)
             {
                 db.SaveChanges();
+                AddDay(id);
             }
-            
-            return RedirectToAction("Index", "Home");
+
+            return RedirectToAction("Detail/" + id, "Lesson");
+        }
+
+        public void AddDay(string id)
+        {
+            var day = DateTime.Now.Date;
+            Attendance nAttendance = new Attendance();
+            var danhsachdiemdanh = connect.GetMember(id).ToList();
+            //tap danh sach sv trong buoi diem danh
+            foreach (var sv in danhsachdiemdanh)
+            {
+                nAttendance.ID_Lesson = db.Lessons.FirstOrDefault(x => x.Day == day && x.MaKH == id).ID;
+                nAttendance.ID_Student = sv.id;
+                var nLesson = db.Lessons.Where(x => x.MaKH == id).Count();
+                nAttendance.Count_Lesson = nLesson;
+                db.Attendances.Add(nAttendance);
+                db.SaveChanges();
+            }
+
         }
 
         public ActionResult Detail(string id)

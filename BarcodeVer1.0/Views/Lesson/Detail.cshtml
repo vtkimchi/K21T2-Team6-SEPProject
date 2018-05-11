@@ -2,50 +2,124 @@
 
 @{
     ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+    var url = Request.Url.ToString().Split('/');
+    string ma = url[5];
+
 }
 
+<head>
+    <link href="~/Content/bootstrap1.min.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Content/blue.css" rel="stylesheet" />
+</head>
 <h2>Detail</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.fullname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.birthday)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.firstname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.lastname)
-        </th>
-        <th></th>
-    </tr>
+<div class="card">
+    <div class="card-block">
+        <div class="table-responsive m-t-40">
+            <table id="myTable" class="table table-bordered table-striped">
+                <tr>
+                    <th>
+                       MSSV
+                    </th>
+                    <th>
+                        First Name
+                    </th>
+                    <th>
+                       Last Name
+                    </th>
+                    <th>
+                        Birthday
+                    </th>
+                    @*<th></th>*@
+                </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.fullname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.birthday)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.firstname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.lastname)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.id)
+                        </td>                        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.firstname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.lastname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.birthday)
+                        </td>
+                        @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                        </td>*@
+                    </tr>
+                }
 
-</table>
+            </table>
+        </div>
+    </div>
+</div>
+    <a href="~/Lesson/CreateDate/@ma">Tạo Buổi</a>
+<div>
+    
+</div>
+
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/tether.min.js"></script>
+<script src="~/Scripts/bootstrap1.min.js"></script>
+<script src="~/Scripts/waves.js"></script>
+<script src="~/Scripts/sidebarmenu.js"></script>
+<script src="~/Scripts/sticky-kit.min.js"></script>
+<script src="~/Scripts/custom.min.js"></script>
+<script src="~/Scripts/jQuery.style.switcher.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/jquery.slimscroll.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+        $(document).ready(function() {
+            var table = $('#example').DataTable({
+                "columnDefs": [{
+                    "visible": false,
+                    "targets": 2
+                }],
+                "order": [
+                    [2, 'asc']
+                ],
+                "displayLength": 25,
+                "drawCallback": function(settings) {
+                    var api = this.api();
+                    var rows = api.rows({
+                        page: 'current'
+                    }).nodes();
+                    var last = null;
+                    api.column(2, {
+                        page: 'current'
+                    }).data().each(function(group, i) {
+                        if (last !== group) {
+                            $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+                            last = group;
+                        }
+                    });
+                }
+            });
+            // Order by the grouping
+            $('#example tbody').on('click', 'tr.group', function () {
+                var currentOrder = table.order()[0];
+                if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
+                    table.order([2, 'desc']).draw();
+                } else {
+                    table.order([2, 'asc']).draw();
+                }
+            });
+        });
+    });
+</script>
+

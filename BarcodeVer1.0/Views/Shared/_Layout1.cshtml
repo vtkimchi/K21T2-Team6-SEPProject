@@ -266,64 +266,65 @@
                     <ul id="sidebarnav">
                         <li class="nav-small-cap">PERSONAL</li>
                         @*<li>
-                            <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard </span></a>
-                        </li>*@
+                <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard </span></a>
+            </li>*@
                         <li>
                             <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-bullseye"></i><span class="hide-menu">Khóa Học</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <!--show each course id (create 22/04/2018)-->
                                 <!--update view 07/05/2018-->
-                                @{
+                                @*@{
                                     foreach (var item in lstcourse)
                                     {
                                         <li><a href="~/Lesson/Detail/@item.id">@item.name [@item.id]</a></li>
                                     }
-                                }
+                                }*@
                             </ul>
                         </li>
+
 
                         <li class="nav-devider"></li>
-                        <li class="nav-small-cap">FORMS, TABLE &amp; WIDGETS</li>
-                        <li>
-                            <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-file"></i><span class="hide-menu">Forms</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="form-basic.html">Basic Forms</a></li>
-                                <li><a href="form-layout.html">Form Layouts</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">Tables</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="table-basic.html">Basic Tables</a></li>
-                                <li><a href="table-layout.html">Table Layouts</a></li>
+                        @*<li class="nav-small-cap">FORMS, TABLE &amp; WIDGETS</li>
+            <li>
+                <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-file"></i><span class="hide-menu">Forms</span></a>
+                <ul aria-expanded="false" class="collapse">
+                    <li><a href="form-basic.html">Basic Forms</a></li>
+                    <li><a href="form-layout.html">Form Layouts</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">Tables</span></a>
+                <ul aria-expanded="false" class="collapse">
+                    <li><a href="table-basic.html">Basic Tables</a></li>
+                    <li><a href="table-layout.html">Table Layouts</a></li>
 
-                            </ul>
-                        </li>
+                </ul>
+            </li>
 
-                        <li class="nav-devider"></li>
-                        <li class="nav-small-cap">EXTRA COMPONENTS</li>
+            <li class="nav-devider"></li>
+            <li class="nav-small-cap">EXTRA COMPONENTS</li>
 
-                        <li>
-                            <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Sample Pages</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="starter-kit.html">Starter Kit</a></li>
-                                <li><a href="pages-blank.html">Blank page</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-file-chart"></i><span class="hide-menu">Charts</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="chart-morris.html">Morris Chart</a></li>
-                                <li><a href="chart-chartist.html">Chartis Chart</a></li>
-                                <li><a href="chart-echart.html">Echarts</a></li>
-                                <li><a href="chart-flot.html">Flot Chart</a></li>
-                                <li><a href="chart-knob.html">Knob Chart</a></li>
-                                <li><a href="chart-chart-js.html">Chartjs</a></li>
-                                <li><a href="chart-sparkline.html">Sparkline Chart</a></li>
-                                <li><a href="chart-extra-chart.html">Extra chart</a></li>
-                                <li><a href="chart-peity.html">Peity Charts</a></li>
-                            </ul>
-                        </li>
+            <li>
+                <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Sample Pages</span></a>
+                <ul aria-expanded="false" class="collapse">
+                    <li><a href="starter-kit.html">Starter Kit</a></li>
+                    <li><a href="pages-blank.html">Blank page</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-file-chart"></i><span class="hide-menu">Charts</span></a>
+                <ul aria-expanded="false" class="collapse">
+                    <li><a href="chart-morris.html">Morris Chart</a></li>
+                    <li><a href="chart-chartist.html">Chartis Chart</a></li>
+                    <li><a href="chart-echart.html">Echarts</a></li>
+                    <li><a href="chart-flot.html">Flot Chart</a></li>
+                    <li><a href="chart-knob.html">Knob Chart</a></li>
+                    <li><a href="chart-chart-js.html">Chartjs</a></li>
+                    <li><a href="chart-sparkline.html">Sparkline Chart</a></li>
+                    <li><a href="chart-extra-chart.html">Extra chart</a></li>
+                    <li><a href="chart-peity.html">Peity Charts</a></li>
+                </ul>
+            </li>*@
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -473,18 +474,6 @@
     <script src="~/Scripts/jquery.toast.js"></script>
     <!-- Chart JS -->
     <script src="~/Scripts/dashboard1.js"></script>
-    <script src="~/Scripts/toastr.js"></script>
-    <script>
-        $.toast({
-            heading: 'Welcome to Monster admin',
-            text: 'Use the predefined ones, or specify a custom position object.',
-            position: 'top-right',
-            loaderBg:'#ff6849',
-            icon: 'info',
-            hideAfter: 3000,
-            stack: 6
-        });
-    </script>
     <!-- ============================================================== -->
     <!-- Style switcher -->
     <!-- ============================================================== -->
