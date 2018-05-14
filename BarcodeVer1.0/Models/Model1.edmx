@@ -4,14 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SEP_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SEPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Attendance">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_Lesson" Type="int" />
-          <Property Name="ID_Student" Type="nchar" MaxLength="20" />
+          <Property Name="ID_Student" Type="int" />
           <Property Name="Status" Type="bit" Nullable="false" />
           <Property Name="Count_Lesson" Type="int" />
         </EntityType>
@@ -22,6 +22,16 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MaKH" Type="nvarchar" MaxLength="100" />
           <Property Name="Day" Type="date" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaSV" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="MaKH" Type="nvarchar" MaxLength="100" />
+          <Property Name="Firstname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Lastname" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -45,12 +55,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SEP_DBModelStoreContainer">
+        <Association Name="FK_Attendance_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="ID_Student" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SEPModelStoreContainer">
           <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lesson" EntityType="Self.Lesson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Attendance_Lesson" Association="Self.FK_Attendance_Lesson">
             <End Role="Lesson" EntitySet="Lesson" />
+            <End Role="Attendance" EntitySet="Attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attendance_Member" Association="Self.FK_Attendance_Member">
+            <End Role="Member" EntitySet="Member" />
             <End Role="Attendance" EntitySet="Attendance" />
           </AssociationSet>
         </EntityContainer>
@@ -58,17 +85,18 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="SEP_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="SEPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Attendance">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_Lesson" Type="Int32" />
-          <Property Name="ID_Student" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="ID_Student" Type="Int32" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
           <Property Name="Count_Lesson" Type="Int32" />
           <NavigationProperty Name="Lesson" Relationship="Self.FK_Attendance_Lesson" FromRole="Attendance" ToRole="Lesson" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_Attendance_Member" FromRole="Attendance" ToRole="Member" />
         </EntityType>
         <EntityType Name="Lesson">
           <Key>
@@ -78,6 +106,17 @@
           <Property Name="MaKH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Day" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Attendances" Relationship="Self.FK_Attendance_Lesson" FromRole="Lesson" ToRole="Attendance" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaSV" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaKH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Attendances" Relationship="Self.FK_Attendance_Member" FromRole="Member" ToRole="Attendance" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -101,12 +140,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SEP_DBEntities" annotation:LazyLoadingEnabled="true">
+        <Association Name="FK_Attendance_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="ID_Student" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SEPEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Attendances" EntityType="Self.Attendance" />
           <EntitySet Name="Lessons" EntityType="Self.Lesson" />
+          <EntitySet Name="Members" EntityType="Self.Member" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <AssociationSet Name="FK_Attendance_Lesson" Association="Self.FK_Attendance_Lesson">
             <End Role="Lesson" EntitySet="Lessons" />
+            <End Role="Attendance" EntitySet="Attendances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attendance_Member" Association="Self.FK_Attendance_Member">
+            <End Role="Member" EntitySet="Members" />
             <End Role="Attendance" EntitySet="Attendances" />
           </AssociationSet>
         </EntityContainer>
@@ -115,9 +171,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SEP_DBModelStoreContainer" CdmEntityContainer="SEP_DBEntities">
+        <EntityContainerMapping StorageEntityContainer="SEPModelStoreContainer" CdmEntityContainer="SEPEntities">
           <EntitySetMapping Name="Attendances">
-            <EntityTypeMapping TypeName="SEP_DBModel.Attendance">
+            <EntityTypeMapping TypeName="SEPModel.Attendance">
               <MappingFragment StoreEntitySet="Attendance">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_Lesson" ColumnName="ID_Lesson" />
@@ -128,7 +184,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Lessons">
-            <EntityTypeMapping TypeName="SEP_DBModel.Lesson">
+            <EntityTypeMapping TypeName="SEPModel.Lesson">
               <MappingFragment StoreEntitySet="Lesson">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
@@ -136,8 +192,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="SEPModel.Member">
+              <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MaSV" ColumnName="MaSV" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="SEP_DBModel.sysdiagram">
+            <EntityTypeMapping TypeName="SEPModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />

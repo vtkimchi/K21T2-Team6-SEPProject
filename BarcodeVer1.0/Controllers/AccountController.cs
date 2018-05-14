@@ -44,6 +44,7 @@ namespace BarcodeVer1._0.Controllers
         {
             Session["id"] = null;
             Session["username"] = null;
+            Session["ID_Course"] = null;
             return RedirectToAction("Login", "Account");
         }
     }

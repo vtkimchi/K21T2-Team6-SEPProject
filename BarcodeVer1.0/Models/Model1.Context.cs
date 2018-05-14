@@ -13,10 +13,10 @@ namespace BarcodeVer1._0.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SEP_DBEntities : DbContext
+    public partial class SEPEntities : DbContext
     {
-        public SEP_DBEntities()
-            : base("name=SEP_DBEntities")
+        public SEPEntities()
+            : base("name=SEPEntities")
         {
         }
     
@@ -27,6 +27,7 @@ namespace BarcodeVer1._0.Models
     
         public virtual DbSet<Attendance> Attendances { get; set; }
         public virtual DbSet<Lesson> Lessons { get; set; }
+        public virtual DbSet<Member> Members { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

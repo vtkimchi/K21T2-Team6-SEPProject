@@ -1,11 +1,8 @@
-﻿@model IEnumerable<BarcodeVer1._0.Models.Student>
+﻿@model IEnumerable<BarcodeVer1._0.Models.Member>
 
 @{
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_Layout1.cshtml";
-    var url = Request.Url.ToString().Split('/');
-    string ma = url[5];
-
 }
 
 <head>
@@ -14,6 +11,17 @@
     <link href="~/Content/blue.css" rel="stylesheet" />
 </head>
 <h2>Danh Sách Sinh Viên</h2>
+
+<!-- kiem tra neu dang nhap lop hoc lan dau thi cho lay du lieu tren api ve -->
+@if (Model.Count() == 0)
+{
+    <div>
+        <form method="post" action="~/ThamDu/Syns/@Session["ID_Course"]">
+            <button type="submit">Synchronize</button>
+        </form>
+    </div>
+}
+
 
 <div class="card">
     <div class="card-block">
@@ -29,32 +37,43 @@
                     <th>
                        Last Name
                     </th>
-                    <th>
-                        Birthday
-                    </th>
                     @*<th></th>*@
                 </tr>
-
-                @foreach (var item in Model)
-            {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.id)
-                        </td>                        
-                        <td>
-                            @Html.DisplayFor(modelItem => item.firstname)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.lastname)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.birthday)
-                        </td>
-                        @*<td>
+                @{
+                    if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MaSV)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Firstname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Lastname)
+                                </td>
+                                @*<td>
                             @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
                             @Html.ActionLink("Details", "Details", new { id = item.id }) |
                             @Html.ActionLink("Delete", "Delete", new { id = item.id })
                         </td>*@
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+
+                    }
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <p>
+                                @Html.ActionLink("Create New", "Create")
+                            </p>
+                        </td>
                     </tr>
                 }
 
@@ -62,7 +81,7 @@
         </div>
     </div>
 </div>
-    <a href="~/Lesson/CreateDate/@ma">Tạo Buổi</a>
+    <a href="~/Lesson/CreateDate">Tạo Buổi</a>
 <div>
     
 </div>

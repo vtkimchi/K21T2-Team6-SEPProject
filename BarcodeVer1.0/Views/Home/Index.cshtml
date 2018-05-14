@@ -5,10 +5,6 @@
 @{
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout1.cshtml";
-    if (Session["id"] == null)
-    {
-        Response.Redirect("~/Account/Login");
-    }
 }
 
 <h2>KHÓA HỌC</h2>

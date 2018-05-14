@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "CreateDate";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<h2>CreateDate</h2>
+
+<ul id="myList">
+</ul>
+
+<input type="text" id="masv" />
+
+<form method="post" action="~/Lesson/CreateDate">
+    <input type="password" hidden="hidden" id="mssv" name="data" />
+    <button type="submit">Điểm Danh</button>
+</form>
+
+@section scripts{
+    <script>
+    //item la du lieu se luu lai de xu ly
+    var item = "";
+    //sv la du lieu nhap vao
+    var sv = "";
+    //mang khoi tao de kiem tra du lieu
+    var arr = [];
+ //script xu ly chen them dong tren bang
+function myFunction() {
+    var node = document.createElement("LI");
+    var textnode = document.createTextNode(sv);
+    node.appendChild(textnode);
+    document.getElementById("myList").appendChild(node);
+}
+//script xu ly luon focus textbox khi moi load trang
+$(document).ready(function () {
+    $(function () {
+        $("#masv").first().focus();
+    });
+});
+//script xu ly bat su kien moi lan nhap neu lon hon 7 ky tu thi xoa du lieu trong textbox
+$("input[type=text]").keyup(function () {
+    check();
+});
+
+//script xu ly khi nhan giu
+$("input[type=text]").keypress(function () {
+    check();
+});
+
+function check() {
+    //kiem tra do dai cua ky tu nhap vao neu lon hon 7 thi xoa
+    if ($("#masv").val().length >= 7) {
+        //kiem tra du lieu nhap vao da ton tai trong mang hay chua (==-1 la chua ton tai)
+        if (arr.indexOf($("#masv").val()) == -1)
+        {
+            //them du lieu moi vao chuoi
+            arr.push($("#masv").val());
+            item = item + $("#masv").val() + " ";
+            document.getElementById("mssv").value = $("#mssv").val() + " " + $("#masv").val();
+            //xuat du lieu do len man hinh
+            sv = $("#masv").val();
+            myFunction();
+        }
+        //xoa du lieu trong textbox
+        document.getElementById("masv").value = "";
+    }
+}
+    </script>
+}
