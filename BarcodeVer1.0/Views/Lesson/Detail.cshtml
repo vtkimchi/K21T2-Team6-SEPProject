@@ -29,13 +29,13 @@
             <table id="myTable" class="table table-bordered table-striped">
                 <tr>
                     <th>
-                       MSSV
+                        MSSV
                     </th>
                     <th>
                         First Name
                     </th>
                     <th>
-                       Last Name
+                        Last Name
                     </th>
                     @*<th></th>*@
                 </tr>
@@ -55,10 +55,10 @@
                                     @Html.DisplayFor(modelItem => item.Lastname)
                                 </td>
                                 @*<td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.id })
-                        </td>*@
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                                </td>*@
                             </tr>
                         }
                     }
@@ -66,7 +66,7 @@
                     {
 
                     }
-                    <tr>
+                    @*<tr>
                         <td></td>
                         <td></td>
                         <td>
@@ -74,10 +74,13 @@
                                 @Html.ActionLink("Create New", "Create")
                             </p>
                         </td>
-                    </tr>
+                    </tr>*@
                 }
 
             </table>
+        </div>
+        <a href="~/Lesson/AddStudent">Thêm Sinh Viên</a>
+        <div>
         </div>
     </div>
 </div>

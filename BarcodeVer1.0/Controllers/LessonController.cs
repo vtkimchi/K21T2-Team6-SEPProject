@@ -96,6 +96,8 @@ namespace BarcodeVer1._0.Controllers
             string makh = (string)Session["ID_Course"];
             var ID_lesson = db.Lessons.FirstOrDefault(x => x.Day == day && x.MaKH == makh).ID;
             var listmember = db.Attendances.Where(x => x.ID_Lesson ==ID_lesson).ToList();
+            string str = day.ToString("dd/MM/yyyy");
+            Session["Dayyyy"] = str;
             return View(listmember);
         }
 
@@ -104,6 +106,31 @@ namespace BarcodeVer1._0.Controllers
             Session["ID_Course"] = id;
             var item = db.Members.Where(x => x.MaKH == id).ToList();
             return View(item);
+        }
+
+        // them sinh vien vao khoa hoc
+        public ActionResult AddStudent()
+        {
+           
+            ViewBag.MaSV = db.Members.ToList();
+            ViewBag.MaKH = db.Members.ToList();
+            ViewBag.Firstname = db.Members.ToList();
+            ViewBag.Lastname = db.Members.ToList();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddStudent(Member addstu)
+        {
+            string Makh = (string)Session["ID_Course"];
+            var student = new Member();
+            student.MaSV = addstu.MaSV;
+            student.MaKH = Makh;
+            student.Firstname = addstu.Firstname;
+            student.Lastname = addstu.Lastname;
+            db.Members.Add(student);
+            db.SaveChanges();
+            return RedirectToAction("Detail", new { id = Makh});
         }
     }
 }
