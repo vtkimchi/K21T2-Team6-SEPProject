@@ -111,7 +111,6 @@ namespace BarcodeVer1._0.Controllers
         // them sinh vien vao khoa hoc
         public ActionResult AddStudent()
         {
-           
             ViewBag.MaSV = db.Members.ToList();
             ViewBag.MaKH = db.Members.ToList();
             ViewBag.Firstname = db.Members.ToList();
@@ -120,14 +119,15 @@ namespace BarcodeVer1._0.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddStudent(Member addstu)
+        public ActionResult AddStudent(Member mssv)
         {
+            var data = connect.Getstudent(mssv.MaSV).Split('/');
             string Makh = (string)Session["ID_Course"];
             var student = new Member();
-            student.MaSV = addstu.MaSV;
+            student.MaSV = mssv.MaSV;
             student.MaKH = Makh;
-            student.Firstname = addstu.Firstname;
-            student.Lastname = addstu.Lastname;
+            student.Firstname = data[0];
+            student.Lastname = data[1];
             db.Members.Add(student);
             db.SaveChanges();
             return RedirectToAction("Detail", new { id = Makh});

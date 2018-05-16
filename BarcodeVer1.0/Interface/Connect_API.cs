@@ -117,5 +117,33 @@ namespace BarcodeVer1._0.Interface
             }
             return null;
         }
+
+        public string Getstudent(string mssv)
+        {
+            //url address
+            urlConnect = urlAddress + "/GetStudent?code={0}";
+            urlConnect = string.Format(urlConnect, mssv);
+
+            data = Url(urlConnect);
+            if (data != "")
+            {
+                //parse data json
+                dynamic stuff = JsonConvert.DeserializeObject(data);
+                //get data json
+                string code = stuff.code;
+                //compare login success or not
+                if (int.Parse(code) == 0)
+                {
+                    string firstname = stuff.data.firstname;
+                    string lastname = stuff.data.lastname;
+                    urlConnect = "";
+                    //get id teacher
+                    return firstname +"/" + lastname;
+                }
+            }
+            urlConnect = "";
+            return "";
+        }
+
     }
 }
