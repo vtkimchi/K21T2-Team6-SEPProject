@@ -350,11 +350,11 @@
     <Content Include="Views\Shared\LeftMenu.cshtml" />
     <Content Include="Views\Lesson\CreateDate.cshtml" />
     <Content Include="Views\Lesson\ListAttendance.cshtml" />
-    <Content Include="Views\Lesson\AddStudent.cshtml" />
+    <Content Include="Views\Member\AddStudent.cshtml" />
+    <Content Include="Views\Member\DeleteStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Member\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

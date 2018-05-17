@@ -38,5 +38,57 @@ namespace BarcodeVer1._0.Controllers
             }
             return RedirectToAction("Detail", "Lesson", new { id = Session["ID_Course"] });
         }
+
+        // them sinh vien vao khoa hoc
+        [HttpGet]
+        public ActionResult AddStudent()
+        {
+            ViewBag.MaSV = db.Members.ToList();
+            ViewBag.MaKH = db.Members.ToList();
+            ViewBag.Firstname = db.Members.ToList();
+            ViewBag.Lastname = db.Members.ToList();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddStudent(Member mssv)
+        {
+            var data = connect.Getstudent(mssv.MaSV).Split('/');
+            string Makh = (string)Session["ID_Course"];
+            var student = new Member();
+            student.MaSV = mssv.MaSV;
+            student.MaKH = Makh;
+            student.Firstname = data[0];
+            student.Lastname = data[1];
+            db.Members.Add(student);
+            db.SaveChanges();
+            return RedirectToAction("Detail", "Lesson", new { id = Makh });
+        }
+
+        // xoa sinh vien khoi khoa hoc
+
+        [HttpGet]
+        public ActionResult DeleteStudent(int id)
+        {
+            var student = db.Members.FirstOrDefault(x => x.ID == id);
+            ViewBag.Type = db.Members.ToList();
+            return View(student);
+        }
+
+        [HttpPost]
+        [ActionName("DeleteStudent")]
+        public ActionResult DeleteConfirm(int id)
+        {
+            string Makh = (string)Session["ID_Course"];
+            var id_student = db.Attendances.FirstOrDefault(x => x.ID_Student == id);
+            if(id_student != null)
+            {
+                db.Attendances.Remove(id_student);
+            }
+            var student = db.Members.FirstOrDefault(x => x.ID == id);
+            db.Members.Remove(student);
+            db.SaveChanges();
+            return RedirectToAction("Detail", "Lesson", new { id = Makh });
+        }
     }
 }

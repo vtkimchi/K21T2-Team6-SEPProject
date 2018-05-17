@@ -37,7 +37,7 @@
                     <th>
                         Last Name
                     </th>
-                    @*<th></th>*@
+                    <th></th>
                 </tr>
                 @{
                     if (Model != null)
@@ -54,11 +54,12 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Lastname)
                                 </td>
-                                @*<td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
-                                </td>*@
+                                <td>
+                                    @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |*@
+                                    <a href="~/Member/DeleteStudent/@item.ID">Delete</a>
+                                    @*<a href="@Url.Action("DeleteConfirm", "Member", new { id = item.ID })">Delete</a>*@ 
+                                </td>
                             </tr>
                         }
                     }
@@ -79,7 +80,7 @@
 
             </table>
         </div>
-        <a href="~/Lesson/AddStudent">Thêm Sinh Viên</a>
+        <a href="~/Member/AddStudent">Thêm Sinh Viên</a>
         <div>
         </div>
     </div>
