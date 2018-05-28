@@ -2,9 +2,11 @@
 @{
     ViewBag.Title = "CreateDate";
     Layout = "~/Views/Shared/_Layout1.cshtml";
+    var day = DateTime.Now.Date;
+    string str = day.ToString("dd/MM/yyyy");
 }
 
-<h2>ĐIỂM DANH @Session["Dayyyy"]</h2>
+<h2>ĐIỂM DANH @str</h2>
 
 <ul id="myList">
 </ul>
@@ -12,8 +14,16 @@
 <input type="text" id="masv" />
 
 <form method="post" action="~/Lesson/CreateDate">
-    <input type="password" hidden="hidden" id="mssv" name="data" />
-    <button type="submit">Điểm Danh</button>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <input class="form-control" type="password" hidden="hidden" id="mssv" name="data" />
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
 </form>
 
 @section scripts{

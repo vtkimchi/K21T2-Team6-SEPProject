@@ -93,6 +93,7 @@ namespace BarcodeVer1._0.Controllers
         public ActionResult ListAttendance()
         {
             var day = DateTime.Now.Date;
+
             string makh = (string)Session["ID_Course"];
             var ID_lesson = db.Lessons.FirstOrDefault(x => x.Day == day && x.MaKH == makh).ID;
             var listmember = db.Attendances.Where(x => x.ID_Lesson ==ID_lesson).ToList();
