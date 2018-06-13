@@ -61,6 +61,7 @@ namespace BarcodeVer1._0.Controllers
             //string Makh = (string)Session["ID_Course"];
             //string Makh = "TH2";
             string Makh = (string)Session["ID_Course"];
+            //string Makh = (string)ViewData["idCourse"];
             var student = new Member();
             var studentID = db.Members.FirstOrDefault(x => x.MaSV == mssv.MaSV && x.MaKH == Makh);
             if (data[0].Equals(""))

@@ -4,14 +4,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BarcodeVer1._0.Controllers;
 using BarcodeVer1._0.Models;
 using BarcodeVer1._0.UnitTests.Support;
-using Moq;
+using System.Web.Routing;
 
 namespace BarcodeVer1._0.UnitTests
 {
+
     [TestClass]
     public class BarcodeValidationTests
-    {
-     
+    {    
 
         /// <summary>
         /// Purpose of TC:
@@ -21,9 +21,12 @@ namespace BarcodeVer1._0.UnitTests
         [TestMethod]
         public void ValidateAddStudentModel_WithValidModel_ExpectValidNavigation()
         {
-           
+            var helper = new MockHelper();
+            var context = helper.MakeFakeContext();
+            var controller = new Controllers.MemberController();
+            controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
             // Arr
-            var controller = new MemberController();
+           // var controller = new MemberController();
             var student = new Member
             {
                 MaSV = "T153346",
@@ -49,7 +52,11 @@ namespace BarcodeVer1._0.UnitTests
         public void ValidateAddStudentModel_WithIDIsExisted()
         {
             // Arr
-            var controller = new MemberController();
+            var helper = new MockHelper();
+            var context = helper.MakeFakeContext();
+            var controller = new Controllers.MemberController();
+            controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
+            //var controller = new MemberController();
             var student = new Member
             {
                 MaSV = "T153556",                
@@ -57,16 +64,12 @@ namespace BarcodeVer1._0.UnitTests
             var validationResults = TestModelHelper.ValidateModel(controller, student);
 
             // Act
-            var redirectRoute = controller.AddStudent(student) as RedirectToRouteResult;
+            var redirectRoute = controller.AddStudent(student) as ViewResult;
 
             //Assert          
            
-            Assert.AreEqual("AddStudent", redirectRoute.RouteValues["action"]);
-            Assert.AreEqual("Member", redirectRoute.RouteValues["controller"]);
             Assert.AreEqual(0, validationResults.Count);
-            //Assert.AreEqual("Student is exist in course", redirectRoute.ViewBag("Student is exist in course"));
-            //Assert.IsTrue(validationResults[0].ErrorMessage.Equals("Student is exist in course"));
-
+            Assert.AreEqual("Student is exist in course", redirectRoute.ViewBag.mess);
         }
 
         /// <summary>
@@ -77,8 +80,12 @@ namespace BarcodeVer1._0.UnitTests
         [TestMethod]
         public void ValidateAddStudentModel_WithInvalidID_ExpectValidationError()
         {
+            var helper = new MockHelper();
+            var context = helper.MakeFakeContext();
+            var controller = new Controllers.MemberController();
+            controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
             // Arr
-            var controller = new MemberController();
+            //var controller = new MemberController();
             var student = new Member
             {
                 MaSV = "T199999",
@@ -86,7 +93,7 @@ namespace BarcodeVer1._0.UnitTests
             var validationResults = TestModelHelper.ValidateModel(controller, student);
 
             // Act
-            var viewResult = controller.AddStudent(student) as RedirectResult;
+            var viewResult = controller.AddStudent(student) as ViewResult;
 
             //Assert
             
@@ -97,7 +104,7 @@ namespace BarcodeVer1._0.UnitTests
            // Assert.IsNotNull(viewResult);
 //            Assert.IsFalse(viewResult.ViewData.ModelState.IsValid);
             Assert.AreEqual(0, validationResults.Count);
-//            Assert.IsTrue(validationResults[0].ErrorMessage.Equals("Student is not exist"));
+            Assert.AreEqual("Student is not exist", viewResult.ViewBag.mess);
         }
     }
 }

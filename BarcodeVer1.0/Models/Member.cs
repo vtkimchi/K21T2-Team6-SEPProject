@@ -6,8 +6,7 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+
 namespace BarcodeVer1._0.Models
 {
     using System;
@@ -22,8 +21,6 @@ namespace BarcodeVer1._0.Models
         }
     
         public int ID { get; set; }
-
-        [MinLength(7), MaxLength(7)]
         public string MaSV { get; set; }
         public string MaKH { get; set; }
         public string Firstname { get; set; }
