@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using BarcodeVer1._0.Interface;
 using BarcodeVer1._0.Models;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Net;
 
 namespace BarcodeVer1._0.Controllers
 {
@@ -51,22 +54,42 @@ namespace BarcodeVer1._0.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddStudent(Member mssv)
+        [ValidateAntiForgeryToken]
+        public ActionResult AddStudent([Bind(Include ="MaSV")] Member mssv)
         {
-            var data = connect.Getstudent(mssv.MaSV).Split('/');
+                var data = connect.Getstudent(mssv.MaSV).Split('/');
+            //string Makh = (string)Session["ID_Course"];
+            //string Makh = "TH2";
             string Makh = (string)Session["ID_Course"];
             var student = new Member();
-            var studentID = db.Members.FirstOrDefault(x => x.MaSV == mssv.MaSV);
-            if(studentID == null)
+            var studentID = db.Members.FirstOrDefault(x => x.MaSV == mssv.MaSV && x.MaKH == Makh);
+            if (data[0].Equals(""))
             {
-                student.MaSV = mssv.MaSV;
-                student.MaKH = Makh;
-                student.Firstname = data[0];
-                student.Lastname = data[1];
-                db.Members.Add(student);
-                db.SaveChanges();
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ViewBag.mess = "Student is not exist";
+                return View();
+            }
+            else
+            {
+                if (studentID == null)
+                {
+                    student.MaSV = mssv.MaSV;
+                    student.MaKH = Makh;
+                    student.Firstname = data[0];
+                    student.Lastname = data[1];
+                    db.Members.Add(student);
+                    db.SaveChanges();
+                    
+                }
+                else
+                {
+                    ViewBag.mess = "Student is exist in course";
+                    return View();
+                }                                   
             }
             return RedirectToAction("Detail", "Lesson", new { id = Makh });
+
         }
-    }
+         
+        }
 }
