@@ -13,7 +13,6 @@
           <Property Name="ID_Lesson" Type="int" />
           <Property Name="ID_Student" Type="int" />
           <Property Name="Status" Type="bit" Nullable="false" />
-          <Property Name="Count_Lesson" Type="int" />
         </EntityType>
         <EntityType Name="Lesson">
           <Key>
@@ -22,6 +21,14 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MaKH" Type="nvarchar" MaxLength="100" />
           <Property Name="Day" Type="date" />
+          <Property Name="Count" Type="int" />
+        </EntityType>
+        <EntityType Name="Link_API">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Link" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Member">
           <Key>
@@ -42,6 +49,14 @@
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_Attendance_Lesson">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />
@@ -70,8 +85,10 @@
         <EntityContainer Name="SEPModelStoreContainer">
           <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lesson" EntityType="Self.Lesson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Link_API" EntityType="Self.Link_API" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Attendance_Lesson" Association="Self.FK_Attendance_Lesson">
             <End Role="Lesson" EntitySet="Lesson" />
             <End Role="Attendance" EntitySet="Attendance" />
@@ -94,7 +111,6 @@
           <Property Name="ID_Lesson" Type="Int32" />
           <Property Name="ID_Student" Type="Int32" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
-          <Property Name="Count_Lesson" Type="Int32" />
           <NavigationProperty Name="Lesson" Relationship="Self.FK_Attendance_Lesson" FromRole="Attendance" ToRole="Lesson" />
           <NavigationProperty Name="Member" Relationship="Self.FK_Attendance_Member" FromRole="Attendance" ToRole="Member" />
         </EntityType>
@@ -105,7 +121,15 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaKH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Day" Type="DateTime" Precision="0" />
+          <Property Name="Count" Type="Int32" />
           <NavigationProperty Name="Attendances" Relationship="Self.FK_Attendance_Lesson" FromRole="Lesson" ToRole="Attendance" />
+        </EntityType>
+        <EntityType Name="Link_API">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Member">
           <Key>
@@ -127,6 +151,14 @@
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Attendance_Lesson">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />
@@ -155,8 +187,10 @@
         <EntityContainer Name="SEPEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Attendances" EntityType="Self.Attendance" />
           <EntitySet Name="Lessons" EntityType="Self.Lesson" />
+          <EntitySet Name="Link_API" EntityType="Self.Link_API" />
           <EntitySet Name="Members" EntityType="Self.Member" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="FK_Attendance_Lesson" Association="Self.FK_Attendance_Lesson">
             <End Role="Lesson" EntitySet="Lessons" />
             <End Role="Attendance" EntitySet="Attendances" />
@@ -179,7 +213,6 @@
                 <ScalarProperty Name="ID_Lesson" ColumnName="ID_Lesson" />
                 <ScalarProperty Name="ID_Student" ColumnName="ID_Student" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Count_Lesson" ColumnName="Count_Lesson" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -189,6 +222,15 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
                 <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Link_API">
+            <EntityTypeMapping TypeName="SEPModel.Link_API">
+              <MappingFragment StoreEntitySet="Link_API">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -211,6 +253,15 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SEPModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

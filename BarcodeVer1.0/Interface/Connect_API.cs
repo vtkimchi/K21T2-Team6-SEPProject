@@ -12,9 +12,22 @@ namespace BarcodeVer1._0.Interface
 {
     public class Connect_API
     {
+        SEPEntities db = new SEPEntities();
+
         private string urlAddress = "https://entool.azurewebsites.net/SEP21";
         private string urlConnect;
         private string data;
+
+        //private string get()
+        //{
+        //    return db.Link_API.FirstOrDefault(x => x.ID == 1).Link;
+        //}
+
+        //public void set(string newLink)
+        //{
+        //    db.Link_API.FirstOrDefault(x => x.ID == 1).Link = newLink;
+        //    db.SaveChanges();
+        //}
 
         //read data from html
         private string Url(string url)

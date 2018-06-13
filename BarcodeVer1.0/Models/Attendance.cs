@@ -18,7 +18,6 @@ namespace BarcodeVer1._0.Models
         public Nullable<int> ID_Lesson { get; set; }
         public Nullable<int> ID_Student { get; set; }
         public bool Status { get; set; }
-        public Nullable<int> Count_Lesson { get; set; }
     
         public virtual Lesson Lesson { get; set; }
         public virtual Member Member { get; set; }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BarcodeVer1._0.Models;
 using BarcodeVer1._0.Interface;
 
 namespace BarcodeVer1._0.Controllers
@@ -33,6 +34,14 @@ namespace BarcodeVer1._0.Controllers
             }
             else
             {
+                //using (SEPEntities db = new SEPEntities())
+                //{
+                //    var item = db.Users.Where(x => x.UserName == username & x.Password == password);
+                //    if (item != null)
+                //    {
+                //        return RedirectToAction("Index", "Home");
+                //    }
+                //}
                 ViewBag.error = "Wrong Username or Password";
                 return View();
             }

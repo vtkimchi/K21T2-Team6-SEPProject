@@ -1,0 +1,74 @@
+﻿@model IEnumerable<BarcodeVer1._0.Models.Attendance>
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+
+<h2>Detail @ViewBag.Day</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Member.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Member.Lastname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lesson.MaKH)
+        </th>
+        <th>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.MaSV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.Firstname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.Lastname)
+            </td>
+            <td>
+                @if (item.Status == true)
+                {
+                    <span class="icon-check" style="color:forestgreen"></span>
+                }
+                else
+                {
+                    <span class="icon-close" style="color:red"></span>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lesson.MaKH)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID })
+            </td>
+            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+                </td>*@
+        </tr>
+    }
+
+</table>
+<div>
+    <p>Total: @ViewBag.Total</p>
+    <p>Attend: @ViewBag.Attend</p>
+    <p>Miss: @ViewBag.Miss</p>
+</div>
+
