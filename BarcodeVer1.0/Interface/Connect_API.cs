@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web;
+using System.Net.Http;
 using BarcodeVer1._0.Models;
 
 namespace BarcodeVer1._0.Interface
@@ -157,6 +158,7 @@ namespace BarcodeVer1._0.Interface
             urlConnect = "";
             return "";
         }
+
 
     }
 }

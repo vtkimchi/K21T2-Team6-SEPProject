@@ -2,10 +2,20 @@
 @{
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_Layout1.cshtml";
+
 }
 
 
 <h2>Detail @ViewBag.Day</h2>
+@using (Html.BeginForm("Change", "Attendance", FormMethod.Post))
+{
+    <div class="col-xs-6">
+        @Html.DropDownList("Count_Lesson", (SelectList)ViewBag.Lesson, string.Empty, new { @class = "form-control" })
+            <input type="submit" value="change" class="btn btn-default" />
+    </div>
+}
+
+
 
 
 <table class="table">
