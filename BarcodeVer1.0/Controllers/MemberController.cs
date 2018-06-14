@@ -91,6 +91,8 @@ namespace BarcodeVer1._0.Controllers
             return RedirectToAction("Detail", "Lesson", new { id = Makh });
 
         }
+
+
          
         }
 }

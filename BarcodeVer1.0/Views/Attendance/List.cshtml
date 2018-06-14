@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<BarcodeVer1._0.Models.Attendance>
-
 @{
     ViewBag.Title = "ListAttendance";
     Layout = "~/Views/Shared/_Layout1.cshtml";
@@ -24,6 +23,10 @@
         <th>
             @Html.DisplayNameFor(model => model.Lesson.MaKH)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th></th>
 
     </tr>
 
@@ -52,11 +55,17 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Lesson.MaKH)
             </td>
-            @*<td>
-                    @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Note)
+            </td>
+            <td></td>
+            <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id=item.ID }) |*@
+                <a href="#" data-toggle="modal" data-target="#myModal" @item.ID>Edit </a>
+                    @Html.ActionLink("Status", "EditStatus", new { id = item.ID })
+                    @*@Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.ID })*@
+                </td>
         </tr>
     }
 
@@ -66,4 +75,100 @@
     <p>Attend: @ViewBag.Attend</p>
     <p>Miss: @ViewBag.Miss</p>
 </div>
+
+@*@using (Html.BeginForm("EditNote", "Attendance", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Note</h4>
+                    </div>
+                    <div class="modal-body">
+                       @* <input type="text" class="modal-dialog modal-content" />*@
+                        @*@Html.Partial("_AccountProfileEdit", new GEDCPatientPortal.Models.AccountProfileEditViewModel())
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" value="Submit" class="btn btn-default" data-dismiss="modal">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}*@
+ <!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Note</h4>
+            </div>
+            <div class="modal-body">
+               
+            </div>
+            <div class="modal-footer">
+                <input type="submit" value="Submit" class="btn btn-default" data-dismiss="modal">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+@using (Html.BeginForm("EditNote", "Attendance", FormMethod.Post, new { id = "form-accountprofileedit", @class = "full-form" }))
+{
+
+    @Html.AntiForgeryToken()
+    @*@Html.CustomTextboxFor(model => model.Address)*@
+
+
+    <div style="text-align:right;">
+        <button type="submit" id="accountprofileedit-submit" name="accountprofileedit-submit" value="Edit Account" class="btn btn-primary" style="margin-left:5px;">Edit Account</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+    </div>
+}
+
+@*@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            $('#AccountEditModal').on('shown.bs.modal', function () {
+                $('#myInput').focus()
+            })
+
+
+
+        $("#AccountEditModal").on("submit", "#form-accountprofileedit", function (e) {
+            e.preventDefault();  // prevent standard form submission
+
+            var form = $(this);
+            $.ajax({
+                url: form.attr("action"),
+                method: form.attr("method"),  // post
+                data: form.serialize(),
+                success: function (partialResult) {
+                    $("#formContent").html(partialResult);
+                }
+            });
+        });
+
+
+        });
+
+    </script>
+}*@
+   
+
 

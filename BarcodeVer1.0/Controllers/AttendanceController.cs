@@ -52,7 +52,37 @@ namespace BarcodeVer1._0.Controllers
             ViewBag.Attend = listmember.Where(x => x.Status == true).Count();
             //xuat ra si so vang hoc
             ViewBag.Miss = listmember.Where(x => x.Status == false).Count();
+            //
+            ViewBag.
             return View(listmember);
+        }
+
+        //[HttpPost]
+        public ActionResult EditStatus(int id)
+        {
+            var item = db.Attendances.FirstOrDefault(x => x.ID == id);
+            if(item.Status == true)
+            {
+                item.Status = false;
+                
+            }
+            else
+            {
+                item.Status = true;
+                
+            }
+            db.SaveChanges();
+            return RedirectToAction("List");
+        }
+
+      
+        public ActionResult EditNote(int id, Attendance p)
+        {
+            var idAttend = db.Attendances.FirstOrDefault(x => x.ID == id);
+            var listAttend = new Attendance();
+            listAttend.Note = p.Note;
+            db.SaveChanges();
+            return RedirectToAction("List");
         }
     }
 }
