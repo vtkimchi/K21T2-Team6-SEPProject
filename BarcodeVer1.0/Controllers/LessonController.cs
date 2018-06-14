@@ -31,6 +31,8 @@ namespace BarcodeVer1._0.Controllers
         {
             data = data.Trim();
             string id = (string)Session["ID_Course"];
+            //ViewBag.idCourse = id;
+            ViewData["idCourse"] = id;
             //tao 1 buoi hoc moi
             Lesson nLesson = new Lesson();
             //ma khoa hoc duoc giao vien nhap vo
