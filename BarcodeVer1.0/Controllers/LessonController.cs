@@ -51,7 +51,7 @@ namespace BarcodeVer1._0.Controllers
                 CheckStudent(data,id);
             }
 
-            return RedirectToAction("List","Attendance");
+            return RedirectToAction("Detail","Attendance", new { id= db.Lessons.FirstOrDefault(x => x.MaKH==id && x.Day==nLesson.Day).ID});
         }
 
 
@@ -110,6 +110,8 @@ namespace BarcodeVer1._0.Controllers
             Session["ID_Course"] = id;
             var item = db.Members.Where(x => x.MaKH == id).ToList();
             //
+            var count =db.Lessons.Where(x => x.MaKH == id).Count();
+            ViewBag.Count = db.Lessons.FirstOrDefault(x => x.Count == count).ID;
             return View(item);
         }
     }
