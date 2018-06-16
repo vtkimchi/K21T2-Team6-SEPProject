@@ -98,12 +98,6 @@ namespace BarcodeVer1._0.Controllers
         }
 
 
-
-
-
-
-
-
         //xem chi tiet khoa hoc
         [HttpGet]
         public ActionResult Detail(string id)

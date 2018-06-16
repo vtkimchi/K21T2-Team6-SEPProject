@@ -6,11 +6,6 @@
     var ID = ViewBag.Count;
 }
 
-<head>
-    <link href="~/Content/bootstrap1.min.css" rel="stylesheet" />
-    <link href="~/Content/style.css" rel="stylesheet" />
-    <link href="~/Content/blue.css" rel="stylesheet" />
-</head>
 <h2>List Of Student</h2>
 
 <!-- kiem tra neu dang nhap lop hoc lan dau thi cho lay du lieu tren api ve -->
@@ -27,126 +22,81 @@
 <div class="card">
     <div class="card-block">
         <div class="table-responsive m-t-40">
-            <table id="myTable" class="table table-bordered table-striped">
-                <tr>
-                    <th>
-                        ID
-                    </th>
-                    <th>
-                        First Name
-                    </th>
-                    <th>
-                        Last Name
-                    </th>
-                    <th>
-                        Attend
-                    </th>
-                    <th>
-                        Miss
-                    </th>
-                </tr>
-                @{
-                    if (Model != null)
-                    {
-                        foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.MaSV)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Firstname)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Lastname)
-                                </td>
-                                <td>
-                                    @item.Attendances.Where(x => x.Status==true).Count()
-                                </td>
-                                <td>
-                                    @item.Attendances.Where(x => x.Status == false).Count()
-                                </td>
-                            </tr>
+            <section class="panel">
+                <table id="myTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                First Name
+                            </th>
+                            <th>
+                                Last Name
+                            </th>
+                            <th>
+                                Attend
+                            </th>
+                            <th>
+                                Miss
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.MaSV)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Firstname)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Lastname)
+                                        </td>
+                                        <td>
+                                            @item.Attendances.Where(x => x.Status == true).Count()
+                                        </td>
+                                        <td>
+                                            @item.Attendances.Where(x => x.Status == false).Count()
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+
+                            }
+                
                         }
-                    }
-                    else
-                    {
-
-                    }
-                    @*<tr>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <p>
-                                @Html.ActionLink("Create New", "Create")
-                            </p>
-                        </td>
-                    </tr>*@
-                }
-
-            </table>
-        </div>
+                    </tbody>
+                </table>
+            </section>
+</div>
         <a href="~/Member/AddStudent">Add Student</a>
         <div>
         </div>
     </div>
 </div>
-    <a href="~/Lesson/CreateDate">Điểm danh</a>
-<a href="~/Attendance/Detail/@ID">Chi tiết buổi học</a>
+    <a href="~/Lesson/CreateDate">Roll Up</a> |
+<a href="~/Attendance/Detail/@ID">Detail of Lesson</a>
 <div>
     
 </div>
 
-@*<script src="~/Scripts/jquery.min.js"></script>
-<script src="~/Scripts/tether.min.js"></script>
-<script src="~/Scripts/bootstrap1.min.js"></script>
-<script src="~/Scripts/waves.js"></script>
-<script src="~/Scripts/sidebarmenu.js"></script>
-<script src="~/Scripts/sticky-kit.min.js"></script>
-<script src="~/Scripts/custom.min.js"></script>
-<script src="~/Scripts/jQuery.style.switcher.js"></script>
-<script src="~/Scripts/jquery.dataTables.min.js"></script>
-<script src="~/Scripts/jquery.slimscroll.js"></script>*@
-
-@*<script>
-    $(document).ready(function() {
-        $('#myTable').DataTable();
-        $(document).ready(function() {
-            var table = $('#example').DataTable({
-                "columnDefs": [{
-                    "visible": false,
-                    "targets": 2
-                }],
-                "order": [
-                    [2, 'asc']
-                ],
-                "displayLength": 25,
-                "drawCallback": function(settings) {
-                    var api = this.api();
-                    var rows = api.rows({
-                        page: 'current'
-                    }).nodes();
-                    var last = null;
-                    api.column(2, {
-                        page: 'current'
-                    }).data().each(function(group, i) {
-                        if (last !== group) {
-                            $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
-                            last = group;
-                        }
-                    });
-                }
-            });
-            // Order by the grouping
-            $('#example tbody').on('click', 'tr.group', function () {
-                var currentOrder = table.order()[0];
-                if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
-                    table.order([2, 'desc']).draw();
-                } else {
-                    table.order([2, 'asc']).draw();
-                }
-            });
+@section scripts{
+    <script>
+        $('#myTable').DataTable({
+            "ordering": false
         });
-    });
-</script>*@
+    </script>
+}
+
+
+
 
