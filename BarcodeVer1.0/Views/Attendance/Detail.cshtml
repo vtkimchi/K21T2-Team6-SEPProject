@@ -47,11 +47,11 @@
                                     <tbody>
                                         @foreach (var item in Model)
                                         {
+                                         
                                             <tr>
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.Member.MaSV)
-                                                    <input type="text" hidden value="@item.ID" id="test" />
-                                                </td>
+                                               </td>
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.Member.Firstname)
                                                 </td>
@@ -72,10 +72,10 @@
                                                     @Html.DisplayFor(modelItem => item.Lesson.MaKH)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.Note)
+                                                        @Html.DisplayFor(modelItem => item.Note)                                                  
                                                 </td>
                                                 <td>
-                                                    <a href="#" class="edit" data-toggle="modal" data-target="#myModal" data-id="@item.ID" onclick="check()">Edit </a> |
+                                                    <a href="#" onclick="Edit(@item.ID)">Details</a> |
                                                     @Html.ActionLink("Status", "EditStatus", new { id = item.ID })                                                    
                                                 </td>
                                             </tr>
@@ -103,27 +103,10 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Note</h4>
                     </div>
-                    @using (Html.BeginForm("WriteNote", "Attendance", FormMethod.Post))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true)
-                        <fieldset>
-                            <div class="modal-body">
-                                <form id="myForm">
-                                    
-                                    <input class="form-control" placeholder="Note" id="note" name="note" type="text" />
-                                    <input id="id_sv" name="id" hidden /> 
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <input type="submit" value="Submit" class="btn btn-success" id="btnSubmit" data-dismiss="modal">
-                            </div>
-                        </fieldset>
-                    }
-                    
-                   
-                </div>
+                    <div class="modal-body" id="myModalBodyDiv1">
 
+                    </div>                  
+                </div>
             </div>
         </div>
 
@@ -132,43 +115,13 @@
 @section scripts
 {
     <script>
-        var TeamDetailPostBackURL = '/Attendance/WriteNote';
-$(function () {
-    $(".anchorDetail").click(function () {
-        debugger;
-        var $buttonClicked = $(this);
-        var options = { "backdrop": "static", keyboard: true };
-        $.ajax({
-            type: "GET",
-            url: TeamDetailPostBackURL,
-            datatype: "json",
-            success: function () {
-                debugger;
-                $('#myModal').modal(options);
-                $('#myModal').modal('show');
-            },
-            error: function (error) {
-
-                alert("Dynamic content load failed. - " + error );
-            }
-        });
-    });
-
-    $("#btnSubmit").click(function () {
-        var url = '/Attendance/WriteNote';
-        $('#myModal').modal('hide');
-        $.post('/Attendance/WriteNote', { "Note": note})
-        alert("You click me!");
-        window.location.reload(true);
-    });
-});
-
-
-function check() {
-    document.getElementById("id_sv").value = $("#test").val();
-}
-
-
+        function Edit(id)
+        {
+            var url = "/Attendance/ChangeNote?id=" + id;
+            $("#myModalBodyDiv1").load(url, function () {
+                $("#myModal").modal("show");
+            })
+        }
     </script>
 
 
@@ -177,30 +130,4 @@ function check() {
             "ordering": false
         });
 </script>
-
-@*<script>
-    $(document).on('click', 'edit', function () {
-        var memberId = $(this).data('data-id');
-    })
-
-    $(document).on('click', '#btnSubmit', function () {
-        var self = $(this);
-        var not = document.getElementId("note").value;
-        $.ajax({
-            url: '/Attendance/WriteNote/' + memberID,
-            type: 'POST',
-            // data: self.closest('form').serialize(),
-            data: {'note': not},
-            success: function (data) {
-                if (data.success == true) {
-                    $('#myModal').modal('hide');
-                    location.reload(false)
-                } else {
-                    $('#myModal').html(data);
-                }
-            }
-        })
-    })
-</script>*@
-}
-
+    }

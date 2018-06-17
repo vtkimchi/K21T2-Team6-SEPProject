@@ -105,9 +105,17 @@ namespace BarcodeVer1._0.Controllers
             //xuat ra danh sach sinh vien lop do
             Session["ID_Course"] = id;
             var item = db.Members.Where(x => x.MaKH == id).ToList();
-            //
-            var count =db.Lessons.Where(x => x.MaKH == id).Count();
-            ViewBag.Count = db.Lessons.FirstOrDefault(x => x.Count == count).ID;
+            //kiem tra coi da tao buoi hoc nao chua de xuat chi tiet buoi hoc
+            int count = db.Lessons.Where(x => x.MaKH == id).Count();
+            if (count != 0)
+            {
+                
+                ViewBag.Count = db.Lessons.FirstOrDefault(x => x.Count == count).ID;
+            }
+            else
+            {
+                ViewBag.Count = 0;
+            }
             return View(item);
         }
     }

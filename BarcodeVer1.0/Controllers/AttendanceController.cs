@@ -69,5 +69,12 @@ namespace BarcodeVer1._0.Controllers
             return RedirectToAction("Detail", new { id = item.ID_Lesson });
         }
 
+        public ActionResult ChangeNote(string id)
+        {
+            int ID = int.Parse(id);
+            var model = db.Attendances.FirstOrDefault(x => x.ID == ID);
+            return PartialView("EditPartial_",model);
+        }
+
     }
 }

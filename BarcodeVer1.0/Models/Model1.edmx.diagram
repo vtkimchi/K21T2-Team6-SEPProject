@@ -4,10 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b9f6d03bffc14833ad847f3a0d901067" Name="Diagram1">
+      <Diagram DiagramId="28e15ce9e7a048fe8364172acf98de3d" Name="Diagram1">
         <EntityTypeShape EntityType="SEPModel.Attendance" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="SEPModel.Lesson" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SEPModel.Member" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SEPModel.sysdiagram" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="SEPModel.FK_Attendance_Lesson" ManuallyRouted="false" />
         <AssociationConnector Association="SEPModel.FK_Attendance_Member" ManuallyRouted="false" />
       </Diagram>

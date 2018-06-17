@@ -203,6 +203,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -360,6 +363,7 @@
     <Content Include="Views\Member\AddStudent.cshtml" />
     <Content Include="Views\Attendance\List.cshtml" />
     <Content Include="Views\Attendance\Detail.cshtml" />
+    <Content Include="Views\Attendance\EditPartial_.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -72,7 +72,7 @@
                             {
 
                             }
-                
+
                         }
                     </tbody>
                 </table>
@@ -84,7 +84,15 @@
     </div>
 </div>
     <a href="~/Lesson/CreateDate">Roll Up</a> |
-<a href="~/Attendance/Detail/@ID">Detail of Lesson</a>
+@if (ID != 0)
+{
+    <a href="~/Attendance/Detail/@ID">Detail of Lesson</a>
+}
+else
+{
+<a  data-toggle="tooltip" title="Not Create Leson">Detail of Lesson</a>
+}
+
 <div>
     
 </div>
