@@ -60,10 +60,10 @@
                                             @Html.DisplayFor(modelItem => item.Lastname)
                                         </td>
                                         <td>
-                                            @item.Attendances.Where(x => x.Status == true).Count()
+                                            @item.Attendance.Where(x => x.Status == true).Count()
                                         </td>
                                         <td>
-                                            @item.Attendances.Where(x => x.Status == false).Count()
+                                            @item.Attendance.Where(x => x.Status == false).Count()
                                         </td>
                                     </tr>
                                 }
