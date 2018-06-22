@@ -55,9 +55,9 @@ namespace BarcodeVer1._0.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddStudent([Bind(Include ="MaSV")] Member mssv)
+        public ActionResult AddStudent([Bind(Include = "MaSV")] Member mssv)
         {
-                var data = connect.Getstudent(mssv.MaSV).Split('/');
+            var data = connect.Getstudent(mssv.MaSV).Split('/');
             //string Makh = (string)Session["ID_Course"];
             //string Makh = "TH2";
             string Makh = (string)Session["ID_Course"];
@@ -80,19 +80,17 @@ namespace BarcodeVer1._0.Controllers
                     student.Lastname = data[1];
                     db.Member.Add(student);
                     db.SaveChanges();
-                    
+
                 }
                 else
                 {
                     ViewBag.mess = "Student is exist in course";
                     return View();
-                }                                   
+                }
             }
             return RedirectToAction("Detail", "Lesson", new { id = Makh });
 
         }
-
-
+    }
          
-        }
 }

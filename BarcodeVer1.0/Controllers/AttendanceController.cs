@@ -43,7 +43,8 @@ namespace BarcodeVer1._0.Controllers
             var a = Count_Lesson;
             return RedirectToAction("Detail", new { id = Count_Lesson });
         }
-                
+
+        // doi tinh trang diem danh cua sinh vien        
         public ActionResult EditStatus(int id)
         {           
             var item = db.Attendance.FirstOrDefault(x => x.ID == id);
@@ -59,6 +60,7 @@ namespace BarcodeVer1._0.Controllers
             return RedirectToAction("Detail", new { id=item.ID_Lesson });
         }
 
+        // ghi chu thong tin diem danh cua sinh vien
         [HttpPost]
         public ActionResult WriteNote(string note, string id)
         {
@@ -69,6 +71,7 @@ namespace BarcodeVer1._0.Controllers
             return RedirectToAction("Detail", new { id = item.ID_Lesson });
         }
 
+        // sua ghi chu thong tin diem danh
         public ActionResult ChangeNote(string id)
         {
             int ID = int.Parse(id);
