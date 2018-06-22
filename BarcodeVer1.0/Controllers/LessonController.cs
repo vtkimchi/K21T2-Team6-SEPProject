@@ -52,6 +52,11 @@ namespace BarcodeVer1._0.Controllers
                 AddAttendance(id);
                 CheckStudent(data,id);
             }
+            else
+            {
+                ViewBag.mess = "Lesson was created earlier";
+                return View("CreateDate");
+            }
 
             return RedirectToAction("Detail","Attendance", new { id= db.Lessons.FirstOrDefault(x => x.MaKH==id && x.Day==nLesson.Day).ID});
         }

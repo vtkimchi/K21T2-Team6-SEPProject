@@ -8,10 +8,9 @@ using System.Web.Routing;
 
 namespace BarcodeVer1._0.UnitTests
 {
-
     [TestClass]
     public class BarcodeValidationTests
-    {    
+    {
 
         /// <summary>
         /// Purpose of TC:
@@ -26,7 +25,7 @@ namespace BarcodeVer1._0.UnitTests
             var controller = new Controllers.MemberController();
             controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
             // Arr
-           // var controller = new MemberController();
+            // var controller = new MemberController();
             var student = new Member
             {
                 MaSV = "T153346",
@@ -37,7 +36,7 @@ namespace BarcodeVer1._0.UnitTests
             var redirectRoute = controller.AddStudent(student) as RedirectToRouteResult;
 
             //Assert
-           // Assert.IsNotNull(redirectRoute);
+            // Assert.IsNotNull(redirectRoute);
             Assert.AreEqual("Detail", redirectRoute.RouteValues["action"]);
             Assert.AreEqual("Lesson", redirectRoute.RouteValues["controller"]);
             Assert.AreEqual(0, validationResults.Count);
@@ -59,7 +58,7 @@ namespace BarcodeVer1._0.UnitTests
             //var controller = new MemberController();
             var student = new Member
             {
-                MaSV = "T153556",                
+                MaSV = "T153556",
             };
             var validationResults = TestModelHelper.ValidateModel(controller, student);
 
@@ -67,7 +66,7 @@ namespace BarcodeVer1._0.UnitTests
             var redirectRoute = controller.AddStudent(student) as ViewResult;
 
             //Assert          
-           
+
             Assert.AreEqual(0, validationResults.Count);
             Assert.AreEqual("Student is exist in course", redirectRoute.ViewBag.mess);
         }
@@ -96,13 +95,13 @@ namespace BarcodeVer1._0.UnitTests
             var viewResult = controller.AddStudent(student) as ViewResult;
 
             //Assert
-            
+
             //if (typeof(Member).Equals(new Exception().GetType()))
             //{
             //    Assert.Fail("Student is not exist");
             //}
-           // Assert.IsNotNull(viewResult);
-//            Assert.IsFalse(viewResult.ViewData.ModelState.IsValid);
+            // Assert.IsNotNull(viewResult);
+            //            Assert.IsFalse(viewResult.ViewData.ModelState.IsValid);
             Assert.AreEqual(0, validationResults.Count);
             Assert.AreEqual("Student is not exist", viewResult.ViewBag.mess);
         }
