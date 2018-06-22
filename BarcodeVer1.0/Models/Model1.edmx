@@ -96,7 +96,7 @@
           <Property Name="MaKH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Day" Type="DateTime" Precision="0" />
           <Property Name="Count" Type="Int32" />
-          <NavigationProperty Name="Attendances" Relationship="Self.FK_Attendance_Lesson" FromRole="Lesson" ToRole="Attendance" />
+          <NavigationProperty Name="Attendance" Relationship="Self.FK_Attendance_Lesson" FromRole="Lesson" ToRole="Attendance" />
         </EntityType>
         <EntityType Name="Member">
           <Key>
@@ -107,7 +107,7 @@
           <Property Name="MaKH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Attendances" Relationship="Self.FK_Attendance_Member" FromRole="Member" ToRole="Attendance" />
+          <NavigationProperty Name="Attendance" Relationship="Self.FK_Attendance_Member" FromRole="Member" ToRole="Attendance" />
         </EntityType>
         <Association Name="FK_Attendance_Lesson">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />
@@ -134,16 +134,16 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="SEPEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Attendances" EntityType="Self.Attendance" />
-          <EntitySet Name="Lessons" EntityType="Self.Lesson" />
-          <EntitySet Name="Members" EntityType="Self.Member" />
+          <EntitySet Name="Attendance" EntityType="Self.Attendance" />
+          <EntitySet Name="Lesson" EntityType="Self.Lesson" />
+          <EntitySet Name="Member" EntityType="Self.Member" />
           <AssociationSet Name="FK_Attendance_Lesson" Association="Self.FK_Attendance_Lesson">
-            <End Role="Lesson" EntitySet="Lessons" />
-            <End Role="Attendance" EntitySet="Attendances" />
+            <End Role="Lesson" EntitySet="Lesson" />
+            <End Role="Attendance" EntitySet="Attendance" />
           </AssociationSet>
           <AssociationSet Name="FK_Attendance_Member" Association="Self.FK_Attendance_Member">
-            <End Role="Member" EntitySet="Members" />
-            <End Role="Attendance" EntitySet="Attendances" />
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Attendance" EntitySet="Attendance" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -152,7 +152,7 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SEPModelStoreContainer" CdmEntityContainer="SEPEntities">
-          <EntitySetMapping Name="Attendances">
+          <EntitySetMapping Name="Attendance">
             <EntityTypeMapping TypeName="SEPModel.Attendance">
               <MappingFragment StoreEntitySet="Attendance">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -163,7 +163,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Lessons">
+          <EntitySetMapping Name="Lesson">
             <EntityTypeMapping TypeName="SEPModel.Lesson">
               <MappingFragment StoreEntitySet="Lesson">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -173,7 +173,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Members">
+          <EntitySetMapping Name="Member">
             <EntityTypeMapping TypeName="SEPModel.Member">
               <MappingFragment StoreEntitySet="Member">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -198,7 +198,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

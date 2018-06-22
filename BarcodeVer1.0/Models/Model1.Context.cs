@@ -25,8 +25,8 @@ namespace BarcodeVer1._0.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Attendance> Attendances { get; set; }
-        public virtual DbSet<Lesson> Lessons { get; set; }
-        public virtual DbSet<Member> Members { get; set; }
+        public virtual DbSet<Attendance> Attendance { get; set; }
+        public virtual DbSet<Lesson> Lesson { get; set; }
+        public virtual DbSet<Member> Member { get; set; }
     }
 }

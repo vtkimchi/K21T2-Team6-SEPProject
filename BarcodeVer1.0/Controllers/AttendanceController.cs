@@ -23,8 +23,8 @@ namespace BarcodeVer1._0.Controllers
             int mabuoi = int.Parse(id);
             Session["maBuoi"] = id;
             string khoahoc = (string)Session["ID_Course"];
-            var ID_Lesson = db.Lessons.FirstOrDefault(x => x.ID == mabuoi);
-            var model = db.Attendances.Where(x => x.ID_Lesson == ID_Lesson.ID).ToList();
+            var ID_Lesson = db.Lesson.FirstOrDefault(x => x.ID == mabuoi);
+            var model = db.Attendance.Where(x => x.ID_Lesson == ID_Lesson.ID).ToList();
             ViewBag.Day = ID_Lesson.Day.Value.ToString("dd/MM/yyyy");
             //xuat ra si so lop
             ViewBag.Total = model.Count();
@@ -33,7 +33,7 @@ namespace BarcodeVer1._0.Controllers
             //xuat ra si so vang hoc
             ViewBag.Miss = model.Where(x => x.Status == false).Count();
             //
-            ViewBag.Lesson = new SelectList(db.Lessons, "ID", "Count");
+            ViewBag.Lesson = new SelectList(db.Lesson, "ID", "Count");
             return View(model);
         }
 
@@ -46,7 +46,7 @@ namespace BarcodeVer1._0.Controllers
                 
         public ActionResult EditStatus(int id)
         {           
-            var item = db.Attendances.FirstOrDefault(x => x.ID == id);
+            var item = db.Attendance.FirstOrDefault(x => x.ID == id);
             if(item.Status == true)
             {
                 item.Status = false;
@@ -63,7 +63,7 @@ namespace BarcodeVer1._0.Controllers
         public ActionResult WriteNote(string note, string id)
         {
             int ID_Attendance = int.Parse(id);
-            var item = db.Attendances.FirstOrDefault(x => x.ID == ID_Attendance);
+            var item = db.Attendance.FirstOrDefault(x => x.ID == ID_Attendance);
             item.Note = note;
             db.SaveChanges();
             return RedirectToAction("Detail", new { id = item.ID_Lesson });
@@ -72,7 +72,7 @@ namespace BarcodeVer1._0.Controllers
         public ActionResult ChangeNote(string id)
         {
             int ID = int.Parse(id);
-            var model = db.Attendances.FirstOrDefault(x => x.ID == ID);
+            var model = db.Attendance.FirstOrDefault(x => x.ID == ID);
             return PartialView("EditPartial_",model);
         }
 
