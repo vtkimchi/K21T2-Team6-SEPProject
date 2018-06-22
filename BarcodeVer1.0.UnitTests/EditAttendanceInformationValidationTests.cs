@@ -26,7 +26,7 @@ namespace BarcodeVer1._0.UnitTests
             // Arr
             var controller = new Controllers.AttendanceController();
             string msv = "T153556";            
-            var b = db.Attendance.FirstOrDefault(x => x.Member.MaSV == msv).ID;
+            var b = db.Attendances.FirstOrDefault(x => x.Member.MaSV == msv).ID;
 
             // Act
             var redirectRoute = controller.EditStatus(b) as RedirectToRouteResult;
@@ -46,13 +46,14 @@ namespace BarcodeVer1._0.UnitTests
         {
             // Arr
             var controller = new Controllers.AttendanceController();
-            string note = "đi trễ";
             string studentId = "T153556";
-            var attendanceId = db.Attendance.FirstOrDefault(x => x.Member.MaSV == studentId).ID;
-            string id = attendanceId.ToString();
+            var attendanceId = db.Attendances.FirstOrDefault(x => x.Member.MaSV == studentId).ID;
+            Attendance TestAtten = new Attendance();
+            TestAtten.Note = "đi trễ";
+            TestAtten.ID_Student = attendanceId;
 
             // Act
-            var redirecRoute = controller.WriteNote(note, id) as RedirectToRouteResult;
+            var redirecRoute = controller.WriteNote(TestAtten) as RedirectToRouteResult;
 
             // Assert
             Assert.AreEqual("Detail", redirecRoute.RouteValues["action"]);
@@ -70,7 +71,7 @@ namespace BarcodeVer1._0.UnitTests
             // Arr
             var controller = new Controllers.AttendanceController();
             string studentId = "T153556";
-            var attendanceId = db.Attendance.FirstOrDefault(x => x.Member.MaSV == studentId).ID;
+            var attendanceId = db.Attendances.FirstOrDefault(x => x.Member.MaSV == studentId).ID;
             string id = attendanceId.ToString();
 
             // Act

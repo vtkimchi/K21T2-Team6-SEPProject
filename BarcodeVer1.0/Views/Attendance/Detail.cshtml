@@ -75,8 +75,9 @@
                                                         @Html.DisplayFor(modelItem => item.Note)                                                  
                                                 </td>
                                                 <td>
-                                                    <a href="#" onclick="Edit(@item.ID)">Details</a> |
-                                                    @Html.ActionLink("Status", "EditStatus", new { id = item.ID })                                                    
+                                                    <a href="javascript:void(0);" onclick="Edit(@item.ID)">Edit</a> |
+                                                    @Html.ActionLink("Status", "EditStatus", new { id = item.ID })  |
+                                                    <a href="javascript:void(1);" onclick="View(@item.ID)">Profile</a>    
                                                 </td>
                                             </tr>
                                         }
@@ -93,7 +94,7 @@
             <p>Attend: @ViewBag.Attend</p>
             <p>Miss: @ViewBag.Miss</p>
         </div>
-
+<!--Modal change note-->
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
 
@@ -103,13 +104,28 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Note</h4>
                     </div>
-                    <div class="modal-body" id="myModalBodyDiv1">
+                    <div class="modal-body" id="myModalBodyNote">
 
                     </div>                  
                 </div>
             </div>
         </div>
+<!--Modal view info student-->
+<div class="modal fade" id="myModalStudent" role="dialog">
+    <div class="modal-dialog">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Profile</h4>
+            </div>
+            <div class="modal-body" id="myModalBodyStudent">
+
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section scripts
@@ -118,8 +134,15 @@
         function Edit(id)
         {
             var url = "/Attendance/ChangeNote?id=" + id;
-            $("#myModalBodyDiv1").load(url, function () {
+            $("#myModalBodyNote").load(url, function () {
                 $("#myModal").modal("show");
+            })
+        }
+        function View(id)
+        {
+            var url = "/Attendance/StudentInfo?id=" + id;
+            $("#myModalBodyStudent").load(url, function () {
+                $("#myModalStudent").modal("show");
             })
         }
     </script>

@@ -32,6 +32,7 @@ namespace BarcodeVer1._0.Controllers
 
         public ActionResult About()
         {
+            var s = API.SysnMember("TH2");
             ViewBag.Message = "Your application description page.";
             return View();
         }

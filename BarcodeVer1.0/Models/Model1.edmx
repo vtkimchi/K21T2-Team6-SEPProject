@@ -33,6 +33,17 @@
           <Property Name="MaKH" Type="nvarchar" MaxLength="100" />
           <Property Name="Firstname" Type="nvarchar" MaxLength="50" />
           <Property Name="Lastname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Birthday" Type="date" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <Association Name="FK_Attendance_Lesson">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />
@@ -62,6 +73,7 @@
           <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lesson" EntityType="Self.Lesson" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Attendance_Lesson" Association="Self.FK_Attendance_Lesson">
             <End Role="Lesson" EntitySet="Lesson" />
             <End Role="Attendance" EntitySet="Attendance" />
@@ -96,7 +108,7 @@
           <Property Name="MaKH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Day" Type="DateTime" Precision="0" />
           <Property Name="Count" Type="Int32" />
-          <NavigationProperty Name="Attendance" Relationship="Self.FK_Attendance_Lesson" FromRole="Lesson" ToRole="Attendance" />
+          <NavigationProperty Name="Attendances" Relationship="Self.FK_Attendance_Lesson" FromRole="Lesson" ToRole="Attendance" />
         </EntityType>
         <EntityType Name="Member">
           <Key>
@@ -107,7 +119,18 @@
           <Property Name="MaKH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Attendance" Relationship="Self.FK_Attendance_Member" FromRole="Member" ToRole="Attendance" />
+          <Property Name="Birthday" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Attendances" Relationship="Self.FK_Attendance_Member" FromRole="Member" ToRole="Attendance" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_Attendance_Lesson">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />
@@ -134,16 +157,17 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="SEPEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Attendance" EntityType="Self.Attendance" />
-          <EntitySet Name="Lesson" EntityType="Self.Lesson" />
-          <EntitySet Name="Member" EntityType="Self.Member" />
+          <EntitySet Name="Attendances" EntityType="Self.Attendance" />
+          <EntitySet Name="Lessons" EntityType="Self.Lesson" />
+          <EntitySet Name="Members" EntityType="Self.Member" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <AssociationSet Name="FK_Attendance_Lesson" Association="Self.FK_Attendance_Lesson">
-            <End Role="Lesson" EntitySet="Lesson" />
-            <End Role="Attendance" EntitySet="Attendance" />
+            <End Role="Lesson" EntitySet="Lessons" />
+            <End Role="Attendance" EntitySet="Attendances" />
           </AssociationSet>
           <AssociationSet Name="FK_Attendance_Member" Association="Self.FK_Attendance_Member">
-            <End Role="Member" EntitySet="Member" />
-            <End Role="Attendance" EntitySet="Attendance" />
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Attendance" EntitySet="Attendances" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -152,7 +176,7 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SEPModelStoreContainer" CdmEntityContainer="SEPEntities">
-          <EntitySetMapping Name="Attendance">
+          <EntitySetMapping Name="Attendances">
             <EntityTypeMapping TypeName="SEPModel.Attendance">
               <MappingFragment StoreEntitySet="Attendance">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -163,7 +187,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Lesson">
+          <EntitySetMapping Name="Lessons">
             <EntityTypeMapping TypeName="SEPModel.Lesson">
               <MappingFragment StoreEntitySet="Lesson">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -173,7 +197,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Member">
+          <EntitySetMapping Name="Members">
             <EntityTypeMapping TypeName="SEPModel.Member">
               <MappingFragment StoreEntitySet="Member">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -181,6 +205,18 @@
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
                 <ScalarProperty Name="Firstname" ColumnName="Firstname" />
                 <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SEPModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -198,7 +234,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

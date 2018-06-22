@@ -1,13 +1,15 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Web;
 using System.Net.Http;
 using BarcodeVer1._0.Models;
+using System.Web.Script.Serialization;
+using System.Web;
+using System.Net.Http.Headers;
+using System;
 
 namespace BarcodeVer1._0.Interface
 {
@@ -159,6 +161,41 @@ namespace BarcodeVer1._0.Interface
             return "";
         }
 
+        //syss member to server
+        public ResponseData SysnMember(string MaKH)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(urlAddress);
+            //lay ra nhung sinh vien theo ma khoa hoc
+            var sv = new
+            {
+                course = MaKH,
+                members = db.Members.Where(x => x.MaKH == MaKH).Select(b => b.MaSV).ToArray()
+            };
+            //convert sv thanh chuoi json
+            var mydata = JsonConvert.SerializeObject(sv);
+            //chuan bi du lieu theo form can post
+            var dataForm = new
+            {
+                uid = "TH",
+                secret = "-1781996535",
+                data = mydata
+            };
 
+            //post data to server
+            var result = client.PostAsJsonAsync(urlAddress + "/SyncMembers/", dataForm);
+            //get response data
+            var a = result.Result.Content.ReadAsStringAsync().Result.ToString();
+            dynamic f = JsonConvert.DeserializeObject(a);
+
+            ResponseData nResDa = new ResponseData();
+
+
+            nResDa.code = f.code;
+            nResDa.message= f.message;
+
+            return nResDa;
+        }
+            
     }
 }

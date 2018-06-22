@@ -23,7 +23,7 @@ namespace BarcodeVer1._0.UnitTests
             controller.ControllerContext = moqContext.Object;
 
             // Arr
-            var atten = db.Member.FirstOrDefault(x => x.MaKH == "TH2");
+            var atten = db.Members.FirstOrDefault(x => x.MaKH == "TH2");
             moqSession.Setup(s => s["ID_Course"]).Returns(atten.MaKH);
 
             string data = "T153556";

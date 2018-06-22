@@ -4,6 +4,7 @@
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_Layout1.cshtml";
     var ID = ViewBag.Count;
+
 }
 
 <h2>List Of Student</h2>
@@ -60,10 +61,10 @@
                                             @Html.DisplayFor(modelItem => item.Lastname)
                                         </td>
                                         <td>
-                                            @item.Attendance.Where(x => x.Status == true).Count()
+                                            @item.Attendances.Where(x => x.Status == true).Count()
                                         </td>
                                         <td>
-                                            @item.Attendance.Where(x => x.Status == false).Count()
+                                            @item.Attendances.Where(x => x.Status == false).Count()
                                         </td>
                                     </tr>
                                 }

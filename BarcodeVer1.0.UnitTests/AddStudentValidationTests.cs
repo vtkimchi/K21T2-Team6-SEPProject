@@ -33,7 +33,7 @@ namespace BarcodeVer1._0.UnitTests
             controller.ControllerContext = moqContext.Object;
 
             // Arr
-            var atten = get.Member.FirstOrDefault(x => x.MaKH == "TH2");
+            var atten = get.Members.FirstOrDefault(x => x.MaKH == "TH2");
             moqSession.Setup(s => s["ID_Course"]).Returns(atten.MaKH);
             var student = new Member
             {
@@ -68,7 +68,7 @@ namespace BarcodeVer1._0.UnitTests
 
             // Arr         
 
-            var atten = get.Member.FirstOrDefault(x => x.MaKH == "TH2");
+            var atten = get.Members.FirstOrDefault(x => x.MaKH == "TH2");
             moqSession.Setup(s => s["ID_Course"]).Returns(atten.MaKH);
             var student = new Member
             {
@@ -101,7 +101,7 @@ namespace BarcodeVer1._0.UnitTests
             controller.ControllerContext = moqContext.Object;
 
             // Arr
-            var atten = get.Member.FirstOrDefault(x => x.MaKH == "TH2");
+            var atten = get.Members.FirstOrDefault(x => x.MaKH == "TH2");
             moqSession.Setup(s => s["ID_Course"]).Returns(atten.MaKH);
             var student = new Member
             {
