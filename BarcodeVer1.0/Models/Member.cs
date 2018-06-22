@@ -17,7 +17,7 @@ namespace BarcodeVer1._0.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Member()
         {
-            this.Attendances = new HashSet<Attendance>();
+            this.Attendance = new HashSet<Attendance>();
         }
     
         public int ID { get; set; }
@@ -28,6 +28,6 @@ namespace BarcodeVer1._0.Models
         public Nullable<System.DateTime> Birthday { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Attendance> Attendances { get; set; }
+        public virtual ICollection<Attendance> Attendance { get; set; }
     }
 }

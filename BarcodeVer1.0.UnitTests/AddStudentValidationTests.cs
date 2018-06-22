@@ -5,13 +5,16 @@ using BarcodeVer1._0.Controllers;
 using BarcodeVer1._0.Models;
 using BarcodeVer1._0.UnitTests.Support;
 using System.Web.Routing;
+using System.Web;
+using System.Linq;
 
 namespace BarcodeVer1._0.UnitTests
 {
 
     [TestClass]
-    public class BarcodeValidationTests
-    {    
+    public class AddStudentValidationTests
+    {
+        SEPEntities get = new SEPEntities();
 
         /// <summary>
         /// Purpose of TC:
@@ -19,14 +22,19 @@ namespace BarcodeVer1._0.UnitTests
         ///     and the user is redirected to the Detail action
         /// </summary>
         [TestMethod]
-        public void ValidateAddStudentModel_WithValidModel_ExpectValidNavigation()
+        public void ValidateAddStudent_WithValidStudentID_ExpectValidNavigation()
         {
-            var helper = new MockHelper();
-            var context = helper.MakeFakeContext();
+           
             var controller = new Controllers.MemberController();
-            controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
+
+            var moqContext = new Moq.Mock<ControllerContext>();
+            var moqSession = new Moq.Mock<HttpSessionStateBase>();
+            moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
+            controller.ControllerContext = moqContext.Object;
+
             // Arr
-           // var controller = new MemberController();
+            var atten = get.Member.FirstOrDefault(x => x.MaKH == "TH2");
+            moqSession.Setup(s => s["ID_Course"]).Returns(atten.MaKH);
             var student = new Member
             {
                 MaSV = "T153346",
@@ -49,14 +57,19 @@ namespace BarcodeVer1._0.UnitTests
         ///     and data will not be saved into database 
         /// </summary>
         [TestMethod]
-        public void ValidateAddStudentModel_WithIDIsExisted()
+        public void ValidateAddStudent_WithStudentIDIsExisted()
         {
-            // Arr
-            var helper = new MockHelper();
-            var context = helper.MakeFakeContext();
             var controller = new Controllers.MemberController();
-            controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
-            //var controller = new MemberController();
+
+            var moqContext = new Moq.Mock<ControllerContext>();
+            var moqSession = new Moq.Mock<HttpSessionStateBase>();
+            moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
+            controller.ControllerContext = moqContext.Object;
+
+            // Arr         
+
+            var atten = get.Member.FirstOrDefault(x => x.MaKH == "TH2");
+            moqSession.Setup(s => s["ID_Course"]).Returns(atten.MaKH);
             var student = new Member
             {
                 MaSV = "T153556",                
@@ -78,14 +91,18 @@ namespace BarcodeVer1._0.UnitTests
         ///     the student cannot be finded and cannot be saved into database and an error message should be shown.
         /// </summary>
         [TestMethod]
-        public void ValidateAddStudentModel_WithInvalidID_ExpectValidationError()
+        public void ValidateAddStudent_WithInvalidStudentID_ExpectValidationError()
         {
-            var helper = new MockHelper();
-            var context = helper.MakeFakeContext();
             var controller = new Controllers.MemberController();
-            controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
+
+            var moqContext = new Moq.Mock<ControllerContext>();
+            var moqSession = new Moq.Mock<HttpSessionStateBase>();
+            moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
+            controller.ControllerContext = moqContext.Object;
+
             // Arr
-            //var controller = new MemberController();
+            var atten = get.Member.FirstOrDefault(x => x.MaKH == "TH2");
+            moqSession.Setup(s => s["ID_Course"]).Returns(atten.MaKH);
             var student = new Member
             {
                 MaSV = "T199999",
