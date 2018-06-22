@@ -12,7 +12,7 @@ using BarcodeVer1._0.UnitTests.Support;
 namespace BarcodeVer1._0.UnitTests
 {
     [TestClass]
-    public class AccountControllerTest
+    public class AccountControllerTests
     {
         [TestMethod]
         public void ValidateLogin_WithValidAccount_ExpectValidNavigation()

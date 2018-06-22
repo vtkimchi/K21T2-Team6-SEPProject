@@ -130,7 +130,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="AccountControllerTest.cs" />
+    <Compile Include="AccountControllerTests.cs" />
     <Compile Include="AddStudentValidationTests.cs" />
     <Compile Include="EditAttendanceInformationValidationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -141,6 +141,7 @@
     <Compile Include="Support\ReferenceProjectList.cs" />
     <Compile Include="Support\TestModelHelper.cs" />
     <Compile Include="CreateDateValidationTests.cs" />
+    <Compile Include="HomeControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BarcodeVer1.0\BarcodeVer1.0.csproj">

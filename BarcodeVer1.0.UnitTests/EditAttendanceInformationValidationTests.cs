@@ -79,5 +79,25 @@ namespace BarcodeVer1._0.UnitTests
             // Assert
             Assert.AreEqual("EditPartial_", redirecRoute.ViewName);
         }
+
+
+        /// <summary>
+        /// Purpose of TC:
+        /// - Validate whether change the session, the session is changed,
+        ///     and the user is redirected to the Detail action of this session
+        /// </summary>
+        [TestMethod]
+        public void ValidateChangeSession_WithValidateModel_ExpectValidNavigation()
+        {
+            // Arr
+            var controller = new Controllers.AttendanceController();
+            string sessionId = "2";
+            
+            // Act
+            var redirecRoute = controller.Change(sessionId) as RedirectToRouteResult;
+
+            // Assert
+            Assert.AreEqual("Detail", redirecRoute.RouteValues["action"]);
+        }
     }
 }
