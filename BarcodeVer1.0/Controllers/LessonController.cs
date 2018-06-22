@@ -38,11 +38,11 @@ namespace BarcodeVer1._0.Controllers
             //ngay hoc se duoc lay tu he thong
             nLesson.Day = DateTime.Now.Date;
             //dem coi do la buoi hoc thu bao nhiu
-            nLesson.Count = db.Lesson.Where(x => x.MaKH == id).Count() + 1;//neu khong +1 thi so buoi diem danh se bat dau tu 0
+            nLesson.Count = db.Lessons.Where(x => x.MaKH == id).Count() + 1;//neu khong +1 thi so buoi diem danh se bat dau tu 0
             //luu lai duoi database
-            db.Lesson.Add(nLesson);
+            db.Lessons.Add(nLesson);
             //
-            var item = db.Lesson.Where(x => x.Day == nLesson.Day && x.MaKH ==id).ToList();
+            var item = db.Lessons.Where(x => x.Day == nLesson.Day && x.MaKH ==id).ToList();
             //kiem tra coi buoi hoc do da duoc tao truoc hay chua (chi cho diem danh 1 lan)
             if (item.Count() == 0)
             {
@@ -56,7 +56,7 @@ namespace BarcodeVer1._0.Controllers
                 return View("CreateDate");
             }
 
-            return RedirectToAction("Detail","Attendance", new { id= db.Lesson.FirstOrDefault(x => x.MaKH==id && x.Day==nLesson.Day).ID});
+            return RedirectToAction("Detail","Attendance", new { id= db.Lessons.FirstOrDefault(x => x.MaKH==id && x.Day==nLesson.Day).ID});
         }
 
 
@@ -65,7 +65,7 @@ namespace BarcodeVer1._0.Controllers
         public void AddAttendance(string id)
         {
             //lay danh sach sinh vien cua lop do them vao danh sach diem danh
-            var item = db.Member.Where(x => x.MaKH == id).ToList();
+            var item = db.Members.Where(x => x.MaKH == id).ToList();
             //them tung sinh vien vao danh sach
             foreach(var sv in item)
             {
@@ -73,9 +73,9 @@ namespace BarcodeVer1._0.Controllers
                 //cac truong co trong db
                 nAttendance.ID_Student = sv.ID;
                 var day = DateTime.Now.Date;
-                nAttendance.ID_Lesson = db.Lesson.FirstOrDefault(x => x.MaKH == id && x.Day == day).ID;
+                nAttendance.ID_Lesson = db.Lessons.FirstOrDefault(x => x.MaKH == id && x.Day == day).ID;
                 //them sv vao bang va luu lai
-                db.Attendance.Add(nAttendance);
+                db.Attendances.Add(nAttendance);
                 db.SaveChanges();
             }
         }
@@ -89,7 +89,7 @@ namespace BarcodeVer1._0.Controllers
             foreach(var sv in list)
             {
                 var day = DateTime.Now.Date;
-                var item = db.Attendance.FirstOrDefault(x => x.Member.MaSV == sv && x.Member.MaKH == makhoahoc && x.Lesson.Day == day);
+                var item = db.Attendances.FirstOrDefault(x => x.Member.MaSV == sv && x.Member.MaKH == makhoahoc && x.Lesson.Day == day);
                 //kiem tra sinh vien do co thuoc lop hoc do khong
                 if (item != null)
                 {
@@ -107,13 +107,13 @@ namespace BarcodeVer1._0.Controllers
         {
             //xuat ra danh sach sinh vien lop do
             Session["ID_Course"] = id;
-            var item = db.Member.Where(x => x.MaKH == id).ToList();
+            var item = db.Members.Where(x => x.MaKH == id).ToList();
             //kiem tra coi da tao buoi hoc nao chua de xuat chi tiet buoi hoc
-            int count = db.Lesson.Where(x => x.MaKH == id).Count();
+            int count = db.Lessons.Where(x => x.MaKH == id).Count();
             if (count != 0)
             {
                 
-                ViewBag.Count = db.Lesson.FirstOrDefault(x => x.Count == count).ID;
+                ViewBag.Count = db.Lessons.FirstOrDefault(x => x.Count == count).ID;
             }
             else
             {
