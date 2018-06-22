@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SEPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SEPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Attendance">
           <Key>
             <PropertyRef Name="ID" />
@@ -33,6 +33,7 @@
           <Property Name="MaKH" Type="nvarchar" MaxLength="100" />
           <Property Name="Firstname" Type="nvarchar" MaxLength="50" />
           <Property Name="Lastname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Birthday" Type="date" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -82,8 +83,7 @@
             <End Role="Attendance" EntitySet="Attendance" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SEPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -119,6 +119,7 @@
           <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Attendances" Relationship="Self.FK_Attendance_Member" FromRole="Member" ToRole="Attendance" />
+          <Property Name="Birthday" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -198,6 +199,7 @@
           <EntitySetMapping Name="Members">
             <EntityTypeMapping TypeName="SEPModel.Member">
               <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="MaSV" ColumnName="MaSV" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />

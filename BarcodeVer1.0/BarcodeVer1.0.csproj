@@ -97,6 +97,10 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -203,6 +207,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ResponseData.cs" />
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -364,6 +369,7 @@
     <Content Include="Views\Attendance\List.cshtml" />
     <Content Include="Views\Attendance\Detail.cshtml" />
     <Content Include="Views\Attendance\EditPartial_.cshtml" />
+    <Content Include="Views\Attendance\StudentPartial_.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
