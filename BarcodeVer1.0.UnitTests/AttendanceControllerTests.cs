@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BarcodeVer1._0.Controllers;
-using BarcodeVer1._0.Models;
-using BarcodeVer1._0.UnitTests.Support;
-using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Web.Mvc;
+using BarcodeVer1._0.Models;
+using System.Linq;
+using System.Web;
 
 namespace BarcodeVer1._0.UnitTests
 {
     [TestClass]
-    public class EditAttendanceInformationValidationTests
+    public class AttendanceControllerTests
     {
         SEPEntities db = new SEPEntities();
+
         /// <summary>
         /// Purpose of TC:
         /// - Validate whether change status of roll-call, the status of a member is changed and saved into database,
@@ -25,7 +22,7 @@ namespace BarcodeVer1._0.UnitTests
         {
             // Arr
             var controller = new Controllers.AttendanceController();
-            string msv = "T153556";            
+            string msv = "T153556";
             var b = db.Attendances.FirstOrDefault(x => x.Member.MaSV == msv).ID;
 
             // Act
@@ -33,7 +30,7 @@ namespace BarcodeVer1._0.UnitTests
 
             // Assert
             Assert.AreEqual("Detail", redirectRoute.RouteValues["action"]);
-            
+
         }
 
         /// <summary>
@@ -48,9 +45,15 @@ namespace BarcodeVer1._0.UnitTests
             var controller = new Controllers.AttendanceController();
             string studentId = "T153556";
             var attendanceId = db.Attendances.FirstOrDefault(x => x.Member.MaSV == studentId).ID;
-            Attendance TestAtten = new Attendance();
-            TestAtten.Note = "đi trễ";
+            var TestAtten = new Attendance();
+            //{
+
+            //    Note = "đi trễ",
+            //    ID_Student = attendanceId,
+            //};
+
             TestAtten.ID_Student = attendanceId;
+            TestAtten.Note = "đi trễ";
 
             // Act
             var redirecRoute = controller.WriteNote(TestAtten) as RedirectToRouteResult;
@@ -93,12 +96,64 @@ namespace BarcodeVer1._0.UnitTests
             // Arr
             var controller = new Controllers.AttendanceController();
             string sessionId = "2";
-            
+
             // Act
             var redirecRoute = controller.Change(sessionId) as RedirectToRouteResult;
 
             // Assert
             Assert.AreEqual("Detail", redirecRoute.RouteValues["action"]);
+        }
+
+
+        /// <summary>
+        /// Purpose of TC:
+        /// - Validate whether see detail of roll-call for a day
+        ///     and the user is redirected to the Detail action and Lesson controller
+        /// </summary>
+        [TestMethod]
+        public void ValidateDetailOfRollCall_WithValidShow_ExpectValidNavigation()
+        {
+            // 
+            var controller = new Controllers.AttendanceController();
+
+            var moqContext = new Moq.Mock<ControllerContext>();
+            var moqSession = new Moq.Mock<HttpSessionStateBase>();
+            moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
+            controller.ControllerContext = moqContext.Object;
+
+            var attenID = db.Lessons.FirstOrDefault(x => x.MaKH == "TH2").ID;
+            string id = attenID.ToString();
+
+            // Act
+            var redirectRoute = controller.Detail(id) as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(redirectRoute);
+        }
+
+        /// <summary>
+        /// Purpose of TC:
+        /// - Validate whether see detail of roll-call for a day
+        ///     and the user is redirected to the Detail action and Lesson controller
+        /// </summary>
+        [TestMethod]
+        public void ValidateDetailOfRollCall_WithNotHaveLessonID_ExpectError()
+        {
+            var controller = new Controllers.AttendanceController();
+
+            var moqContext = new Moq.Mock<ControllerContext>();
+            var moqSession = new Moq.Mock<HttpSessionStateBase>();
+            moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
+            controller.ControllerContext = moqContext.Object;
+
+            var attenID = db.Lessons.OrderByDescending(x => x.ID).FirstOrDefault(x => x.MaKH == "TH1").ID;
+            string id = attenID.ToString();
+
+            // Act
+            var redirectRoute = controller.Detail(id) as RedirectToRouteResult;
+
+            // Assert
+            Assert.AreEqual("Detail", redirectRoute.RouteValues["action"]);
         }
     }
 }

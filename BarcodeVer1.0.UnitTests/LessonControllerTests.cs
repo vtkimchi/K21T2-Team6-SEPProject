@@ -1,14 +1,14 @@
-﻿using System;
+﻿using BarcodeVer1._0.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Web.Mvc;
-using System.Web;
-using BarcodeVer1._0.Models;
+using System;
 using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace BarcodeVer1._0.UnitTests
 {
     [TestClass]
-    public class CreateDateValidationTests
+    public class LessonControllerTests
     {
         SEPEntities db = new SEPEntities();
 
@@ -34,6 +34,30 @@ namespace BarcodeVer1._0.UnitTests
             // Assert
             Assert.AreEqual("Detail", redirectRoute.RouteValues["action"]);
             Assert.AreEqual("Attendance", redirectRoute.RouteValues["controller"]);
+        }
+
+        /// <summary>
+        /// Purpose of TC:
+        /// - Validate whether show detail of lesson,
+        ///     and the user see list of student in this cousrse
+        /// </summary>
+        [TestMethod]
+        public void ValidateViewDetail_WithValidModel_ExpectValidShow()
+        {
+            // Arr
+            var controller = new Controllers.LessonController();
+
+            var moqContext = new Moq.Mock<ControllerContext>();
+            var moqSession = new Moq.Mock<HttpSessionStateBase>();
+            moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
+            controller.ControllerContext = moqContext.Object;
+
+            // Arr
+            string courseId = "TH2";
+
+            var redirectRoute = controller.Detail(courseId) as ViewResult;
+
+            Assert.IsNotNull(redirectRoute);
         }
     }
 }

@@ -25,12 +25,13 @@ namespace BarcodeVer1._0.UnitTests
 
             // Act
             var courseId = "TH";
-            moqSession.Setup(s => s["id"]).Returns(courseId.Length);
+            moqSession.Setup(s => s["id"]).Returns(courseId.ToString);
 
             var redirectRoute = controller.Index() as ViewResult;
 
             // Arr
-            Assert.AreEqual("", redirectRoute.Model);
+            Assert.IsNotNull(redirectRoute.Model);
+           // Assert.AreEqual("Index", redirectRoute.ViewName);
         }
     }
 }

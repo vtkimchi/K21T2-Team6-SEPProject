@@ -45,7 +45,6 @@ namespace BarcodeVer1._0.Controllers
                 ViewBag.error = "Wrong Username or Password";
                 return View();
             }
-
         }
 
         [HttpGet]
