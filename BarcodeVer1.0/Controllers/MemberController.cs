@@ -21,8 +21,12 @@ namespace BarcodeVer1._0.Controllers
             return View();
         }
 
+        public ActionResult ListStudent()
+        {
+            return Json(db.Members.Where(x => x.MaKH == "TH2").Select(s => new { id = s.MaSV, name = s.Lastname+" "+s.Firstname }).ToList(), JsonRequestBehavior.AllowGet);
+        }
+
         //lay du lieu danh sach sinh vien tren api luu xuong database
-        [HttpPost]
         public ActionResult Syns(string id)
         {
             var item = connect.GetMember(id);
@@ -35,12 +39,14 @@ namespace BarcodeVer1._0.Controllers
                     nTD.Firstname = sv.firstname;
                     nTD.MaSV = sv.id;
                     nTD.MaKH = id;
+                    nTD.Birthday = DateTime.Parse(sv.birthday);
                     db.Members.Add(nTD);
                     db.SaveChanges();
                 }
             }
-            return RedirectToAction("Detail", "Lesson", new { id = Session["ID_Course"] });
+            return RedirectToAction("Detail", "Lesson", new { id = id });
         }
+
 
         // them sinh vien vao khoa hoc
         [HttpGet]
