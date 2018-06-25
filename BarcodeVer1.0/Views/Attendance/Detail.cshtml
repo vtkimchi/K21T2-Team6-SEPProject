@@ -6,14 +6,14 @@
     Attendance at = new Attendance();
 }
 
-<h2>Detail @ViewBag.Day</h2>
-@using (Html.BeginForm("Change", "Attendance", FormMethod.Post))
-{
-    <div class="col-xs-6">
-        @Html.DropDownList("Count_Lesson", (SelectList)ViewBag.Lesson, string.Empty, new { @class = "form-control" })
-            <input type="submit" value="change" class="btn btn-default" />
-    </div>
-}
+<h2>Session @ViewBag.Session - @ViewBag.Day</h2>
+        @using (Html.BeginForm("Change", "Attendance", FormMethod.Post))
+        {
+            <div class="col-xs-6">
+                @Html.DropDownList("Count_Lesson", (SelectList)ViewBag.Lesson, string.Empty, new { @class = "form-control" })
+                <input type="submit" value="change" class="btn btn-default" />
+            </div>
+        }
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -89,11 +89,7 @@
                 </div>
             </div>
         </div>
-        <div>
-            <p>Total: @ViewBag.Total</p>
-            <p>Attend: @ViewBag.Attend</p>
-            <p>Miss: @ViewBag.Miss</p>
-        </div>
+       
 <!--Modal change note-->
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
@@ -110,6 +106,13 @@
                 </div>
             </div>
         </div>
+
+<div class="col-xs-6">
+    <p>Total: @ViewBag.Total</p>
+    <p>Attend: @ViewBag.Attend</p>
+    <p>Miss: @ViewBag.Miss</p>
+</div>
+
 <!--Modal view info student-->
 <div class="modal fade" id="myModalStudent" role="dialog">
     <div class="modal-dialog">

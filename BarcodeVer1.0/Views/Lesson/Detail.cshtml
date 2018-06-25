@@ -68,20 +68,20 @@
                 </table>
             </section>
 </div>
-        <a href="~/Member/AddStudent">Add Student</a>
         <div>
         </div>
     </div>
 </div>
-    <a href="~/Lesson/CreateDate">Roll Up</a> |
+    <a href="~/Lesson/CreateDate">Roll-Call</a> |
 @if (ID != 0)
 {
-    <a href="~/Attendance/Detail/@ID">Detail of Lesson</a>
+    <a href="~/Attendance/Detail/@ID">Detail of Lesson |</a>
 }
 else
 {
-<a  data-toggle="tooltip" title="Not Create Leson">Detail of Lesson</a>
+<a  data-toggle="tooltip" title="Not Create Leson">Detail of Lesson |</a>
 }
+<a href="~/Member/AddStudent">Add Student</a>
 
 <div>
     
