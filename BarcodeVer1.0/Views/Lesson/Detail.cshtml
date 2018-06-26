@@ -4,6 +4,7 @@
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_Layout1.cshtml";
     var ID = ViewBag.Count;
+    var makh = ViewBag.MaKH;
 
 }
 
@@ -31,6 +32,9 @@
                             <th>
                                 Miss
                             </th>
+                            <th>
+                                Note
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,6 +59,15 @@
                                         <td>
                                             @item.Attendances.Where(x => x.Status == false).Count()
                                         </td>
+                                        @if (item.Status == false)
+                                        {
+                                            <td>
+                                                Not Synchronize
+                                            </td>
+                                        }else
+                                        {
+                                            <td></td>
+                                        }
                                     </tr>
                                 }
                             }
@@ -69,18 +82,15 @@
             </section>
 </div>
         <div>
+            <a href="~/Member/PostSynsMember/@makh">Syns</a>
+            @TempData["message"]
         </div>
     </div>
 </div>
     <a href="~/Lesson/CreateDate">Roll-Call</a> |
-@if (ID != 0)
-{
-    <a href="~/Attendance/Detail/@ID">Detail of Lesson |</a>
-}
-else
-{
-<a  data-toggle="tooltip" title="Not Create Leson">Detail of Lesson |</a>
-}
+
+    <a href="~/Lesson/ListLesson/@makh">Detail of Lesson |</a>
+
 <a href="~/Member/AddStudent">Add Student</a>
 
 <div>

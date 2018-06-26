@@ -26,6 +26,7 @@ namespace BarcodeVer1._0.Models
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public Nullable<System.DateTime> Birthday { get; set; }
+        public Nullable<bool> Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Attendance> Attendances { get; set; }

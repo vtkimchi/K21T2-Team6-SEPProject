@@ -1,0 +1,88 @@
+﻿@model IEnumerable<BarcodeVer1._0.Models.Lesson>
+@{
+    ViewBag.Title = "ListLesson";
+}
+
+<h2>ListLesson</h2>
+<div class="card">
+    <div class="card-block">
+        <div class="table-responsive m-t-40">
+            <section class="panel">
+                <table id="myTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Session_ID
+                            </th>
+                            <th>
+                                Attend
+                            </th>
+                            <th>
+                                Miss
+                            </th>
+                            <th>
+                                Note
+                            </th>
+                            <th>
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Count)
+                                        </td>
+                                        <td>
+                                            @{ var data = item.Attendances.Where(x => x.ID_Lesson == item.ID);
+                                                var attend =  data.Where(x => x.Status == true).Count();
+                                                var miss = data.Where(x => x.Status == false).Count();
+                                                 }
+                                            @attend
+                                        </td>
+                                        <td>
+                                            @miss
+                                        </td>
+                                        @{ if (item.Status == false)
+                                            {
+                                                <td>
+                                                    Not Synschronize
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+                                                }
+                                        <td>
+                                            <a href="~/Attendance/Detail/@item.ID">Detail</a>
+                                        </td>
+                                        
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+
+                            }
+
+                        }
+                    </tbody>
+                </table>
+            </section>
+        </div>
+        </div>
+    </div>
+        
+        @section scripts{
+    <script>
+        $('#myTable').DataTable({
+            "ordering": false
+        });
+    </script>
+        }

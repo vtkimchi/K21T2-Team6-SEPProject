@@ -20,7 +20,7 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Submit" class="btn btn-default" />
+                <input type="button" value="Submit" class="btn btn-default" id="submitbutton" />
             </div>
         </div>
     </div>
@@ -44,6 +44,7 @@ function myFunction() {
     var textnode = document.createTextNode(sv);
     node.appendChild(textnode);
     document.getElementById("myList").appendChild(node);
+    $("#submitbutton").attr("type","submit");
 }
 //script xu ly luon focus textbox khi moi load trang
 $(document).ready(function () {

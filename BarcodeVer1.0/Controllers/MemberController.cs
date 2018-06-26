@@ -27,7 +27,7 @@ namespace BarcodeVer1._0.Controllers
         }
 
         //lay du lieu danh sach sinh vien tren api luu xuong database
-        public ActionResult Syns(string id)
+        public ActionResult GetSynsMember(string id)
         {
             var item = connect.GetMember(id);
             foreach (var sv in item)
@@ -39,11 +39,30 @@ namespace BarcodeVer1._0.Controllers
                     nTD.Firstname = sv.firstname;
                     nTD.MaSV = sv.id;
                     nTD.MaKH = id;
+                    nTD.Status = true;
                     nTD.Birthday = DateTime.Parse(sv.birthday);
                     db.Members.Add(nTD);
                     db.SaveChanges();
                 }
             }
+            return RedirectToAction("Detail", "Lesson", new { id = id });
+        }
+
+        public ActionResult PostSynsMember(string id)
+        {
+            var uid = Session["id"].ToString();
+            var secret = Session["secret"].ToString();
+            var response = connect.SysnMember(id,uid,secret);
+            var model = db.Members.Where(x => x.MaKH == id && x.Status==false).ToList();
+            if (response.code == 0)
+            {
+                foreach(var item in model)
+                {
+                    item.Status = true;
+                    db.SaveChanges();
+                }
+            }
+            TempData["message"] = response.message;
             return RedirectToAction("Detail", "Lesson", new { id = id });
         }
 
@@ -63,14 +82,12 @@ namespace BarcodeVer1._0.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddStudent([Bind(Include = "MaSV")] Member mssv)
         {
-            var data = connect.Getstudent(mssv.MaSV).Split('/');
-            //string Makh = (string)Session["ID_Course"];
-            //string Makh = "TH2";
+            var value = connect.Getstudent(mssv.MaSV);
             string Makh = (string)Session["ID_Course"];
             //string Makh = (string)ViewData["idCourse"];
             var student = new Member();
             var studentID = db.Members.FirstOrDefault(x => x.MaSV == mssv.MaSV && x.MaKH == Makh);
-            if (data[0].Equals(""))
+            if (value.code==1)
             {
                 //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 ViewBag.mess = "Student is not exist";
@@ -80,10 +97,12 @@ namespace BarcodeVer1._0.Controllers
             {
                 if (studentID == null)
                 {
-                    student.MaSV = mssv.MaSV;
+                    student.MaSV = value.data.id;
                     student.MaKH = Makh;
-                    student.Firstname = data[0];
-                    student.Lastname = data[1];
+                    student.Status = false;
+                    student.Firstname = value.data.firstname;
+                    student.Lastname = value.data.lastname;
+                    student.Birthday = DateTime.Parse(value.data.birthday);
                     db.Members.Add(student);
                     db.SaveChanges();
 
