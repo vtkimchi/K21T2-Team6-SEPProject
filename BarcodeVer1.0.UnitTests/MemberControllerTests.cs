@@ -141,7 +141,7 @@ namespace BarcodeVer1._0.UnitTests
             moqSession.Setup(s => s["ID_Course"]).Returns(courseId.Trim);
 
             // Act
-            var redirectRoute = controller.Syns(courseId) as RedirectToRouteResult;
+            var redirectRoute = controller.GetSynsMember(courseId) as RedirectToRouteResult;
 
             // Assert
             Assert.AreEqual("Detail", redirectRoute.RouteValues["action"]);

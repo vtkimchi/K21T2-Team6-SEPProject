@@ -23,11 +23,12 @@ namespace BarcodeVer1._0.Controllers
         public ActionResult Login(string username, string password)
         {
             //get id when login 
-            string id = API.Check_Login(username, password);
+            var id = API.Check_Login(username, password);
             //check connect if id !="" mean login success          
-            if (id != "")
+            if (id.code == 0)
             {
-                Session["id"] = id;               
+                Session["id"] = id.data.id;
+                Session["secret"] = id.data.secret;               
                 Session["username"] = username;
                 //when login success return view Index in HomeController
                 return RedirectToAction("Index", "Home");
@@ -53,6 +54,7 @@ namespace BarcodeVer1._0.Controllers
             Session["id"] = null;
             Session["username"] = null;
             Session["ID_Course"] = null;
+            Session["secret"] = null;
             return RedirectToAction("Login", "Account");
         }
     }

@@ -62,7 +62,7 @@ namespace BarcodeVer1._0.Interface
 
 
         //check and get data when login success
-        public string Check_Login(string email, string pass)
+        public Logins Check_Login(string email, string pass)
         {
             //url address
             urlConnect =urlAddress + "/Login?Username={0}&Password={1}";
@@ -72,20 +72,13 @@ namespace BarcodeVer1._0.Interface
             if (data != "")
             {
                 //parse data json
-                dynamic stuff = JsonConvert.DeserializeObject(data);
+                Logins stuff = JsonConvert.DeserializeObject<Logins>(data);
                 //get data json
-                string code = stuff.code;
                 //compare login success or not
-                if (int.Parse(code) == 0)
-                {
-                    string id = stuff.data.id;
-                    urlConnect = "";
-                    //get id teacher
-                    return id;
-                }
+                return stuff;
             }
             urlConnect = "";            
-            return "";
+            return null;
         }
 
         public List<Student> GetMember (string id)
@@ -134,7 +127,7 @@ namespace BarcodeVer1._0.Interface
             return null;
         }
 
-        public string Getstudent(string mssv)
+        public GetStudent Getstudent(string mssv)
         {
             //url address
             urlConnect = urlAddress + "/GetStudent?code={0}";
@@ -144,27 +137,20 @@ namespace BarcodeVer1._0.Interface
             if (data != "")
             {
                 //parse data json
-                dynamic stuff = JsonConvert.DeserializeObject(data);
+                GetStudent st = JsonConvert.DeserializeObject<GetStudent>(data);
                 //get data json
-                string code = stuff.code;
-                //compare login success or not
-                if (int.Parse(code) == 0)
-                {
-                    string firstname = stuff.data.firstname;
-                    string lastname = stuff.data.lastname;
-                    urlConnect = "";
-                    //get id teacher
-                    return firstname +"/" + lastname;
-                }
+                return st;
+                
             }
             urlConnect = "";
-            return "";
+            return null;
         }
 
         //syss member to server
-        public ResponseData SysnMember(string MaKH)
+        public ResponseData SysnMember(string MaKH,string uid,string secret)
         {
             HttpClient client = new HttpClient();
+            
             client.BaseAddress = new Uri(urlAddress);
             //lay ra nhung sinh vien theo ma khoa hoc
             var sv = new
@@ -177,22 +163,16 @@ namespace BarcodeVer1._0.Interface
             //chuan bi du lieu theo form can post
             var dataForm = new
             {
-                uid = "TH",
-                secret = "-1781996535",
+                uid = uid,
+                secret = secret,
                 data = mydata
             };
 
             //post data to server
             var result = client.PostAsJsonAsync(urlAddress + "/SyncMembers/", dataForm);
             //get response data
-            var a = result.Result.Content.ReadAsStringAsync().Result.ToString();
-            dynamic f = JsonConvert.DeserializeObject(a);
-
-            ResponseData nResDa = new ResponseData();
-
-
-            nResDa.code = f.code;
-            nResDa.message= f.message;
+            var response = result.Result.Content.ReadAsStringAsync().Result.ToString();
+            ResponseData nResDa = JsonConvert.DeserializeObject<ResponseData>(response);
 
             return nResDa;
         }
