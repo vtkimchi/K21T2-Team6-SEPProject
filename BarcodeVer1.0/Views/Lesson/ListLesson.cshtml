@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<BarcodeVer1._0.Models.Lesson>
 @{
     ViewBag.Title = "ListLesson";
+    var ID = ViewBag.ID;
 }
 
 <h2>ListLesson</h2>
@@ -75,6 +76,10 @@
                     </tbody>
                 </table>
             </section>
+        </div>
+        <div>
+            <a href="~/Lesson/PostSyncAttendance/@ID">Syns</a>
+            @TempData["message"]
         </div>
         </div>
     </div>

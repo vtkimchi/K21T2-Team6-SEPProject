@@ -4,12 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BarcodeVer1._0.Models;
+using BarcodeVer1._0.Interface;
+
 namespace BarcodeVer1._0.Controllers
 {
     public class AttendanceController : Controller
     {
         SEPEntities db = new SEPEntities();
-    
+        Connect_API connect = new Connect_API();
         // GET: Attendance
         public ActionResult Index()
         {
@@ -88,6 +90,7 @@ namespace BarcodeVer1._0.Controllers
             var model = db.Attendances.FirstOrDefault(x => x.ID == ID);
             return PartialView("EditPartial_",model);
         }
+
 
     }
 }
