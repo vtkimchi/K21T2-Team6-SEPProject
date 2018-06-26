@@ -9,9 +9,18 @@
 <h2>Session @ViewBag.Session - @ViewBag.Day</h2>
         @using (Html.BeginForm("Change", "Attendance", FormMethod.Post))
         {
-            <div class="col-xs-6">
-                @Html.DropDownList("Count_Lesson", (SelectList)ViewBag.Lesson, string.Empty, new { @class = "form-control" })
-                <input type="submit" value="change" class="btn btn-default" />
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.DropDownList("Count_Lesson", (SelectList)ViewBag.Lesson, string.Empty, new { @class = "form-control" })
+                    <input type="submit" value="change" class="btn btn-default" />
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <p class="col-md-4">Total: @ViewBag.Total</p>
+                        <p class="col-md-4">Attend: @ViewBag.Attend</p>
+                        <p class="col-md-4">Miss: @ViewBag.Miss</p>
+                    </div>
+                </div>
             </div>
         }
         <div class="row">
@@ -107,11 +116,11 @@
             </div>
         </div>
 
-<div class="col-xs-6">
+@*<div class="col-xs-6">
     <p>Total: @ViewBag.Total</p>
     <p>Attend: @ViewBag.Attend</p>
     <p>Miss: @ViewBag.Miss</p>
-</div>
+</div>*@
 
 <!--Modal view info student-->
 <div class="modal fade" id="myModalStudent" role="dialog">

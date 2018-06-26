@@ -109,7 +109,7 @@ namespace BarcodeVer1._0.Controllers
                 }
                 else
                 {
-                    ViewBag.mess = "Student is exist in course";
+                    ViewBag.mess = "Student has existed in course";
                     return View();
                 }
             }
