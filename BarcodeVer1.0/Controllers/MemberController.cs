@@ -52,7 +52,7 @@ namespace BarcodeVer1._0.Controllers
         {
             var uid = Session["id"].ToString();
             var secret = Session["secret"].ToString();
-            var response = connect.SysnMember(id,uid,secret);
+            var response = connect.SyncMembers(id,uid,secret);
             var model = db.Members.Where(x => x.MaKH == id && x.Status==false).ToList();
             if (response.code == 0)
             {

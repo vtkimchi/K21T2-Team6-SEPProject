@@ -21,6 +21,7 @@ namespace BarcodeVer1._0.Controllers
         public ActionResult ListLesson(string id)
         {
             var model = db.Lessons.Where(x => x.MaKH == id).ToList();
+            ViewBag.ID = id;
             return View(model);
         }
 
@@ -40,6 +41,8 @@ namespace BarcodeVer1._0.Controllers
             string id = (string)Session["ID_Course"];
             //tao 1 buoi hoc moi
             Lesson nLesson = new Lesson();
+            //
+            nLesson.Status = false;
             //ma khoa hoc duoc giao vien nhap vo
             nLesson.MaKH = id;
             //ngay hoc se duoc lay tu he thong
@@ -119,6 +122,25 @@ namespace BarcodeVer1._0.Controllers
             ViewBag.MaKH = id;
             
             return View(item);
+        }
+
+        //post server buoi diem danh
+        public ActionResult PostSyncAttendance(string id)
+        {
+            var uid = Session["id"].ToString();
+            var secret = Session["secret"].ToString();
+            var response = connect.SyncAttendance(id, uid, secret);
+            var model = db.Lessons.Where(x => x.MaKH == id && x.Status == false).ToList();
+            if (response.code == 0)
+            {
+                foreach (var item in model)
+                {
+                    item.Status = true;
+                    db.SaveChanges();
+                }
+            }
+            TempData["message"] = response.message;
+            return RedirectToAction("ListLesson", "Lesson", new { id = id });
         }
     }
 }
