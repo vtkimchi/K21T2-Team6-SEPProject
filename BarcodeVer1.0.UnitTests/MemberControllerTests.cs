@@ -79,7 +79,7 @@ namespace BarcodeVer1._0.UnitTests
             //Assert          
 
             Assert.AreEqual(0, validationResults.Count);
-            Assert.AreEqual("Student is exist in course", redirectRoute.ViewBag.mess);
+            Assert.AreEqual("Student has existed in course", redirectRoute.ViewBag.mess);
         }
 
         /// <summary>

@@ -5,8 +5,9 @@
     Layout = "~/Views/Shared/_Layout1.cshtml";
     Attendance at = new Attendance();
 }
-
 <h2>Session @ViewBag.Session - @ViewBag.Day</h2>
+<div class="card">
+    <div class="card-block">
         @using (Html.BeginForm("Change", "Attendance", FormMethod.Post))
         {
             <div class="row">
@@ -23,104 +24,106 @@
                 </div>
             </div>
         }
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-block">
-                        <div class="table-responsive m-t-40">
-                            <section class="panel">
-                                <table id="myTable" class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                ID
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.Member.Firstname)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.Member.Lastname)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.Status)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.Lesson.MaKH)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.Note)
-                                            </th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var item in Model)
-                                        {
-                                         
-                                            <tr>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Member.MaSV)
-                                               </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Member.Firstname)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Member.Lastname)
-                                                </td>
-                                                <td>
-                                                    @if (item.Status == true)
-                                                    {
-                                                        <span class="icon-check" style="color:forestgreen"></span>
-                                                    }
-                                                    else
-                                                    {
-                                                        <span class="icon-close" style="color:red"></span>
-                                                    }
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Lesson.MaKH)
-                                                </td>
-                                                <td>
-                                                        @Html.DisplayFor(modelItem => item.Note)                                                  
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);" onclick="Edit(@item.ID)">Edit</a> |
-                                                    @Html.ActionLink("Status", "EditStatus", new { id = item.ID })  |
-                                                    <a href="javascript:void(1);" onclick="View(@item.ID)">Profile</a>    
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            </section>
-                        </div>
-                    </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="table-responsive m-t-40">
+                    <section class="panel">
+                        <table id="myTable" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Student ID
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Member.Firstname)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Member.Lastname)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Status)
+                                    </th>
+                                    <th>
+                                        Session ID
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Note)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Member.MaSV)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Member.Firstname)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Member.Lastname)
+                                        </td>
+                                        <td>
+                                            @if (item.Status == true)
+                                            {
+                                                <span class="icon-check" style="color:forestgreen"></span>
+                                            }
+                                            else
+                                            {
+                                                <span class="icon-close" style="color:red"></span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Lesson.MaKH)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Note)
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0);" onclick="Edit(@item.ID)" class="icon-note"></a> |
+                                            @Html.ActionLink(" ", "EditStatus", new { id = item.ID }, new { @class = "icon-wrench" })  |
+                                            <a href="javascript:void(1);" onclick="View(@item.ID)" class="icon-user"></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </section>
                 </div>
             </div>
         </div>
-       
+    </div>
+</div>
+
 <!--Modal change note-->
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Note</h4>
-                    </div>
-                    <div class="modal-body" id="myModalBodyNote">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Note</h4>
+            </div>
+            <div class="modal-body" id="myModalBodyNote">
 
-                    </div>                  
-                </div>
             </div>
         </div>
+    </div>
+</div>
 
 @*<div class="col-xs-6">
-    <p>Total: @ViewBag.Total</p>
-    <p>Attend: @ViewBag.Attend</p>
-    <p>Miss: @ViewBag.Miss</p>
-</div>*@
+        <p>Total: @ViewBag.Total</p>
+        <p>Attend: @ViewBag.Attend</p>
+        <p>Miss: @ViewBag.Miss</p>
+    </div>*@
 
 <!--Modal view info student-->
 <div class="modal fade" id="myModalStudent" role="dialog">
@@ -143,15 +146,13 @@
 @section scripts
 {
     <script>
-        function Edit(id)
-        {
+        function Edit(id) {
             var url = "/Attendance/ChangeNote?id=" + id;
             $("#myModalBodyNote").load(url, function () {
                 $("#myModal").modal("show");
             })
         }
-        function View(id)
-        {
+        function View(id) {
             var url = "/Attendance/StudentInfo?id=" + id;
             $("#myModalBodyStudent").load(url, function () {
                 $("#myModalStudent").modal("show");
@@ -160,9 +161,9 @@
     </script>
 
 
-<script>
+    <script>
         $('#myTable').DataTable({
             "ordering": false
         });
-</script>
-    }
+    </script>
+}
