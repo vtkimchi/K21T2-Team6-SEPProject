@@ -16,7 +16,6 @@ namespace BarcodeVer1._0.Controllers
         // GET: Login
         public ActionResult Login()
         {
-            TempData["check"] = false;
             return View();
         }
 

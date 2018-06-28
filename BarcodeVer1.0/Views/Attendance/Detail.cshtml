@@ -8,11 +8,11 @@
 <h2>Session @ViewBag.Session - @ViewBag.Day</h2>
 <div class="card">
     <div class="card-block">
-        @using (Html.BeginForm("Change", "Attendance", FormMethod.Post))
+        @using (Html.BeginForm("Change", "Attendance", FormMethod.Get))
         {
             <div class="row">
                 <div class="col-md-6">
-                    @Html.DropDownList("Count_Lesson", (SelectList)ViewBag.Lesson, string.Empty, new { @class = "form-control" })
+                    @Html.DropDownList("Count_Lesson", new SelectList(ViewBag.Lesson,"ID", "Count", ViewBag.ID),  new { @class = "form-control" })
                     <input type="submit" value="change" class="btn btn-default" />
                 </div>
                 <div class="col-md-6">
@@ -110,7 +110,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
                 <h4 class="modal-title">Note</h4>
             </div>
             <div class="modal-body" id="myModalBodyNote">
@@ -119,12 +119,6 @@
         </div>
     </div>
 </div>
-
-@*<div class="col-xs-6">
-        <p>Total: @ViewBag.Total</p>
-        <p>Attend: @ViewBag.Attend</p>
-        <p>Miss: @ViewBag.Miss</p>
-    </div>*@
 
 <!--Modal view info student-->
 <div class="modal fade" id="myModalStudent" role="dialog">
@@ -150,6 +144,12 @@
         function Edit(id) {
             var url = "/Attendance/ChangeNote?id=" + id;
             $("#myModalBodyNote").load(url, function () {
+                //lam model khong dong khi an ra ben ngoai
+                $("#myModal").modal({
+                    backdrop:'static',
+                    keyboard: false
+                })
+                //
                 $("#myModal").modal("show");
             })
         }
@@ -163,6 +163,11 @@
 
 
     <script>
+        //change lesson without click
+        //$('#Count_Lesson').change(function(){
+        //    var url = "/Attendance/Detail/"+$('#Count_Lesson').val();
+        //    window.location=url;
+        //})
         $('#myTable').DataTable({
             "ordering": false
         });
