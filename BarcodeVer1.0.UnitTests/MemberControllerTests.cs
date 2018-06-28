@@ -123,8 +123,8 @@ namespace BarcodeVer1._0.UnitTests
 
         /// <summary>
         /// Purpose of TC:
-        /// - Validate whether with invalid iput data
-        ///     the student cannot be finded and cannot be saved into database and an error message should be shown.
+        /// - Validate whether get members from server IT department,
+        ///     and the user is redirected to Detail action and Lesson controller
         /// </summary>
         [TestMethod]
         public void ValidateSyn_WithIdValid_ExpectValidNavigate()
@@ -142,6 +142,36 @@ namespace BarcodeVer1._0.UnitTests
 
             // Act
             var redirectRoute = controller.GetSynsMember(courseId) as RedirectToRouteResult;
+
+            // Assert
+            Assert.AreEqual("Detail", redirectRoute.RouteValues["action"]);
+            Assert.AreEqual("Lesson", redirectRoute.RouteValues["controller"]);
+        }
+
+        /// <summary>
+        /// Purpose of TC:
+        /// - Validate whether with post member to server of IT department,
+        ///     and the members are posted to server IT department,
+        ///         and the user is redirected to Detail action and Lesson controller
+        /// </summary>
+        [TestMethod]
+        public void ValidPostSynsMember_WithValidSyn_ExpectNavigate()
+        {
+            // Arr
+            var controller = new Controllers.MemberController();
+            var moqContext = new Moq.Mock<ControllerContext>();
+            var moqSession = new Moq.Mock<HttpSessionStateBase>();
+            moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
+            controller.ControllerContext = moqContext.Object;
+
+            // Act
+            string id = "TH";
+            string secret = "-1781996535";
+
+            moqSession.Setup(s => s["id"]).Returns(id.Trim);
+            moqSession.Setup(s => s["secret"]).Returns(secret.Trim);
+            string courseId = "TH2";
+            var redirectRoute = controller.PostSynsMember(courseId) as RedirectToRouteResult;
 
             // Assert
             Assert.AreEqual("Detail", redirectRoute.RouteValues["action"]);

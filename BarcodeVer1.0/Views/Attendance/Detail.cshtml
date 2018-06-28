@@ -1,7 +1,7 @@
 ﻿@using BarcodeVer1._0.Models;
 @model IEnumerable<BarcodeVer1._0.Models.Attendance>
 @{
-    ViewBag.Title = "Detail";
+    ViewBag.Title = "Detail Of Session";
     Layout = "~/Views/Shared/_Layout1.cshtml";
     Attendance at = new Attendance();
 }
@@ -87,9 +87,10 @@
                                             @Html.DisplayFor(modelItem => item.Note)
                                         </td>
                                         <td>
-                                            <a href="javascript:void(0);" onclick="Edit(@item.ID)" class="icon-note"></a> |
-                                            @Html.ActionLink(" ", "EditStatus", new { id = item.ID }, new { @class = "icon-wrench" })  |
-                                            <a href="javascript:void(1);" onclick="View(@item.ID)" class="icon-user"></a>
+                                            <a href="javascript:void(0);" onclick="Edit(@item.ID)" class="icon-note" title="Note" data-toggle="tooltip"></a> |
+                                            <a href="~/Attendance/EditStatus/@item.ID" class="icon-refresh" title="Change Status" data-toggle="tooltip"></a> |
+                                           @* @Html.ActionLink(" ", "EditStatus", new { id = item.ID }, new { @class = "icon-wrench", title = "Change Status" data-toggle = "tooltip"})  |*@
+                                            <a href="javascript:void(1);" onclick="View(@item.ID)" class="icon-user" title="Profile" data-toggle="tooltip"></a>
                                         </td>
                                     </tr>
                                 }

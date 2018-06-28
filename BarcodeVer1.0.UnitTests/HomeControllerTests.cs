@@ -4,6 +4,8 @@ using BarcodeVer1._0.Controllers;
 using System.Web.Mvc;
 using System.Web;
 using BarcodeVer1._0.Models;
+using BarcodeVer1._0.UnitTests.Support;
+using System.Web.Routing;
 
 namespace BarcodeVer1._0.UnitTests
 {
@@ -33,5 +35,27 @@ namespace BarcodeVer1._0.UnitTests
             Assert.IsNotNull(redirectRoute.Model);
            // Assert.AreEqual("Index", redirectRoute.ViewName);
         }
+
+        /// <summary>
+        /// Purpose of TC:
+        /// - Validate whether navigate to Left menu,
+        ///     and the user is redirected to Left menu
+        /// </summary>
+        [TestMethod]
+        public void ValidateLeftMenu_WithValid_ExpectValidNavigation()
+        {
+            // Arr
+            var controller = new Controllers.HomeController();
+            var helper = new MockHelper();
+            var context = helper.MakeFakeContext();
+            controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
+
+            // Act
+            var redirectRoute = controller.LeftMenu() as PartialViewResult;
+
+            // Assert
+            Assert.IsNotNull(redirectRoute);
+        }
+
     }
 }
