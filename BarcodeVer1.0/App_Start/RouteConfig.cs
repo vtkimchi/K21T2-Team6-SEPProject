@@ -18,6 +18,8 @@ namespace BarcodeVer1._0
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
             );
+
+
         }
     }
 }

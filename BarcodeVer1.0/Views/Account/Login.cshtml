@@ -34,11 +34,14 @@
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
-    <div class="preloader">
+    @*<div class="preloader">
         <svg class="circular" viewBox="25 25 50 50">
             <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
         </svg>
-    </div>
+    </div>*@
+
+
+
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
@@ -95,13 +98,39 @@
             </div>
         </div>
     </section>
+
+    <!--Dialog-->
+    <div class="modal fade" id="myModal1" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Profile</h4>
+                </div>
+                <div class="modal-body" id="myModalBodyStudent">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-
+    
+    <script>
+        var check = '@TempData["check"]'.toLowerCase() == 'true' ? true : false;
+        if (check == false) {
+            alert("before");
+            $('#myModal1').modal("show");
+            alert("after");
+        }
+    </script>
     <script src="~/Scripts/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="~/Scripts/tether.min.js"></script>

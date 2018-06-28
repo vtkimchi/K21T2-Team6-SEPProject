@@ -106,7 +106,7 @@
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
                         <h4 class="modal-title">Note</h4>
                     </div>
                     <div class="modal-body" id="myModalBodyNote">
@@ -145,8 +145,15 @@
     <script>
         function Edit(id)
         {
+            
             var url = "/Attendance/ChangeNote?id=" + id;
             $("#myModalBodyNote").load(url, function () {
+                //lam model khong dong khi an ra ben ngoai
+                $("#myModal").modal({
+                    backdrop:'static',
+                    keyboard: false
+                })
+                //
                 $("#myModal").modal("show");
             })
         }
@@ -157,6 +164,7 @@
                 $("#myModalStudent").modal("show");
             })
         }
+
     </script>
 
 
