@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<BarcodeVer1._0.Models.Member>
 
 @{
-    ViewBag.Title = "Detail";
+    ViewBag.Title = "List Of Student";
     Layout = "~/Views/Shared/_Layout1.cshtml";
     var ID = ViewBag.Count;
     var makh = ViewBag.MaKH;
@@ -18,7 +18,7 @@
                     <thead>
                         <tr>
                             <th>
-                                ID
+                                Student ID
                             </th>
                             <th>
                                 First Name
@@ -27,10 +27,10 @@
                                 Last Name
                             </th>
                             <th>
-                                Attend
+                                Present
                             </th>
                             <th>
-                                Miss
+                                Absent
                             </th>
                             <th>
                                 Note
@@ -82,7 +82,7 @@
             </section>
 </div>
         <div>
-            <a href="~/Member/PostSynsMember/@makh">Syns</a>
+            <a href="~/Member/PostSynsMember/@makh">Sync</a>
             @TempData["message"]
         </div>
     </div>

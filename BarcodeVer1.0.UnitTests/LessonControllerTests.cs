@@ -1,9 +1,10 @@
 ﻿using BarcodeVer1._0.Models;
+using BarcodeVer1._0.UnitTests.Support;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace BarcodeVer1._0.UnitTests
 {
@@ -47,10 +48,9 @@ namespace BarcodeVer1._0.UnitTests
             // Arr
             var controller = new Controllers.LessonController();
 
-            var moqContext = new Moq.Mock<ControllerContext>();
-            var moqSession = new Moq.Mock<HttpSessionStateBase>();
-            moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
-            controller.ControllerContext = moqContext.Object;
+            var helper = new MockHelper();
+            var context = helper.MakeFakeContext();
+            controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
 
             // Arr
             string courseId = "TH2";
@@ -58,6 +58,39 @@ namespace BarcodeVer1._0.UnitTests
             var redirectRoute = controller.Detail(courseId) as ViewResult;
 
             Assert.IsNotNull(redirectRoute);
+        }
+
+        /// <summary>
+        /// Purpose of TC:
+        /// - Validate whether post to server of IT department,
+        ///     and the user is redirected to ListLesson action and Lesson controller
+        /// </summary>
+        [TestMethod]
+        public void ValidatePostSyncAttendance_WithValid_ExpectValidNaigate()
+        {
+            // Arr
+            var controller = new Controllers.LessonController();
+
+            var moqContext = new Moq.Mock<ControllerContext>();
+            var moqSession = new Moq.Mock<HttpSessionStateBase>();
+            moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
+            controller.ControllerContext = moqContext.Object;
+
+            // Act
+            string id = "TH";
+            string secret = "-1781996535";
+
+            moqSession.Setup(s => s["id"]).Returns(id.Trim);
+            moqSession.Setup(s => s["secret"]).Returns(secret.Trim);
+            string courseId = "TH2";
+
+            var redirectRoute = controller.PostSyncAttendance(courseId) as RedirectToRouteResult;
+
+            // Assert
+            Assert.AreEqual("ListLesson", redirectRoute.RouteValues["action"]);
+            Assert.AreEqual("Lesson", redirectRoute.RouteValues["controller"]);
+                      
+
         }
     }
 }

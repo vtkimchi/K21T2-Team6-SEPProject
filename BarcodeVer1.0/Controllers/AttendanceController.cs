@@ -26,8 +26,8 @@ namespace BarcodeVer1._0.Controllers
             Session["maBuoi"] = id;
             string khoahoc = (string)Session["ID_Course"];
             var ID_Lesson = db.Lessons.FirstOrDefault(x => x.ID == mabuoi);
-            if (ID_Lesson != null)
-            {
+            //if (ID_Lesson != null)
+            //{
                 var model = db.Attendances.Where(x => x.ID_Lesson == ID_Lesson.ID).ToList();
                 ViewBag.Day = ID_Lesson.Day.Value.ToString("dd/MM/yyyy");
                 ViewBag.Session = ID_Lesson.Count;
@@ -40,8 +40,8 @@ namespace BarcodeVer1._0.Controllers
                 //
                 ViewBag.Lesson = new SelectList(db.Lessons.Where(x => x.MaKH==khoahoc), "ID", "Count");
                 return View(model);
-            }
-            return RedirectToAction("Detail", "Lesson", new { id = khoahoc });
+            //}
+            //return RedirectToAction("Detail", "Lesson", new { id = khoahoc });
         }
 
         [HttpPost]

@@ -4,6 +4,8 @@ using System.Web.Mvc;
 using BarcodeVer1._0.Models;
 using System.Linq;
 using System.Web;
+using BarcodeVer1._0.UnitTests.Support;
+using System.Web.Routing;
 
 namespace BarcodeVer1._0.UnitTests
 {
@@ -52,7 +54,7 @@ namespace BarcodeVer1._0.UnitTests
             //    ID_Student = attendanceId,
             //};
 
-            TestAtten.ID_Student = attendanceId;
+            TestAtten.ID = attendanceId;
             TestAtten.Note = "đi trễ";
 
             // Act
@@ -98,10 +100,10 @@ namespace BarcodeVer1._0.UnitTests
             string sessionId = "2";
 
             // Act
-            var redirecRoute = controller.Change(sessionId) as RedirectToRouteResult;
+            var redirectRoute = controller.Change(sessionId) as RedirectToRouteResult;
 
             // Assert
-            Assert.AreEqual("Detail", redirecRoute.RouteValues["action"]);
+            Assert.AreEqual("Detail", redirectRoute.RouteValues["action"]);
         }
 
 
@@ -116,10 +118,14 @@ namespace BarcodeVer1._0.UnitTests
             // 
             var controller = new Controllers.AttendanceController();
 
-            var moqContext = new Moq.Mock<ControllerContext>();
-            var moqSession = new Moq.Mock<HttpSessionStateBase>();
-            moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
-            controller.ControllerContext = moqContext.Object;
+            //var moqContext = new Moq.Mock<ControllerContext>();
+            //var moqSession = new Moq.Mock<HttpSessionStateBase>();
+            //moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
+            //controller.ControllerContext = moqContext.Object;
+
+            var helper = new MockHelper();
+            var context = helper.MakeFakeContext();
+            controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
 
             var attenID = db.Lessons.FirstOrDefault(x => x.MaKH == "TH2").ID;
             string id = attenID.ToString();
@@ -137,23 +143,20 @@ namespace BarcodeVer1._0.UnitTests
         ///     and the user is redirected to the Detail action and Lesson controller
         /// </summary>
         [TestMethod]
-        public void ValidateDetailOfRollCall_WithNotHaveLessonID_ExpectError()
+        public void ValidateStudentInfor_WithValidShow_ExpectValidNavigation()
         {
+            // Arr
             var controller = new Controllers.AttendanceController();
+            string stuId = "T153556";
+            var memberId = db.Members.FirstOrDefault(x => x.MaSV == stuId).ID;
 
-            var moqContext = new Moq.Mock<ControllerContext>();
-            var moqSession = new Moq.Mock<HttpSessionStateBase>();
-            moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
-            controller.ControllerContext = moqContext.Object;
-
-            var attenID = db.Lessons.OrderByDescending(x => x.ID).FirstOrDefault(x => x.MaKH == "TH1").ID;
-            string id = attenID.ToString();
+            string id = memberId.ToString();
 
             // Act
-            var redirectRoute = controller.Detail(id) as RedirectToRouteResult;
+            var redirectRoute = controller.StudentInfo(id) as PartialViewResult;
 
             // Assert
-            Assert.AreEqual("Detail", redirectRoute.RouteValues["action"]);
+            Assert.AreEqual("StudentPartial_", redirectRoute.ViewName);
         }
     }
 }

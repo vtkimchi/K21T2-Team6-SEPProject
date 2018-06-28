@@ -262,7 +262,7 @@
     <Content Include="Images\DH-Van-Lang.jpg" />
     <Content Include="Images\Icon\custom-select.png" />
     <Content Include="Images\Icon\LogoVLU-Tiny.png" />
-    <Content Include="Images\Logo-VLU.png" />
+    <Content Include="Images\Logo_VL.png" />
     <Content Include="Images\VLU.png" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
