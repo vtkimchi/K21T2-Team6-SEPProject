@@ -80,6 +80,7 @@ namespace BarcodeVer1._0.UnitTests
 
             Assert.AreEqual(0, validationResults.Count);
             Assert.AreEqual("Student has existed in course", redirectRoute.ViewBag.mess);
+            Assert.IsNotNull(redirectRoute);
         }
 
         /// <summary>
@@ -119,6 +120,7 @@ namespace BarcodeVer1._0.UnitTests
             //            Assert.IsFalse(viewResult.ViewData.ModelState.IsValid);
             Assert.AreEqual(0, validationResults.Count);
             Assert.AreEqual("Student is not exist", viewResult.ViewBag.mess);
+            Assert.IsNotNull(viewResult);
         }
 
         /// <summary>

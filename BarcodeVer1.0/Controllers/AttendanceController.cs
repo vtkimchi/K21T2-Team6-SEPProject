@@ -13,10 +13,6 @@ namespace BarcodeVer1._0.Controllers
         SEPEntities db = new SEPEntities();
         Connect_API connect = new Connect_API();
         // GET: Attendance
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         //show danh sach diem danh chi tiet tung ngay
         [HttpGet]
@@ -35,8 +31,6 @@ namespace BarcodeVer1._0.Controllers
                 ViewBag.Total = model.Count();
                 //xuat ra si so di hoc
                 ViewBag.Attend = model.Where(x => x.Status == true).Count();
-                //xuat ra si so vang hoc
-                ViewBag.Miss = model.Where(x => x.Status == false).Count();
                 //
                 ViewBag.Lesson = db.Lessons.Where(x => x.MaKH == khoahoc).ToList();
                 //

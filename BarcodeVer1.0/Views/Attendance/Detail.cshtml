@@ -5,7 +5,8 @@
     Layout = "~/Views/Shared/_Layout1.cshtml";
     Attendance at = new Attendance();
 }
-<h2>Session @ViewBag.Session - @ViewBag.Day</h2>
+<h1>Course @Session["ID_Course"]</h1>
+<h1>Session @ViewBag.Session - @ViewBag.Day</h1>
 <div class="card">
     <div class="card-block">       
             <div class="row">
@@ -14,10 +15,8 @@
                     @*<input type="submit" value="change" class="btn btn-default" />*@
                 </div>
                 <div class="col-md-6">
-                    <div class="row">
-                        <p class="col-md-4">Total: @ViewBag.Total</p>
-                        <p class="col-md-4">Present: @ViewBag.Attend</p>
-                        <p class="col-md-4">Absent: @ViewBag.Miss</p>
+                    <div class="row">                        
+                        <p class="col-md-4">Present: @ViewBag.Attend/@ViewBag.Total</p>                        
                     </div>
                 </div>
             </div>
@@ -29,7 +28,7 @@
             <div class="card-block">
                 <div class="table-responsive m-t-40">
                     <section class="panel">
-                        <table id="myTable" class="table table-bordered">
+                        <table id="myTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>
@@ -45,12 +44,9 @@
                                         @Html.DisplayNameFor(model => model.Status)
                                     </th>
                                     <th>
-                                        Session ID
-                                    </th>
-                                    <th>
                                         @Html.DisplayNameFor(model => model.Note)
                                     </th>
-                                    <th></th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -76,10 +72,7 @@
                                             {
                                                 <span class="icon-close" style="color:red"></span>
                                             }
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Lesson.MaKH)
-                                        </td>
+                                        </td>                                       
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Note)
                                         </td>
@@ -166,7 +159,7 @@
             window.location=url;
         })
         $('#myTable').DataTable({
-            "ordering": false
+            "ordering": true
         });
     </script>
 }

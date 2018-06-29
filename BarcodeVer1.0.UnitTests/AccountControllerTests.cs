@@ -28,7 +28,6 @@ namespace BarcodeVer1._0.UnitTests
             //act kiem tra
             var redirectRoute = controller.Login(Username, password) as RedirectToRouteResult;
             //
-            Assert.IsNotNull(redirectRoute);
             Assert.AreEqual("Index", redirectRoute.RouteValues["action"]);
             Assert.AreEqual("Home", redirectRoute.RouteValues["controller"]);
         }
@@ -45,10 +44,8 @@ namespace BarcodeVer1._0.UnitTests
             //act
             var redirectRoute = controller.Login(Username, password) as ViewResult;
        
-            //Assert.AreEqual("Login", redirectRoute.RouteValues["action"]);
-            //Assert.AreEqual("Account", redirectRoute.RouteValues["controller"]);
-            
             Assert.AreEqual("Wrong Username or Password", redirectRoute.ViewBag.error);
+            Assert.IsNotNull(redirectRoute);
 
         }
         [TestMethod]
@@ -64,8 +61,8 @@ namespace BarcodeVer1._0.UnitTests
             //act
             var redirectRoute = controller.Login(Username, password) as ViewResult;
             //Assert
-            //Assert.AreEqual("Login", redirectRoute.ViewName);
             Assert.AreEqual("Wrong Username or Password", redirectRoute.ViewBag.error);
+            Assert.IsNotNull(redirectRoute);
 
         }
 

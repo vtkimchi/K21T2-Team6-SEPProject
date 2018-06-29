@@ -16,10 +16,6 @@ namespace BarcodeVer1._0.Controllers
         Connect_API connect = new Connect_API();
         SEPEntities db = new SEPEntities();
         // GET: Member
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         public ActionResult ListStudent()
         {

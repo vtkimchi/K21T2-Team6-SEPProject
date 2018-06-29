@@ -139,6 +139,31 @@ namespace BarcodeVer1._0.UnitTests
 
         /// <summary>
         /// Purpose of TC:
+        /// - Validate whether don't have session id,
+        ///     and website will load Detail action and Lession controller
+        /// </summary>
+        [TestMethod]
+        public void ValidateDetailOfRollCall_WithInValidId_ExpectValidLoading()
+        {
+            // Arr
+            var controller = new Controllers.AttendanceController();
+            var helper = new MockHelper();
+            var context = helper.MakeFakeContext();
+            controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
+
+            var sessionId = 0;
+            string id = sessionId.ToString();
+
+            // Act
+            var redirectRoute = controller.Detail(id) as RedirectToRouteResult;
+
+            // Assert
+            Assert.AreEqual("Detail", redirectRoute.RouteValues["action"]);
+            Assert.AreEqual("Lesson", redirectRoute.RouteValues["controller"]);
+        }
+
+        /// <summary>
+        /// Purpose of TC:
         /// - Validate whether see detail of roll-call for a day
         ///     and the user is redirected to the Detail action and Lesson controller
         /// </summary>

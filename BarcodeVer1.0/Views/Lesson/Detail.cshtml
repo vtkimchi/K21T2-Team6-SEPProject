@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<BarcodeVer1._0.Models.Member>
 
 @{
-    ViewBag.Title = "List Of Student";
+    ViewBag.Title = "List of Students";
     Layout = "~/Views/Shared/_Layout1.cshtml";
     var ID = ViewBag.Count;
     var makh = ViewBag.MaKH;
 
 }
 
-<h2>List Of Student</h2>
+<h1 class="text-center">List of Students</h1>
 
 <div class="card">
     <div class="card-block">
@@ -25,6 +25,9 @@
                             </th>
                             <th>
                                 Last Name
+                            </th>
+                            <th>
+                                Total
                             </th>
                             <th>
                                 Present
@@ -52,6 +55,9 @@
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Lastname)
+                                        </td>
+                                        <td>
+                                           @ViewBag.Total
                                         </td>
                                         <td>
                                             @item.Attendances.Where(x => x.Status == true).Count()
@@ -100,7 +106,7 @@
 @section scripts{
     <script>
         $('#myTable').DataTable({
-            "ordering": false
+            "ordering": true
         });
     </script>
 }

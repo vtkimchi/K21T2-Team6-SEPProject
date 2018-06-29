@@ -13,11 +13,6 @@ namespace BarcodeVer1._0.Controllers
         Connect_API connect = new Connect_API();
         SEPEntities db = new SEPEntities();
         // GET: Lesson
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public ActionResult ListLesson(string id)
         {
             var model = db.Lessons.Where(x => x.MaKH == id).ToList();
@@ -118,9 +113,9 @@ namespace BarcodeVer1._0.Controllers
             //xuat ra danh sach sinh vien lop do
             Session["ID_Course"] = id;
             var item = db.Members.Where(x => x.MaKH == id).ToList();
-            
+            var total = db.Lessons.Where(x => x.MaKH == id).Count();
             ViewBag.MaKH = id;
-            
+            ViewBag.Total = total;
             return View(item);
         }
 
