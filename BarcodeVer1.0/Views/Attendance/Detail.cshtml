@@ -7,23 +7,20 @@
 }
 <h2>Session @ViewBag.Session - @ViewBag.Day</h2>
 <div class="card">
-    <div class="card-block">
-        @using (Html.BeginForm("Change", "Attendance", FormMethod.Get))
-        {
+    <div class="card-block">       
             <div class="row">
                 <div class="col-md-6">
                     @Html.DropDownList("Count_Lesson", new SelectList(ViewBag.Lesson,"ID", "Count", ViewBag.ID),  new { @class = "form-control" })
-                    <input type="submit" value="change" class="btn btn-default" />
+                    @*<input type="submit" value="change" class="btn btn-default" />*@
                 </div>
                 <div class="col-md-6">
                     <div class="row">
                         <p class="col-md-4">Total: @ViewBag.Total</p>
-                        <p class="col-md-4">Attend: @ViewBag.Attend</p>
-                        <p class="col-md-4">Miss: @ViewBag.Miss</p>
+                        <p class="col-md-4">Present: @ViewBag.Attend</p>
+                        <p class="col-md-4">Absent: @ViewBag.Miss</p>
                     </div>
                 </div>
             </div>
-        }
     </div>
 </div>
 <div class="row">
@@ -164,10 +161,10 @@
 
     <script>
         //change lesson without click
-        //$('#Count_Lesson').change(function(){
-        //    var url = "/Attendance/Detail/"+$('#Count_Lesson').val();
-        //    window.location=url;
-        //})
+        $('#Count_Lesson').change(function(){
+            var url = "/Attendance/Detail/"+$('#Count_Lesson').val();
+            window.location=url;
+        })
         $('#myTable').DataTable({
             "ordering": false
         });
