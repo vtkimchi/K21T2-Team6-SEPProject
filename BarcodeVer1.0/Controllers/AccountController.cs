@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using BarcodeVer1._0.Models;
 using BarcodeVer1._0.Interface;
+using System.Web.Security;
 
 namespace BarcodeVer1._0.Controllers
 {
