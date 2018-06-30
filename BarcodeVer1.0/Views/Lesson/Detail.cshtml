@@ -9,9 +9,20 @@
 }
 
 <h1 class="text-center">List of Students</h1>
+<div>
+    <a href="~/Lesson/CreateDate">Roll-Call</a> |
+
+    <a href="~/Lesson/ListLesson/@makh">Detail of Lesson |</a>
+
+    <a href="~/Member/AddStudent">Add Student</a>
+</div>
 
 <div class="card">
     <div class="card-block">
+        <div>
+            <a href="~/Member/PostSynsMember/@makh">Sync</a>
+            @TempData["message"]
+        </div>
         <div class="table-responsive m-t-40">
             <section class="panel">
                 <table id="myTable" class="table table-bordered table-striped">
@@ -93,9 +104,9 @@
         </div>
     </div>
 </div>
-    <a href="~/Lesson/CreateDate">Roll-Call</a> |
+<a href="~/Lesson/CreateDate">Roll-Call</a> |
 
-    <a href="~/Lesson/ListLesson/@makh">Detail of Lesson |</a>
+<a href="~/Lesson/ListLesson/@makh">Detail of Lesson |</a>
 
 <a href="~/Member/AddStudent">Add Student</a>
 

@@ -125,8 +125,9 @@ namespace BarcodeVer1._0.UnitTests
 
         /// <summary>
         /// Purpose of TC:
-        /// - Validate whether get members from server IT department,
-        ///     and the user is redirected to Detail action and Lesson controller
+        /// - Validate whether the course Id has list of students,
+        ///     and the system doesn't synchonize list of student again,
+        ///         and the user is redirected to Detail action and Lesson controller
         /// </summary>
         [TestMethod]
         public void ValidateSyn_WithIdValid_ExpectValidNavigate()
@@ -139,8 +140,36 @@ namespace BarcodeVer1._0.UnitTests
             moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
             controller.ControllerContext = moqContext.Object;
 
+            string courseId = "TH2";
+            moqSession.Setup(s => s["ID_Course"]).Returns(courseId);
+
+            // Act
+            var redirectRoute = controller.GetSynsMember(courseId) as RedirectToRouteResult;
+
+            // Assert
+            Assert.AreEqual("Detail", redirectRoute.RouteValues["action"]);
+            Assert.AreEqual("Lesson", redirectRoute.RouteValues["controller"]);
+        }
+
+
+        /// <summary>
+        /// Purpose of TC:
+        /// - Validate whether get members from server IT department,
+        ///     and the user is redirected to Detail action and Lesson controller
+        /// </summary>
+        [TestMethod]
+        public void ValidateSyn_WithCourseIDDoesNotHaveMember_ExpectValidNavigate()
+        {
+            // Arr
+            var controller = new Controllers.MemberController();
+
+            var moqContext = new Moq.Mock<ControllerContext>();
+            var moqSession = new Moq.Mock<HttpSessionStateBase>();
+            moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
+            controller.ControllerContext = moqContext.Object;
+
             string courseId = "TH1";
-            moqSession.Setup(s => s["ID_Course"]).Returns(courseId.Trim);
+            moqSession.Setup(s => s["ID_Course"]).Returns(courseId);
 
             // Act
             var redirectRoute = controller.GetSynsMember(courseId) as RedirectToRouteResult;
