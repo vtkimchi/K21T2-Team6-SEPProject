@@ -37,6 +37,31 @@ namespace BarcodeVer1._0.UnitTests
             Assert.AreEqual("Attendance", redirectRoute.RouteValues["controller"]);
         }
 
+
+        [TestMethod]
+        public void ValidateCreateDate_WithDateHasExisted_ExpectShowMessage()
+        {
+            var controller = new Controllers.LessonController();
+
+            var moqContext = new Moq.Mock<ControllerContext>();
+            var moqSession = new Moq.Mock<HttpSessionStateBase>();
+            moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
+            controller.ControllerContext = moqContext.Object;
+
+            // Arr
+            var atten = db.Members.FirstOrDefault(x => x.MaKH == "TH2");
+            moqSession.Setup(s => s["ID_Course"]).Returns(atten.MaKH);
+
+            string data = "T153556";
+
+            // Act
+            var redirectRoute = controller.CreateDate(data) as ViewResult;
+
+            // Assert
+            Assert.AreEqual("Lesson was created earlier", redirectRoute.ViewBag.mess);
+            Assert.IsNotNull(redirectRoute);
+        }
+
         /// <summary>
         /// Purpose of TC:
         /// - Validate whether show detail of lesson,
@@ -57,7 +82,10 @@ namespace BarcodeVer1._0.UnitTests
 
             var redirectRoute = controller.Detail(courseId) as ViewResult;
 
+            // Assert
             Assert.IsNotNull(redirectRoute);
+            Assert.AreEqual("TH2", redirectRoute.ViewBag.MaKH);
+            Assert.AreEqual(5, redirectRoute.ViewBag.Total);
         }
 
         /// <summary>
@@ -80,16 +108,15 @@ namespace BarcodeVer1._0.UnitTests
             string id = "TH";
             string secret = "-1781996535";
 
-            moqSession.Setup(s => s["id"]).Returns(id.Trim);
-            moqSession.Setup(s => s["secret"]).Returns(secret.Trim);
+            moqSession.Setup(s => s["id"]).Returns(id);
+            moqSession.Setup(s => s["secret"]).Returns(secret);
             string courseId = "TH2";
 
             var redirectRoute = controller.PostSyncAttendance(courseId) as RedirectToRouteResult;
 
             // Assert
             Assert.AreEqual("ListLesson", redirectRoute.RouteValues["action"]);
-            Assert.AreEqual("Lesson", redirectRoute.RouteValues["controller"]);
-                      
+            Assert.AreEqual("Lesson", redirectRoute.RouteValues["controller"]);                     
 
         }
     }

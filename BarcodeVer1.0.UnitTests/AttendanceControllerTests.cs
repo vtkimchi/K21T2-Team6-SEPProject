@@ -134,6 +134,11 @@ namespace BarcodeVer1._0.UnitTests
             var redirectRoute = controller.Detail(id) as ViewResult;
 
             // Assert
+            Assert.AreEqual("26/06/2018", redirectRoute.ViewBag.Day);
+            Assert.AreEqual(1, redirectRoute.ViewBag.Session);
+            Assert.AreEqual(6, redirectRoute.ViewBag.Total);
+            //Assert.AreEqual(4, redirectRoute.ViewBag.Attend);
+            Assert.AreEqual(2, redirectRoute.ViewBag.ID);
             Assert.IsNotNull(redirectRoute);
         }
 
@@ -157,7 +162,7 @@ namespace BarcodeVer1._0.UnitTests
             // Act
             var redirectRoute = controller.Detail(id) as RedirectToRouteResult;
 
-            // Assert
+            // Assert            
             Assert.AreEqual("Detail", redirectRoute.RouteValues["action"]);
             Assert.AreEqual("Lesson", redirectRoute.RouteValues["controller"]);
         }
