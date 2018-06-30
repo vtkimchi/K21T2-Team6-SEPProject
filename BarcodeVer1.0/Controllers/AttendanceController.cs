@@ -18,6 +18,7 @@ namespace BarcodeVer1._0.Controllers
         [HttpGet]
         public ActionResult Detail(string id)
         {
+
             int mabuoi = int.Parse(id); 
             Session["maBuoi"] = id;
             string khoahoc = (string)Session["ID_Course"];

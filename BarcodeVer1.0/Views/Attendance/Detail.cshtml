@@ -132,7 +132,7 @@
 {
     <script>
         function Edit(id) {
-            var url = "/Attendance/ChangeNote?id=" + id;
+            var url = "../ChangeNote?id=" + id;
             $("#myModalBodyNote").load(url, function () {
                 //lam model khong dong khi an ra ben ngoai
                 $("#myModal").modal({
@@ -144,7 +144,7 @@
             })
         }
         function View(id) {
-            var url = "/Attendance/StudentInfo?id=" + id;
+            var url = "../StudentInfo?id=" + id;
             $("#myModalBodyStudent").load(url, function () {
                 $("#myModalStudent").modal("show");
             })
@@ -155,7 +155,7 @@
     <script>
         //change lesson without click
         $('#Count_Lesson').change(function(){
-            var url = "/Attendance/Detail/"+$('#Count_Lesson').val();
+            var url = "../Detail/"+$('#Count_Lesson').val();
             window.location=url;
         })
         $('#myTable').DataTable({

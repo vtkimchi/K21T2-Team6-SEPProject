@@ -110,6 +110,7 @@ namespace BarcodeVer1._0.Controllers
         [HttpGet]
         public ActionResult Detail(string id)
         {
+            this.db.Database.CommandTimeout = 360;
             //xuat ra danh sach sinh vien lop do
             Session["ID_Course"] = id;
             var item = db.Members.Where(x => x.MaKH == id).ToList();
