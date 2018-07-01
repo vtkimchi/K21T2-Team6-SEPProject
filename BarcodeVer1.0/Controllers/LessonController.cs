@@ -28,6 +28,7 @@ namespace BarcodeVer1._0.Controllers
             Lesson less = new Lesson();
             less.Day = DateTime.Now.Date;
             var session = db.Lessons.Where(x => x.Day == less.Day && x.MaKH == id).ToList();
+            ViewBag.ID = id;
             if(session.Count() != 0)
             {
                 ViewBag.mess = "Lesson was created earlier";

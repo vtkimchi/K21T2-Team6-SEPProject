@@ -132,13 +132,16 @@ namespace BarcodeVer1._0.UnitTests
 
             // Act
             var redirectRoute = controller.Detail(id) as ViewResult;
+            var date = DateTime.Now.Date.ToString("dd/MM/yyyy");
+            var lessonId = db.Lessons.FirstOrDefault(x => x.MaKH == "TH2").ID;
+            var count = db.Attendances.Where(x => x.ID_Lesson == lessonId).Count();
 
             // Assert
-            Assert.AreEqual("26/06/2018", redirectRoute.ViewBag.Day);
+            Assert.AreEqual(date, redirectRoute.ViewBag.Day);
             Assert.AreEqual(1, redirectRoute.ViewBag.Session);
-            Assert.AreEqual(6, redirectRoute.ViewBag.Total);
+            Assert.AreEqual(count, redirectRoute.ViewBag.Total);
             //Assert.AreEqual(4, redirectRoute.ViewBag.Attend);
-            Assert.AreEqual(2, redirectRoute.ViewBag.ID);
+            Assert.AreEqual(lessonId, redirectRoute.ViewBag.ID);
             Assert.IsNotNull(redirectRoute);
         }
 

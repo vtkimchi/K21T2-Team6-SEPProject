@@ -82,10 +82,12 @@ namespace BarcodeVer1._0.UnitTests
 
             var redirectRoute = controller.Detail(courseId) as ViewResult;
 
+            var total = db.Lessons.Where(x => x.MaKH == courseId).Count();
+
             // Assert
             Assert.IsNotNull(redirectRoute);
             Assert.AreEqual("TH2", redirectRoute.ViewBag.MaKH);
-            Assert.AreEqual(6, redirectRoute.ViewBag.Total);
+            Assert.AreEqual(total, redirectRoute.ViewBag.Total);
         }
 
         /// <summary>
