@@ -9,7 +9,7 @@ namespace BarcodeVer1._0.Controllers
 {
     public class HomeController : Controller
     {
-        private Connect_API API = new Connect_API();
+        
 
         //note: chua dat dieu kien neu chua login khong duoc vao trang chinh
 
@@ -17,7 +17,7 @@ namespace BarcodeVer1._0.Controllers
         {
             //get id course and show it on view
             string id = (string)Session["id"];
-            var course = API.TestCourse(id).ToList();
+            var course = AccountController.API.TestCourse(id).ToList();
             return View(course);
         }
 
@@ -25,7 +25,7 @@ namespace BarcodeVer1._0.Controllers
         public ActionResult LeftMenu()
         {
             string id = (string)Session["id"];
-            var course = API.TestCourse(id).ToList();
+            var course = AccountController.API.TestCourse(id).ToList();
             TempData["source"] = course;
             return PartialView(course);
         }
