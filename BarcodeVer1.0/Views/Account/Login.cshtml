@@ -104,11 +104,14 @@
             if (searchIDs!="")
             {
                 //$("#div_API").attr("hidden", false);
+                $("#Link_API").attr("value", "");
+                $("#Link_API").attr("placeholder", "Your Link API");
                 $("#Link_API").attr("readonly", false);
 
             } else
             {
                 //$("#div_API").attr("hidden", true);
+                $("#Link_API").attr("value", "https://entool.azurewebsites.net/SEP21");
                 $("#Link_API").attr("readonly", true);
 
             }
