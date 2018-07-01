@@ -11,7 +11,7 @@ namespace BarcodeVer1._0.Controllers
     public class LessonController : Controller
     {
         SEPEntities db = new SEPEntities();
-
+        Connect_API Connect = new Connect_API();
         // GET: Lesson
         public ActionResult ListLesson(string id)
         {
@@ -134,7 +134,7 @@ namespace BarcodeVer1._0.Controllers
         {
             var uid = Session["id"].ToString();
             var secret = Session["secret"].ToString();
-            var response = AccountController.API.SyncAttendance(id, uid, secret);
+            var response = Connect.SyncAttendance(id, uid, secret);
             var model = db.Lessons.Where(x => x.MaKH == id && x.Status == false).ToList();
             if (response.code == 0)
             {

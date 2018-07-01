@@ -11,7 +11,7 @@ namespace BarcodeVer1._0.Controllers
 {
     public class AccountController : Controller
     {
-        public static Connect_API API = new Connect_API();
+        public Connect_API API = new Connect_API();
 
         // GET: Login
         public ActionResult Login()

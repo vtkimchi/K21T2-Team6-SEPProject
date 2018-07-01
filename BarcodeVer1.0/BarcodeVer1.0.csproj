@@ -190,6 +190,7 @@
     <Compile Include="Models\Lesson.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Linh_API.cs" />
     <Compile Include="Models\Logins.cs" />
     <Compile Include="Models\Member.cs">
       <DependentUpon>Model1.tt</DependentUpon>
