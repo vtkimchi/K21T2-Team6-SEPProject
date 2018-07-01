@@ -25,7 +25,9 @@ namespace BarcodeVer1._0.Controllers
         [HttpGet]
         public ActionResult GetSynsMember(string id)
         {
+            var nAttendance = new Attendance();
             var item = AccountController.API.GetMember(id);
+            var lesson = db.Lessons.Where(x => x.MaKH == id);
             foreach (var sv in item)
             {
                 if (db.Members.Where(x => x.MaSV == sv.id && x.MaKH == id).Count() == 0)
@@ -39,6 +41,18 @@ namespace BarcodeVer1._0.Controllers
                     nTD.Birthday = DateTime.Parse(sv.birthday);
                     db.Members.Add(nTD);
                     db.SaveChanges();
+                    //kiem tra luc syns ve co buoi diem danh nao chua
+                    if (lesson.Count() != 0)
+                    {
+                        foreach (var ls in lesson.ToList())
+                        {
+                            nAttendance.ID_Lesson = ls.ID;
+                            nAttendance.ID_Student = nTD.ID;
+                            nAttendance.Status = false;
+                            db.Attendances.Add(nAttendance);
+                            db.SaveChanges();
+                        }
+                    }
                 }
             }
             return RedirectToAction("Detail", "Lesson", new { id = id });
@@ -83,6 +97,8 @@ namespace BarcodeVer1._0.Controllers
             //string Makh = (string)ViewData["idCourse"];
             var student = new Member();
             var studentID = db.Members.FirstOrDefault(x => x.MaSV == mssv.MaSV && x.MaKH == Makh);
+            var nAttendance = new Attendance();
+            var lesson = db.Lessons.Where(x => x.MaKH == Makh);
             if (value.code==1)
             {
                 //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -102,7 +118,14 @@ namespace BarcodeVer1._0.Controllers
 
                     db.Members.Add(student);
                     db.SaveChanges();
-
+                    foreach( var item in lesson.ToList())
+                    {
+                        nAttendance.ID_Lesson = item.ID;
+                        nAttendance.ID_Student = student.ID;
+                        nAttendance.Status = false;
+                        db.Attendances.Add(nAttendance);
+                        db.SaveChanges();
+                    }
                 }
                 else
                 {
