@@ -16,6 +16,25 @@ namespace BarcodeVer1._0.UnitTests
     public class AccountControllerTests
     {
         [TestMethod]
+        public void ValidateLogin_WithInValidLinkApi_ExpectValidNavigation()
+        {
+            //Arrange
+            var helper = new MockHelper();
+            var context = helper.MakeFakeContext();
+            var controller = new Controllers.AccountController();
+            var Username = "phanthihong";
+            var password = "brepresper";
+            var url = "https://entool.azurewebsites.net";
+            controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
+            //act
+            var redirectRoute = controller.Login(Username, password, url) as ViewResult;
+            // Assert
+            Assert.AreEqual("Wrong Link API", controller.ViewBag.error);
+            Assert.IsNotNull(redirectRoute);
+
+        }
+
+        [TestMethod]
         public void ValidateLogin_WithValidAccount_ExpectValidNavigation()
         {
             //Arrange
@@ -65,26 +84,6 @@ namespace BarcodeVer1._0.UnitTests
             var redirectRoute = controller.Login(Username, password, url) as ViewResult;
             //Assert
             Assert.AreEqual("Wrong Username or Password", redirectRoute.ViewBag.error);
-            Assert.IsNotNull(redirectRoute);
-
-        }
-
-
-        [TestMethod]
-        public void ValidateLogin_WithInValidLinkApi_ExpectValidNavigation()
-        {
-            //Arrange
-            var helper = new MockHelper();
-            var context = helper.MakeFakeContext();
-            var controller = new Controllers.AccountController();
-            var Username = "phanthihong";
-            var password = "brepresper";
-            var url = "https://entool.azurewebsites.net";
-            controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
-            //act
-            var redirectRoute = controller.Login(Username, password, url) as ViewResult;
-            //Assert
-            Assert.AreEqual("Wrong Link API", redirectRoute.ViewBag.error);
             Assert.IsNotNull(redirectRoute);
 
         }

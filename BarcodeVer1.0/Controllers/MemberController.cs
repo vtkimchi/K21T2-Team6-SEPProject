@@ -16,9 +16,9 @@ namespace BarcodeVer1._0.Controllers
         SEPEntities db = new SEPEntities();
         // GET: Member
 
-        public ActionResult ListStudent()
+        public ActionResult ListStudent(string id)
         {
-            return Json(db.Members.Where(x => x.MaKH == "TH2").Select(s => new { id = s.MaSV, name = s.Lastname+" "+s.Firstname }).ToList(), JsonRequestBehavior.AllowGet);
+            return Json(db.Members.Where(x => x.MaKH == id).Select(s => new { id = s.MaSV, name = s.Lastname+" "+s.Firstname }).ToList(), JsonRequestBehavior.AllowGet);
         }
 
         //lay du lieu danh sach sinh vien tren api luu xuong database

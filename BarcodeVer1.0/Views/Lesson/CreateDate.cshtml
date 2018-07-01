@@ -65,8 +65,8 @@ $("input[type=text]").keypress(function () {
 function check() {
     //kiem tra do dai cua ky tu nhap vao neu lon hon 7 thi xoa
     if ($("#masv").val().length >= 7) {
-
-        datas($("#masv").val());
+        var mamon = '@ViewBag.ID';
+        datas($("#masv").val(),mamon);
         //xoa du lieu trong textbox
         document.getElementById("masv").value = "";
     }
@@ -92,11 +92,11 @@ function add(flag,mssv,name)
 }
 
 //ham xu ly truyen vo kiem tra coi mssv co ton tai trong chuoi json k
-function datas(mssv)
+function datas(mssv,id)
 {
     checkMSSV = false;
-    
-    $.getJSON('../Member/ListStudent', function (json) {
+    var url = '../Member/ListStudent/' + id;
+    $.getJSON(url, function (json) {
         //voi moi phan tu trong chuoi json thi       
         $.each(json, function () {
             //gan bien id de kiem tra
