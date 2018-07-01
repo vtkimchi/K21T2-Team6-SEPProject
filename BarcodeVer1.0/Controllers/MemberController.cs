@@ -115,6 +115,7 @@ namespace BarcodeVer1._0.Controllers
                     student.Firstname = value.data.firstname;
                     student.Lastname = value.data.lastname;
                     student.Birthday = DateTime.Parse(value.data.birthday);
+
                     db.Members.Add(student);
                     db.SaveChanges();
                     foreach( var item in lesson.ToList())
