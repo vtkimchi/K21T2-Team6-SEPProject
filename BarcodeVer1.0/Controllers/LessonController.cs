@@ -25,6 +25,14 @@ namespace BarcodeVer1._0.Controllers
         [HttpGet]
         public ActionResult CreateDate()
         {
+            string id = (string)Session["ID_Course"];
+            Lesson less = new Lesson();
+            less.Day = DateTime.Now.Date;
+            var session = db.Lessons.Where(x => x.Day == less.Day && x.MaKH == id).ToList();
+            if(session.Count() != 0)
+            {
+                ViewBag.mess = "Lesson was created earlier";
+            }
             return View();
         }
 
