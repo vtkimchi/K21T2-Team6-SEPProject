@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Detail Of Session";
     Layout = "~/Views/Shared/_Layout1.cshtml";
-    Attendance at = new Attendance();
 }
 <h1>Course @Session["ID_Course"]</h1>
 <h1>Session @ViewBag.Session - @ViewBag.Day</h1>
@@ -90,8 +89,12 @@
                 </div>
             </div>
         </div>
+        <div>
+            <a href="~/Lesson/ListLesson/@ViewBag.MaKhoaHoc">Back</a>
+        </div>
     </div>
 </div>
+
 
 <!--Modal change note-->
 <div class="modal fade" id="myModal" role="dialog">

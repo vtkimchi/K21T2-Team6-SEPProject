@@ -26,6 +26,9 @@ namespace BarcodeVer1._0.Controllers
             {
                 var model = db.Attendances.Where(x => x.ID_Lesson == ID_Lesson.ID).ToList();
                 ViewBag.Day = ID_Lesson.Day.Value.ToString("dd/MM/yyyy");
+                //
+                ViewBag.MaKhoaHoc = ID_Lesson.MaKH;
+                //
                 ViewBag.Session = ID_Lesson.Count;
                 //xuat ra si so lop
                 ViewBag.Total = model.Count();
