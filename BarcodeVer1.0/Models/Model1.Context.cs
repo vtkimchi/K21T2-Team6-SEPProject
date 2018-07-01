@@ -28,6 +28,5 @@ namespace BarcodeVer1._0.Models
         public virtual DbSet<Attendance> Attendances { get; set; }
         public virtual DbSet<Lesson> Lessons { get; set; }
         public virtual DbSet<Member> Members { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

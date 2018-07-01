@@ -23,11 +23,13 @@ namespace BarcodeVer1._0.Controllers
         }
 
         //lay du lieu danh sach sinh vien tren api luu xuong database
+        [HttpGet]
         public ActionResult GetSynsMember(string id)
         {
             var item = connect.GetMember(id);
             foreach (var sv in item)
             {
+                this.db.Database.CommandTimeout = 180;
                 if (db.Members.Where(x => x.MaSV == sv.id && x.MaKH == id).Count() == 0)
                 {
                     Member nTD = new Member();
