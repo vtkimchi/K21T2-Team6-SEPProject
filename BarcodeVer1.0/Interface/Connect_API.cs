@@ -16,21 +16,21 @@ namespace BarcodeVer1._0.Interface
     public class Connect_API
     {
         SEPEntities db = new SEPEntities();
-
+        
         //private string urlAddress = "https://www.google.com";
         //private string urlAddress = "https://entool.azurewebsites.net/SEP21";
-        private string urlAddress;
+        //private string urlAddress;
         private string urlConnect;
         private string data;
 
         private string Get()
         {
-            return urlAddress;
+            return Linh_API.urlAddress;
         }
 
         public void Set(string newLink)
         {
-            urlAddress = newLink;
+            Linh_API.urlAddress = newLink;
         }
 
         //read data from html

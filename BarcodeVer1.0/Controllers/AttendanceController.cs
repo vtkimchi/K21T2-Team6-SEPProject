@@ -10,6 +10,7 @@ namespace BarcodeVer1._0.Controllers
 {
     public class AttendanceController : Controller
     {
+        Connect_API Connect = new Connect_API();
         SEPEntities db = new SEPEntities();
         // GET: Attendance
 

@@ -13,6 +13,7 @@ namespace BarcodeVer1._0.Controllers
 {
     public class MemberController : Controller
     {
+        Connect_API Connect = new Connect_API();
         SEPEntities db = new SEPEntities();
         // GET: Member
 
@@ -26,7 +27,7 @@ namespace BarcodeVer1._0.Controllers
         public ActionResult GetSynsMember(string id)
         {
             var nAttendance = new Attendance();
-            var item = AccountController.API.GetMember(id);
+            var item =Connect.GetMember(id);
             var lesson = db.Lessons.Where(x => x.MaKH == id);
             foreach (var sv in item)
             {
@@ -62,7 +63,7 @@ namespace BarcodeVer1._0.Controllers
         {
             var uid = Session["id"].ToString();
             var secret = Session["secret"].ToString();
-            var response = AccountController.API.SyncMembers(id,uid,secret);
+            var response = Connect.SyncMembers(id,uid,secret);
             var model = db.Members.Where(x => x.MaKH == id && x.Status==false).ToList();
             if (response.code == 0)
             {
@@ -92,7 +93,7 @@ namespace BarcodeVer1._0.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddStudent([Bind(Include = "MaSV")] Member mssv)
         {
-            var value = AccountController.API.Getstudent(mssv.MaSV);
+            var value = Connect.Getstudent(mssv.MaSV);
             string Makh = (string)Session["ID_Course"];
             //string Makh = (string)ViewData["idCourse"];
             var student = new Member();
