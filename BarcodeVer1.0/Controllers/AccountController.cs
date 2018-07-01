@@ -11,7 +11,7 @@ namespace BarcodeVer1._0.Controllers
 {
     public class AccountController : Controller
     {
-        private Connect_API API = new Connect_API();
+        public static Connect_API API = new Connect_API();
 
         // GET: Login
         public ActionResult Login()
@@ -21,30 +21,31 @@ namespace BarcodeVer1._0.Controllers
 
         //Post: Login
         [HttpPost]
-        public ActionResult Login(string username, string password)
+        public ActionResult Login(string username, string password,string Link_connect)
         {
+            API.Set(Link_connect);
             //get id when login 
             var id = API.Check_Login(username, password);
-            //check connect if id !="" mean login success          
-            if (id.code == 0)
+            if (id != null)
             {
-                Session["id"] = id.data.id;
-                Session["secret"] = id.data.secret;               
-                Session["username"] = username;
-                //when login success return view Index in HomeController
-                return RedirectToAction("Index", "Home");
+                //check connect if id !="" mean login success          
+                if (id.code == 0)
+                {
+                    Session["id"] = id.data.id;
+                    Session["secret"] = id.data.secret;
+                    Session["username"] = username;
+                    //when login success return view Index in HomeController
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.error = "Wrong Username or Password";
+                    return View();
+                }
             }
             else
             {
-                //using (SEPEntities db = new SEPEntities())
-                //{
-                //    var item = db.Users.Where(x => x.UserName == username & x.Password == password);
-                //    if (item != null)
-                //    {
-                //        return RedirectToAction("Index", "Home");
-                //    }
-                //}
-                ViewBag.error = "Wrong Username or Password";
+                ViewBag.error = "Wrong Link API";
                 return View();
             }
         }
