@@ -31,6 +31,7 @@ namespace BarcodeVer1._0.UnitTests
             var redirectRoute = controller.EditStatus(b) as RedirectToRouteResult;
 
             // Assert
+            Assert.IsNotNull(redirectRoute);
             Assert.AreEqual("Detail", redirectRoute.RouteValues["action"]);
 
         }
@@ -48,20 +49,15 @@ namespace BarcodeVer1._0.UnitTests
             string studentId = "T153556";
             var attendanceId = db.Attendances.FirstOrDefault(x => x.Member.MaSV == studentId).ID;
             var TestAtten = new Attendance();
-            //{
-
-            //    Note = "đi trễ",
-            //    ID_Student = attendanceId,
-            //};
-
             TestAtten.ID = attendanceId;
             TestAtten.Note = "đi trễ";
 
             // Act
-            var redirecRoute = controller.WriteNote(TestAtten) as RedirectToRouteResult;
+            var redirectRoute = controller.WriteNote(TestAtten) as RedirectToRouteResult;
 
             // Assert
-            Assert.AreEqual("Detail", redirecRoute.RouteValues["action"]);
+            Assert.IsNotNull(redirectRoute);
+            Assert.AreEqual("Detail", redirectRoute.RouteValues["action"]);
         }
 
 
@@ -80,10 +76,11 @@ namespace BarcodeVer1._0.UnitTests
             string id = attendanceId.ToString();
 
             // Act
-            var redirecRoute = controller.ChangeNote(id) as PartialViewResult;
+            var redirectRoute = controller.ChangeNote(id) as PartialViewResult;
 
             // Assert
-            Assert.AreEqual("EditPartial_", redirecRoute.ViewName);
+            Assert.IsNotNull(redirectRoute);
+            Assert.AreEqual("EditPartial_", redirectRoute.ViewName);
         }
 
 
@@ -97,7 +94,7 @@ namespace BarcodeVer1._0.UnitTests
         {
             // Arr
             var controller = new Controllers.AttendanceController();
-            string sessionId = "2";
+            string sessionId = "1";
 
             // Act
             var redirectRoute = controller.Change(sessionId) as RedirectToRouteResult;
@@ -117,12 +114,6 @@ namespace BarcodeVer1._0.UnitTests
         {
             // 
             var controller = new Controllers.AttendanceController();
-
-            //var moqContext = new Moq.Mock<ControllerContext>();
-            //var moqSession = new Moq.Mock<HttpSessionStateBase>();
-            //moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
-            //controller.ControllerContext = moqContext.Object;
-
             var helper = new MockHelper();
             var context = helper.MakeFakeContext();
             controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
@@ -137,12 +128,12 @@ namespace BarcodeVer1._0.UnitTests
             var count = db.Attendances.Where(x => x.ID_Lesson == lessonId).Count();
 
             // Assert
+            Assert.IsNotNull(redirectRoute);
             Assert.AreEqual(date, redirectRoute.ViewBag.Day);
             Assert.AreEqual(1, redirectRoute.ViewBag.Session);
             Assert.AreEqual(count, redirectRoute.ViewBag.Total);
             //Assert.AreEqual(4, redirectRoute.ViewBag.Attend);
             Assert.AreEqual(lessonId, redirectRoute.ViewBag.ID);
-            Assert.IsNotNull(redirectRoute);
         }
 
         /// <summary>
@@ -159,13 +150,14 @@ namespace BarcodeVer1._0.UnitTests
             var context = helper.MakeFakeContext();
             controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
 
-            var sessionId = 0;
+            var sessionId = 1;
             string id = sessionId.ToString();
 
             // Act
             var redirectRoute = controller.Detail(id) as RedirectToRouteResult;
 
-            // Assert            
+            // Assert  
+            Assert.IsNotNull(redirectRoute);
             Assert.AreEqual("Detail", redirectRoute.RouteValues["action"]);
             Assert.AreEqual("Lesson", redirectRoute.RouteValues["controller"]);
         }

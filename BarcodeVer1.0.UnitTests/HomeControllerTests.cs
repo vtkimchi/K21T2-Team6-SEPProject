@@ -6,6 +6,7 @@ using System.Web;
 using BarcodeVer1._0.Models;
 using BarcodeVer1._0.UnitTests.Support;
 using System.Web.Routing;
+using BarcodeVer1._0.Interface;
 
 namespace BarcodeVer1._0.UnitTests
 {
@@ -20,14 +21,18 @@ namespace BarcodeVer1._0.UnitTests
             // Arr
             var controller = new Controllers.HomeController();
 
-            var moqContext = new Moq.Mock<ControllerContext>();
-            var moqSession = new Moq.Mock<HttpSessionStateBase>();
-            moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
-            controller.ControllerContext = moqContext.Object;
+            //var moqContext = new Moq.Mock<ControllerContext>();
+            //var moqSession = new Moq.Mock<HttpSessionStateBase>();
+            //moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
+            //controller.ControllerContext = moqContext.Object;
+
+            var helper = new MockHelper();
+            var context = helper.MakeFakeContext();
+            controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
 
             // Act
-            var courseId = "TH";
-            moqSession.Setup(s => s["id"]).Returns(courseId.ToString);
+            string courseId = "TH";
+            context.Setup(s => s.Session["id"]).Returns(courseId);
 
             var redirectRoute = controller.Index() as ViewResult;
 

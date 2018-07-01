@@ -17,15 +17,13 @@ namespace BarcodeVer1._0.UnitTests
         public void ValidateCreateDate_WithValidModel_ExpectValidNavigate()
         {
             var controller = new Controllers.LessonController();
-
-            var moqContext = new Moq.Mock<ControllerContext>();
-            var moqSession = new Moq.Mock<HttpSessionStateBase>();
-            moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
-            controller.ControllerContext = moqContext.Object;
+            var helper = new MockHelper();
+            var context = helper.MakeFakeContext();
+            controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
 
             // Arr
             var atten = db.Members.FirstOrDefault(x => x.MaKH == "TH2");
-            moqSession.Setup(s => s["ID_Course"]).Returns(atten.MaKH);
+            context.SetupGet(s => s.Session["ID_Course"]).Returns(atten.MaKH);
 
             string data = "T153556";
 
@@ -42,15 +40,13 @@ namespace BarcodeVer1._0.UnitTests
         public void ValidateCreateDate_WithDateHasExisted_ExpectShowMessage()
         {
             var controller = new Controllers.LessonController();
-
-            var moqContext = new Moq.Mock<ControllerContext>();
-            var moqSession = new Moq.Mock<HttpSessionStateBase>();
-            moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
-            controller.ControllerContext = moqContext.Object;
+            var helper = new MockHelper();
+            var context = helper.MakeFakeContext();
+            controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
 
             // Arr
             var atten = db.Members.FirstOrDefault(x => x.MaKH == "TH2");
-            moqSession.Setup(s => s["ID_Course"]).Returns(atten.MaKH);
+            context.SetupGet(s => s.Session["ID_Course"]).Returns(atten.MaKH);
 
             string data = "T153556";
 
@@ -101,17 +97,16 @@ namespace BarcodeVer1._0.UnitTests
             // Arr
             var controller = new Controllers.LessonController();
 
-            var moqContext = new Moq.Mock<ControllerContext>();
-            var moqSession = new Moq.Mock<HttpSessionStateBase>();
-            moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
-            controller.ControllerContext = moqContext.Object;
+            var helper = new MockHelper();
+            var context = helper.MakeFakeContext();
+            controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
 
             // Act
             string id = "TH";
             string secret = "-1781996535";
 
-            moqSession.Setup(s => s["id"]).Returns(id);
-            moqSession.Setup(s => s["secret"]).Returns(secret);
+            context.SetupGet(s => s.Session["id"]).Returns(id);
+            context.SetupGet(s => s.Session["secret"]).Returns(secret);
             string courseId = "TH2";
 
             var redirectRoute = controller.PostSyncAttendance(courseId) as RedirectToRouteResult;
