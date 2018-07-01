@@ -24,9 +24,10 @@ namespace BarcodeVer1._0.UnitTests
             var controller = new Controllers.AccountController();
             var Username = "phanthihong";
             var password = "brepresper";
+            var url = "https://entool.azurewebsites.net/SEP21";
             controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
             //act kiem tra
-            var redirectRoute = controller.Login(Username, password) as RedirectToRouteResult;
+            var redirectRoute = controller.Login(Username, password, url) as RedirectToRouteResult;
             //
             Assert.AreEqual("Index", redirectRoute.RouteValues["action"]);
             Assert.AreEqual("Home", redirectRoute.RouteValues["controller"]);
@@ -40,9 +41,10 @@ namespace BarcodeVer1._0.UnitTests
             var controller = new Controllers.AccountController();
             var Username = "nguyenthiphuongtrang";
             var password = "brepresper";
+            var url = "https://entool.azurewebsites.net/SEP21";
             controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
             //act
-            var redirectRoute = controller.Login(Username, password) as ViewResult;
+            var redirectRoute = controller.Login(Username, password, url) as ViewResult;
        
             Assert.AreEqual("Wrong Username or Password", redirectRoute.ViewBag.error);
             Assert.IsNotNull(redirectRoute);
@@ -57,9 +59,10 @@ namespace BarcodeVer1._0.UnitTests
             var controller = new Controllers.AccountController();
             var Username = "phanthihong";
             var password = "1234567";
+            var url = "https://entool.azurewebsites.net/SEP21";
             controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
             //act
-            var redirectRoute = controller.Login(Username, password) as ViewResult;
+            var redirectRoute = controller.Login(Username, password, url) as ViewResult;
             //Assert
             Assert.AreEqual("Wrong Username or Password", redirectRoute.ViewBag.error);
             Assert.IsNotNull(redirectRoute);

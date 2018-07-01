@@ -21,7 +21,7 @@ namespace BarcodeVer1._0.Controllers
 
         //Post: Login
         [HttpPost]
-        public ActionResult Login(string username, string password,string Link_connect)
+        public ActionResult Login(string username, string password, string Link_connect)
         {
             API.Set(Link_connect);
             //get id when login 
