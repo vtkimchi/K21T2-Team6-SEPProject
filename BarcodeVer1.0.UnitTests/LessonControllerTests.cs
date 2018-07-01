@@ -85,7 +85,7 @@ namespace BarcodeVer1._0.UnitTests
             // Assert
             Assert.IsNotNull(redirectRoute);
             Assert.AreEqual("TH2", redirectRoute.ViewBag.MaKH);
-            Assert.AreEqual(5, redirectRoute.ViewBag.Total);
+            Assert.AreEqual(6, redirectRoute.ViewBag.Total);
         }
 
         /// <summary>

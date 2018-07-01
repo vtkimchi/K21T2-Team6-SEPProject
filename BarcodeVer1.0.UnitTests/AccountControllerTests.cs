@@ -69,6 +69,26 @@ namespace BarcodeVer1._0.UnitTests
 
         }
 
+
+        [TestMethod]
+        public void ValidateLogin_WithInValidLinkApi_ExpectValidNavigation()
+        {
+            //Arrange
+            var helper = new MockHelper();
+            var context = helper.MakeFakeContext();
+            var controller = new Controllers.AccountController();
+            var Username = "phanthihong";
+            var password = "brepresper";
+            var url = "https://entool.azurewebsites.net";
+            controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
+            //act
+            var redirectRoute = controller.Login(Username, password, url) as ViewResult;
+            //Assert
+            Assert.AreEqual("Wrong Link API", redirectRoute.ViewBag.error);
+            Assert.IsNotNull(redirectRoute);
+
+        }
+
         /// <summary>
         /// Purpose of TC:
         /// - Validate whether logout of valid account
