@@ -100,6 +100,7 @@ namespace BarcodeVer1._0.UnitTests
             var helper = new MockHelper();
             var context = helper.MakeFakeContext();
             controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
+            Linh_API.urlAddress = "https://entool.azurewebsites.net/SEP21";
 
             // Act
             string id = "TH";
@@ -115,6 +116,25 @@ namespace BarcodeVer1._0.UnitTests
             Assert.AreEqual("ListLesson", redirectRoute.RouteValues["action"]);
             Assert.AreEqual("Lesson", redirectRoute.RouteValues["controller"]);                     
 
+        }
+
+        [TestMethod]
+        public void ValidateViewListLesson_WithValid_ExpectValidNaigate()
+        {
+            // Arr
+            var controller = new Controllers.LessonController();
+
+            var helper = new MockHelper();
+            var context = helper.MakeFakeContext();
+            controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
+
+            string lessonId = "TH2";
+
+            // Act
+            var redirectRoute = controller.ListLesson(lessonId) as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(redirectRoute);
         }
     }
 }

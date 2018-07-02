@@ -3,10 +3,11 @@ using BarcodeVer1._0.Models;
 
 namespace BarcodeVer1._0.UnitTests.Support
 {
-   [TestClass]
+    //[TestClass]
     public static class DatabaseTools
     {
         [AssemblyInitialize]
+        //[ClassInitialize]
         public static void CleanDatabase(TestContext context)
         {
             using (var db = new DatabaseContext())

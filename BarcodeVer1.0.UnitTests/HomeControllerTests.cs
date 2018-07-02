@@ -21,18 +21,14 @@ namespace BarcodeVer1._0.UnitTests
             // Arr
             var controller = new Controllers.HomeController();
 
-            //var moqContext = new Moq.Mock<ControllerContext>();
-            //var moqSession = new Moq.Mock<HttpSessionStateBase>();
-            //moqContext.Setup(c => c.HttpContext.Session).Returns(moqSession.Object);
-            //controller.ControllerContext = moqContext.Object;
-
             var helper = new MockHelper();
             var context = helper.MakeFakeContext();
             controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
+            Linh_API.urlAddress = "https://entool.azurewebsites.net/SEP21";
 
             // Act
             string courseId = "TH";
-            context.Setup(s => s.Session["id"]).Returns(courseId);
+            context.SetupGet(s => s.Session["id"]).Returns(courseId);
 
             var redirectRoute = controller.Index() as ViewResult;
 
@@ -54,6 +50,7 @@ namespace BarcodeVer1._0.UnitTests
             var helper = new MockHelper();
             var context = helper.MakeFakeContext();
             controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
+            Linh_API.urlAddress = "https://entool.azurewebsites.net/SEP21";
 
             // Act
             var redirectRoute = controller.LeftMenu() as PartialViewResult;

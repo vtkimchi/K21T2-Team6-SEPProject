@@ -93,7 +93,7 @@ namespace BarcodeVer1._0.UnitTests
             var helper = new MockHelper();
             var context = helper.MakeFakeContext();
             controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
-
+            Linh_API.urlAddress = "https://entool.azurewebsites.net/SEP21";
             // Arr
             var atten = get.Members.FirstOrDefault(x => x.MaKH == "TH2");
             context.SetupGet(s => s.Session["ID_Course"]).Returns(atten.MaKH);
